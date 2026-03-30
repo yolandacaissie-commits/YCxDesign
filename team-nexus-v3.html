@@ -253,9 +253,9 @@ tr.row-expanded td:first-child{border-left:2px solid var(--accent)}
 .user-table tr:last-child td{border-bottom:none}
 .user-table tr:hover td{background:rgba(0,0,0,.02)}
 .role-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:5px}
-.perm-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px}
+.perm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:8px}
 .perm-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px}
-.perm-card-title{font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.perm-card-title{font-size:13px;font-weight:700;margin-bottom:10px;display:block}
 .perm-row{display:flex;align-items:center;justify-content:space-between;padding:5px 0;font-size:12px;color:var(--text2)}
 .cf-list{margin-top:4px}
 .cf-item{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;background:var(--surface2)}
@@ -518,8 +518,8 @@ body.nav-closed .nav-overlay{display:block}
   <!-- Footer / User -->
   <div class="nav-footer">
     <div class="nav-user" onclick="showSettings('users')">
-      <div class="nav-av" style="background:#2563eb">AD</div>
-      <div style="flex:1;min-width:0"><div class="nav-uname">Admin User</div><div class="nav-urole">Project Manager</div></div>
+      <div class="nav-av" id="nav-user-av" style="background:#ef4444">AM</div>
+      <div style="flex:1;min-width:0"><div class="nav-uname" id="nav-user-name">Alex Morgan</div><div class="nav-urole" id="nav-user-role">Admin</div></div>
       <span style="color:var(--text3);font-size:14px">⚙</span>
     </div>
   </div>
@@ -732,7 +732,15 @@ body.nav-closed .nav-overlay{display:block}
     <div class="modal-title" id="user-modal-title">Add Team Member</div>
     <div class="field"><label>Full Name</label><input id="u-name" placeholder="Jane Smith"/></div>
     <div class="field"><label>Email</label><input id="u-email" type="email" placeholder="jane@company.com"/></div>
-    <div class="field"><label>Role</label><select id="u-role"><option value="member">Member</option><option value="pm">Project Manager</option><option value="admin">Admin</option><option value="viewer">Viewer</option></select></div>
+    <div class="field"><label>User Type</label>
+      <select id="u-role">
+        <option value="admin">Admin — Can manage account settings and edit</option>
+        <option value="regular" selected>Regular User — Can edit</option>
+        <option value="external">External User — Can edit, but can't share</option>
+        <option value="contributor">Contributor — Can only comment, change statuses, and track time</option>
+        <option value="viewer">Viewer — Can only comment</option>
+      </select>
+    </div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-user')">Cancel</button><button class="btn" onclick="saveUser()">Add Member</button></div>
   </div>
 </div>
@@ -824,10 +832,20 @@ let TIMESHEET_ENTRIES=[
 
 let tsWeekOffset=0, tsUserId=1;
 
+const USER_TYPES={
+  admin:     {label:'Admin',        desc:'Can manage account settings and edit',    color:'#ef4444'},
+  regular:   {label:'Regular User', desc:'Can edit',                                color:'#2563eb'},
+  external:  {label:'External User',desc:"Can edit, but can't share",               color:'#8b5cf6'},
+  contributor:{label:'Contributor', desc:'Can only comment, change statuses, and track time', color:'#10b981'},
+  viewer:    {label:'Viewer',       desc:'Can only comment',                        color:'#94a3b8'},
+};
+
 let USERS=[
-  {id:1,name:'Admin User',email:'admin@nexus.io',color:'#4f7cff',role:'admin'},
-  {id:2,name:'Alice Chen',email:'alice@nexus.io',color:'#22c993',role:'pm'},
-  {id:3,name:'Bob Kumar',email:'bob@nexus.io',color:'#f59e4a',role:'member'},
+  {id:1,name:'Alex Morgan',   email:'alex@nexus.io',      color:'#ef4444',role:'admin'},
+  {id:2,name:'Jamie Taylor',  email:'jamie@nexus.io',     color:'#2563eb',role:'regular'},
+  {id:3,name:'Sam Rivera',    email:'sam@nexus.io',       color:'#8b5cf6',role:'external'},
+  {id:4,name:'Casey Kim',     email:'casey@nexus.io',     color:'#10b981',role:'contributor'},
+  {id:5,name:'Riley Park',    email:'riley@nexus.io',     color:'#94a3b8',role:'viewer'},
 ];
 
 // Shared custom fields (global, shown in all projects)
@@ -859,13 +877,17 @@ let PROJECTS=[
    locations:[{workspaceId:'ws2',folderId:'fl3',isHome:true},{workspaceId:'ws3',folderId:null,isHome:false}],
    tasks:[
     {id:'t11',title:'Brand Audit',status:'done',priority:'medium',assignee:2,duration:5,pred:null,start:rel(-40),end:rel(-35),dueDate:null,description:'Review current brand assets.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:2,time:rel(-35).toISOString()}],custom:{}},
+    {id:'t12',title:'Mood Board & Concepts',status:'in_progress',priority:'medium',assignee:4,duration:7,pred:'t11',start:rel(-5),end:rel(2),dueDate:null,description:'Gather visual inspiration and create initial concept directions.',comments:[{id:'c10',userId:4,text:'Added three concept directions to the shared folder.',time:rel(-2).toISOString()}],history:[{type:'status_change',from:'todo',to:'in_progress',userId:4,time:rel(-5).toISOString()}],custom:{}},
+    {id:'t13',title:'Stakeholder Review',status:'todo',priority:'low',assignee:5,duration:3,pred:'t12',start:rel(3),end:rel(6),dueDate:null,description:'Present concepts to stakeholders for feedback.',comments:[],history:[],custom:{}},
    ]},
 ];
 
 let PERMISSIONS={
-  member:{viewProjects:true,editTasks:true,commentTasks:true,createTasks:false,deleteTasks:false,manageUsers:false,manageSettings:false},
-  pm:{viewProjects:true,editTasks:true,commentTasks:true,createTasks:true,deleteTasks:true,manageUsers:false,manageSettings:false},
-  admin:{viewProjects:true,editTasks:true,commentTasks:true,createTasks:true,deleteTask:true,manageUsers:true,manageSettings:true},
+  admin:      {viewProjects:true, editTasks:true, createTasks:true, deleteTasks:true, commentTasks:true, changeStatus:true, trackTime:true, shareTasks:true, manageUsers:true, manageSettings:true},
+  regular:    {viewProjects:true, editTasks:true, createTasks:true, deleteTasks:false,commentTasks:true, changeStatus:true, trackTime:true, shareTasks:true, manageUsers:false,manageSettings:false},
+  external:   {viewProjects:true, editTasks:true, createTasks:true, deleteTasks:false,commentTasks:true, changeStatus:true, trackTime:true, shareTasks:false,manageUsers:false,manageSettings:false},
+  contributor:{viewProjects:true, editTasks:false,createTasks:false,deleteTasks:false,commentTasks:true, changeStatus:true, trackTime:true, shareTasks:false,manageUsers:false,manageSettings:false},
+  viewer:     {viewProjects:true, editTasks:false,createTasks:false,deleteTasks:false,commentTasks:true, changeStatus:false,trackTime:false,shareTasks:false,manageUsers:false,manageSettings:false},
 };
 
 // ── FORMS DATA ──
@@ -1931,7 +1953,7 @@ function renderSettings(){
     {id:'notifications',label:'🔔 Notifications'},
     {id:'admin',label:'🛡 Administration'},
   ];
-  const ROLE_COLORS={admin:'#ff5c5c',pm:'#4f7cff',member:'#22c993',viewer:'#f59e4a'};
+  const ROLE_COLORS=Object.fromEntries(Object.entries(USER_TYPES).map(([k,v])=>[k,v.color]));
 
   let content='';
   if(settingsTab==='general'){
@@ -1973,7 +1995,7 @@ function renderSettings(){
                 <span style="font-weight:600">${u.name}</span>
               </div></td>
               <td style="color:var(--text2)">${u.email}</td>
-              <td><span class="role-badge" style="background:${ROLE_COLORS[u.role]||'#58637a'}22;color:${ROLE_COLORS[u.role]||'#58637a'};border:1px solid ${ROLE_COLORS[u.role]||'#58637a'}44">${u.role}</span></td>
+              <td><span class="role-badge" style="background:${ROLE_COLORS[u.role]||'#58637a'}22;color:${ROLE_COLORS[u.role]||'#58637a'};border:1px solid ${ROLE_COLORS[u.role]||'#58637a'}44">${USER_TYPES[u.role]?.label||u.role}</span></td>
               <td style="color:var(--text2)">${projCount} project${projCount!==1?'s':''}</td>
               <td><div style="display:flex;gap:6px">
                 <button class="icon-btn" onclick="editUser(${u.id})">✏</button>
@@ -1987,9 +2009,12 @@ function renderSettings(){
         <div class="settings-section-title">🔑 Role Permissions</div>
         <div class="settings-section-sub">Control what each role can do</div>
         <div class="perm-grid">
-          ${['member','pm','admin'].map(role=>`
+          ${Object.keys(USER_TYPES).map(role=>`
             <div class="perm-card">
-              <div class="perm-card-title"><span class="role-badge" style="background:${ROLE_COLORS[role]}22;color:${ROLE_COLORS[role]};border:1px solid ${ROLE_COLORS[role]}44">${role}</span></div>
+              <div class="perm-card-title">
+                <span class="role-badge" style="background:${ROLE_COLORS[role]}22;color:${ROLE_COLORS[role]};border:1px solid ${ROLE_COLORS[role]}44">${USER_TYPES[role].label}</span>
+                <div style="font-size:11px;color:var(--text3);margin-top:4px">${USER_TYPES[role].desc}</div>
+              </div>
               ${Object.entries(PERMISSIONS[role]||{}).map(([perm,val])=>`
                 <div class="perm-row">
                   <span>${perm.replace(/([A-Z])/g,' $1').toLowerCase()}</span>
@@ -2554,7 +2579,7 @@ function renderTimesheets(){
       <button class="btn ghost" onclick="tsWeekOffset--;renderTimesheets()">‹ Prev</button>
       <div class="ts-week-label">${weekLabel}</div>
       <button class="btn ghost" onclick="tsWeekOffset++;renderTimesheets()">Next ›</button>
-      ${USERS[0].role==='admin'||USERS[0].role==='pm'?`
+      ${USERS[0].role==='admin'?`
         <select class="ts-user-sel" onchange="tsUserId=parseInt(this.value);renderTimesheets()">
           ${USERS.map(u=>`<option value="${u.id}"${u.id===tsUserId?' selected':''}>${u.name}</option>`).join('')}
         </select>`:''}
@@ -2668,7 +2693,7 @@ function renderCmdResults(){
   const matchPeople=USERS.filter(u=>u.name.toLowerCase().includes(q)||u.email.toLowerCase().includes(q));
   if(matchPeople.length){
     html+=`<div class="cmd-sec">People</div>`;
-    html+=matchPeople.map(u=>`<div class="cmd-item"><span class="cmd-icon">👤</span>${u.name}<span class="cmd-sub">${u.role}</span></div>`).join('');
+    html+=matchPeople.map(u=>`<div class="cmd-item"><span class="cmd-icon">👤</span>${u.name}<span class="cmd-sub">${USER_TYPES[u.role]?.label||u.role}</span></div>`).join('');
   }
 
   el.innerHTML=html||`<div class="cmd-empty">No results for "<strong>${q}</strong>"</div>`;
