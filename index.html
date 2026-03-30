@@ -267,6 +267,60 @@ tr.row-expanded td:first-child{border-left:2px solid var(--accent)}
 .icon-btn{background:var(--surface3);border:1px solid var(--border2);border-radius:7px;cursor:pointer;padding:5px 8px;font-size:12px;color:var(--text2);transition:.15s}
 .icon-btn:hover{border-color:var(--border3);color:var(--text)}
 .icon-btn.red:hover{border-color:var(--blocked);color:var(--blocked)}
+/* SETTINGS RESTRUCTURED */
+.settings-layout{display:flex;gap:0;height:100%;overflow:hidden}
+.settings-sidebar{width:210px;flex-shrink:0;overflow-y:auto;border-right:1px solid var(--border2);padding:8px 0;background:var(--surface)}
+.settings-sidebar-section{padding:16px 14px 4px;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:var(--text3);display:flex;align-items:center;gap:7px}
+.settings-nav-item{padding:7px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:.12s;display:flex;align-items:center;gap:8px;border-radius:0}
+.settings-nav-item:hover{background:rgba(0,0,0,.04);color:var(--text)}
+.settings-nav-item.active{background:var(--abg);color:var(--accent);font-weight:600;border-right:2px solid var(--accent)}
+.settings-nav-item .nav-icon{width:18px;text-align:center;font-size:14px;flex-shrink:0}
+.settings-content{flex:1;min-width:0;overflow-y:auto;padding:24px 28px}
+/* settings section cards */
+.settings-section{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:22px;margin-bottom:18px}
+.settings-section-title{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.settings-section-sub{font-size:12px;color:var(--text3);margin-bottom:18px}
+.settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
+.settings-row:last-child{border-bottom:none;padding-bottom:0}
+.settings-row-label{font-size:13px;font-weight:600}
+.settings-row-sub{font-size:12px;color:var(--text3);margin-top:2px}
+/* workflow builder */
+.wf-status-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:9px;margin-bottom:6px}
+.wf-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.wf-arrow{color:var(--text3);font-size:14px;margin:0 4px}
+.wf-chip{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:5px;font-weight:600;cursor:pointer;border:1px solid transparent}
+/* automation */
+.auto-row{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--border);border-radius:10px;margin-bottom:8px;background:var(--surface2)}
+.auto-badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}
+.oob-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;cursor:pointer;transition:.15s}
+.oob-card:hover{border-color:var(--accent);background:var(--abg)}
+.oob-card-icon{font-size:22px;margin-bottom:8px}
+.oob-card-title{font-size:13px;font-weight:600;margin-bottom:4px}
+.oob-card-desc{font-size:11px;color:var(--text3);line-height:1.5}
+/* spaces table */
+.spaces-table{width:100%;border-collapse:collapse;font-size:13px}
+.spaces-table th{text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--text3);padding:8px 10px;border-bottom:1px solid var(--border2)}
+.spaces-table td{padding:10px;border-bottom:1px solid var(--border);vertical-align:middle}
+.spaces-table tr:last-child td{border-bottom:none}
+.spaces-table tr:hover td{background:rgba(0,0,0,.02);cursor:pointer}
+.space-av-row{display:flex;align-items:center}
+.space-av{width:22px;height:22px;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-left:-6px;border:2px solid var(--surface);flex-shrink:0}
+.space-av:first-child{margin-left:0}
+/* subscription */
+.plan-card{border:2px solid var(--accent);border-radius:14px;padding:20px;background:var(--abg);margin-bottom:14px}
+.plan-feature{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;color:var(--text2)}
+.plan-feature .ck{color:var(--done);font-weight:700;font-size:14px}
+/* schedule holiday row */
+.holiday-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0;border-bottom:1px solid var(--border);font-size:13px}
+.holiday-row:last-child{border-bottom:none}
+/* item type row */
+.itype-row{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--border);border-radius:9px;margin-bottom:7px;background:var(--surface2)}
+/* profile avatar */
+.profile-av{width:64px;height:64px;border-radius:50%;font-size:24px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+/* accessibility font sizes */
+body.fs-small{font-size:12px}
+body.fs-large{font-size:15px}
+body.contrast-high{--text:#000;--text2:#222;--bg:#fff;--surface:#fff;--border2:rgba(0,0,0,.3)}
 
 /* MODAL */
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.2s}
@@ -442,6 +496,11 @@ body.nav-closed .nav-overlay{display:block}
 .ts-task-proj{font-size:11px;color:var(--text3);margin-top:1px}
 .ts-day-cell{padding:6px 3px;text-align:center}
 .ts-inp{width:48px;padding:4px 3px;border:1px solid var(--border2);border-radius:6px;background:var(--surface2);color:var(--text);font-size:12px;text-align:center;outline:none;font-family:inherit;transition:.15s;display:block;margin:0 auto}
+.s-inp{background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none;transition:.15s;width:100%;box-sizing:border-box}
+.s-inp:focus{border-color:var(--accent)}
+.s-sel{background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none;cursor:pointer}
+.day-chip{display:inline-flex;align-items:center;justify-content:center;width:38px;height:30px;border-radius:7px;font-size:11px;font-weight:600;border:1px solid var(--border2);background:var(--surface2);color:var(--text3);cursor:pointer;transition:.12s}
+.day-chip.on{background:var(--abg);color:var(--accent);border-color:var(--accent)}
 .ts-inp:focus{border-color:var(--accent)}
 .ts-act-sel{width:58px;padding:2px 3px;border:1px solid var(--border2);border-radius:5px;background:var(--surface2);color:var(--text2);font-size:10px;font-family:inherit;outline:none;cursor:pointer;margin:3px auto 0;display:block}
 .ts-row-total{padding:10px 8px;font-size:13px;font-weight:700;text-align:center;color:var(--accent)}
@@ -755,6 +814,58 @@ body.nav-closed .nav-overlay{display:block}
   </div>
 </div>
 
+<!-- WORKFLOW MODAL -->
+<div class="modal-bg" id="modal-workflow">
+  <div class="modal" style="width:500px">
+    <div class="modal-title">🔀 Workflow editor</div>
+    <div id="modal-workflow-body"></div>
+    <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-workflow')">Cancel</button><button class="btn" id="wf-save-btn">Save workflow</button></div>
+  </div>
+</div>
+
+<!-- AUTOMATION MODAL -->
+<div class="modal-bg" id="modal-automation">
+  <div class="modal" style="width:480px">
+    <div class="modal-title">⚡ Create automation</div>
+    <div class="field"><label>Name</label><input id="auto-name" class="s-inp" placeholder="e.g. Notify team on completion"/></div>
+    <div class="field"><label>Trigger</label>
+      <select id="auto-trigger" class="s-sel" style="width:100%">
+        <option value="status_change">Status changes to…</option>
+        <option value="due_date_passed">Due date passes</option>
+        <option value="task_created">Task is created</option>
+        <option value="assignee_changed">Assignee changes</option>
+      </select>
+    </div>
+    <div class="field"><label>Then (action)</label>
+      <select id="auto-action" class="s-sel" style="width:100%">
+        <option value="notify">Notify assignee</option>
+        <option value="assign_user">Assign to user</option>
+        <option value="set_priority">Set priority to Critical</option>
+        <option value="move_to_folder">Move to folder</option>
+      </select>
+    </div>
+    <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-automation')">Cancel</button><button class="btn" onclick="saveCustomAutomation()">Create</button></div>
+  </div>
+</div>
+
+<!-- SCHEDULE MODAL -->
+<div class="modal-bg" id="modal-schedule">
+  <div class="modal">
+    <div class="modal-title">🗓 New work schedule</div>
+    <div id="modal-schedule-body"></div>
+    <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-schedule')">Cancel</button><button class="btn" onclick="saveSchedule()">Create</button></div>
+  </div>
+</div>
+
+<!-- ITEM TYPE MODAL -->
+<div class="modal-bg" id="modal-item-type">
+  <div class="modal">
+    <div class="modal-title">🧩 New item type</div>
+    <div id="modal-item-type-body"></div>
+    <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-item-type')">Cancel</button><button class="btn" onclick="saveItemType()">Create</button></div>
+  </div>
+</div>
+
 <!-- FOLDER MODAL -->
 <div class="modal-bg" id="modal-folder">
   <div class="modal">
@@ -881,6 +992,87 @@ let PROJECTS=[
     {id:'t13',title:'Stakeholder Review',status:'todo',priority:'low',assignee:5,duration:3,pred:'t12',start:rel(3),end:rel(6),dueDate:null,description:'Present concepts to stakeholders for feedback.',comments:[],history:[],custom:{}},
    ]},
 ];
+
+// ── WORK SCHEDULES ──
+let WORK_SCHEDULES=[
+  {id:'sched1',name:'Standard (North America)',isDefault:true,timezone:'America/New_York',
+   workDays:[1,2,3,4,5],workHours:{start:'09:00',end:'17:00'},
+   assignedTo:[1,2,3,4,5],
+   holidays:[
+     {date:'2026-01-01',name:"New Year's Day"},{date:'2026-05-25',name:'Memorial Day'},
+     {date:'2026-07-04',name:'Independence Day'},{date:'2026-09-07',name:'Labor Day'},
+     {date:'2026-11-26',name:'Thanksgiving'},{date:'2026-12-25',name:'Christmas'},
+   ]},
+  {id:'sched2',name:'India Team',isDefault:false,timezone:'Asia/Kolkata',
+   workDays:[1,2,3,4,5],workHours:{start:'09:30',end:'18:30'},
+   assignedTo:[],
+   holidays:[
+     {date:'2026-01-26',name:'Republic Day'},{date:'2026-03-17',name:'Holi'},
+     {date:'2026-08-15',name:'Independence Day (India)'},{date:'2026-10-02',name:'Gandhi Jayanti'},
+     {date:'2026-10-20',name:'Diwali'},
+   ]},
+];
+
+// ── ITEM TYPES ──
+let ITEM_TYPES=[
+  {id:'itype_task',name:'Task',icon:'✅',color:'#2563eb',isSystem:true,workflowId:'wf1',desc:'Standard work item'},
+  {id:'itype_bug',name:'Bug',icon:'🐛',color:'#ef4444',isSystem:false,workflowId:'wf2',desc:'Defect or unexpected behaviour'},
+  {id:'itype_feature',name:'Feature',icon:'⭐',color:'#8b5cf6',isSystem:false,workflowId:'wf1',desc:'New capability or enhancement'},
+  {id:'itype_epic',name:'Epic',icon:'🚀',color:'#f59e4a',isSystem:false,workflowId:'wf1',desc:'Large body of work spanning multiple tasks'},
+  {id:'itype_story',name:'Story',icon:'📖',color:'#10b981',isSystem:false,workflowId:'wf1',desc:'User-facing narrative or requirement'},
+];
+
+// ── WORKFLOWS ──
+let WORKFLOWS=[
+  {id:'wf1',name:'Standard Development',isDefault:true,desc:'General software development flow',
+   statuses:[
+     {id:'wf1_s1',name:'Backlog',  color:'#94a3b8',transitions:['wf1_s2','wf1_s3']},
+     {id:'wf1_s2',name:'In Progress',color:'#2563eb',transitions:['wf1_s3','wf1_s4','wf1_s5']},
+     {id:'wf1_s3',name:'In Review', color:'#8b5cf6',transitions:['wf1_s2','wf1_s4']},
+     {id:'wf1_s4',name:'Done',      color:'#10b981',transitions:[]},
+     {id:'wf1_s5',name:'Blocked',   color:'#ef4444',transitions:['wf1_s2']},
+   ]},
+  {id:'wf2',name:'Bug Tracking',isDefault:false,desc:'Defect lifecycle from open to closed',
+   statuses:[
+     {id:'wf2_s1',name:'Open',       color:'#ef4444',transitions:['wf2_s2','wf2_s4']},
+     {id:'wf2_s2',name:'In Progress',color:'#2563eb',transitions:['wf2_s3','wf2_s4']},
+     {id:'wf2_s3',name:'QA Testing', color:'#8b5cf6',transitions:['wf2_s2','wf2_s4']},
+     {id:'wf2_s4',name:'Closed',     color:'#94a3b8',transitions:[]},
+   ]},
+  {id:'wf3',name:'Creative Workflow',isDefault:false,desc:'Design and creative production flow',
+   statuses:[
+     {id:'wf3_s1',name:'Brief',    color:'#f59e4a',transitions:['wf3_s2']},
+     {id:'wf3_s2',name:'Design',   color:'#2563eb',transitions:['wf3_s3','wf3_s1']},
+     {id:'wf3_s3',name:'Approval', color:'#8b5cf6',transitions:['wf3_s2','wf3_s4']},
+     {id:'wf3_s4',name:'Live',     color:'#10b981',transitions:[]},
+   ]},
+];
+
+// ── AUTOMATIONS ──
+let AUTOMATIONS=[
+  {id:'auto1',name:'Auto-assign PM on In Progress',enabled:true,
+   trigger:{type:'status_change',to:'In Progress'},conditions:[],
+   actions:[{type:'assign_user',userId:2},{type:'notify',target:'assignee'}],
+   createdBy:1,createdAt:'2026-01-15',triggerCount:28},
+  {id:'auto2',name:'Escalate overdue to Critical',enabled:true,
+   trigger:{type:'due_date_passed'},conditions:[{field:'status',op:'not_eq',value:'Done'}],
+   actions:[{type:'set_priority',value:'critical'},{type:'notify',target:'assignee'}],
+   createdBy:1,createdAt:'2026-02-01',triggerCount:12},
+  {id:'auto3',name:'Move to Archive on Done',enabled:false,
+   trigger:{type:'status_change',to:'Done'},conditions:[],
+   actions:[{type:'move_to_folder',folderId:'fl1'},{type:'notify',target:'creator'}],
+   createdBy:2,createdAt:'2026-02-20',triggerCount:0},
+];
+
+// ── USER PREFS (per-user personal settings, keyed by user id) ──
+let USER_PREFS={
+  1:{scheduleId:'sched1',workHours:{start:'09:00',end:'17:00'},workDays:[1,2,3,4,5],
+     vacations:[{id:'v1',start:'2026-07-01',end:'2026-07-07',label:'Summer vacation'}],
+     notifications:{taskAssigned:true,taskCommented:true,taskCompleted:true,statusChanged:true,dueSoon:true,weeklyDigest:true,mentions:true,emailDigest:'daily'},
+     appearance:{density:'comfortable',showAvatars:true},
+     accessibility:{fontSize:'medium',contrast:'standard',reducedMotion:false,keyboardFocus:true}},
+};
+function myPrefs(){return USER_PREFS[USERS[0].id]||(USER_PREFS[USERS[0].id]={scheduleId:'sched1',workHours:{start:'09:00',end:'17:00'},workDays:[1,2,3,4,5],vacations:[],notifications:{taskAssigned:true,taskCommented:true,taskCompleted:false,statusChanged:true,dueSoon:true,weeklyDigest:false,mentions:true,emailDigest:'daily'},appearance:{density:'comfortable',showAvatars:true},accessibility:{fontSize:'medium',contrast:'standard',reducedMotion:false,keyboardFocus:true}});}
 
 let PERMISSIONS={
   admin:      {viewProjects:true, editTasks:true, createTasks:true, deleteTasks:true, commentTasks:true, changeStatus:true, trackTime:true, shareTasks:true, manageUsers:true, manageSettings:true},
@@ -1668,7 +1860,7 @@ function saveCustomField(){
   }
   closeM('modal-cf');
   if(curView==='table')renderTable();
-  if(settingsTab==='customfields')renderSettings();
+  if(settingsTab==='custom-fields')renderSettings();
 }
 
 // ═══════════════════════ TASK DETAIL ═══════════════════════
@@ -1936,266 +2128,646 @@ function submitPF(formId){
     </div>`;
 }
 
-function showSettings(tab='general'){
+function showSettings(tab='profile'){
+  const adminOnlyTabs=['users','work-schedules','time-tracking','spaces','request-forms','item-types','workflows','custom-fields','automation','subscription','ai-usage','billing','settings','security'];
+  if(adminOnlyTabs.includes(tab)&&USERS[0].role!=='admin') tab='profile';
   settingsTab=tab;curView='settings';curProjectId=null;
   navActive(null);
-  setTopbar('Settings','Manage your workspace, users, and fields',[]);
+  setTopbar('Settings','Manage your account and workspace',[]);
   showView('settings');closeDetail();closeColPanel();
   renderSettings();
 }
 
+function saveCustomAutomation(){
+  const name=document.getElementById('auto-name')?.value.trim();if(!name)return;
+  const trigger={type:document.getElementById('auto-trigger')?.value||'status_change',to:'Done'};
+  const action={type:document.getElementById('auto-action')?.value||'notify',target:'assignee'};
+  AUTOMATIONS.push({id:'auto'+Date.now(),name,enabled:true,trigger,conditions:[],actions:[action],
+    createdBy:USERS[0].id,createdAt:new Date().toISOString().slice(0,10),triggerCount:0});
+  closeM('modal-automation');renderSettings();
+}
+
 function renderSettings(){
-  const tabs=[
-    {id:'general',label:'⚙ General'},
-    {id:'users',label:'👥 Users & Permissions'},
-    {id:'customfields',label:'🔧 Custom Fields'},
-    {id:'forms',label:'📋 Forms'},
-    {id:'notifications',label:'🔔 Notifications'},
-    {id:'admin',label:'🛡 Administration'},
+  const isAdmin=USERS[0].role==='admin';
+  const personalTabs=[
+    {id:'profile',     icon:'👤', label:'Profile'},
+    {id:'work-schedule',icon:'📅',label:'Work schedule'},
+    {id:'account-info', icon:'🔑',label:'Account info'},
+    {id:'email-prefs',  icon:'📧',label:'Email preferences'},
+    {id:'accessibility',icon:'♿',label:'Accessibility'},
+    {id:'appearance',   icon:'🎨',label:'Appearance'},
   ];
-  const ROLE_COLORS=Object.fromEntries(Object.entries(USER_TYPES).map(([k,v])=>[k,v.color]));
+  const adminTabs=[
+    {id:'users',       icon:'👥', label:'Users'},
+    {id:'work-schedules',icon:'🗓',label:'Work schedules'},
+    {id:'time-tracking',icon:'⏱', label:'Time tracking'},
+    {id:'spaces',      icon:'🏢', label:'Spaces'},
+    {id:'request-forms',icon:'📋',label:'Request forms'},
+    {id:'item-types',  icon:'🧩', label:'Custom item types'},
+    {id:'workflows',   icon:'🔀', label:'Workflows'},
+    {id:'custom-fields',icon:'🔧',label:'Custom fields'},
+    {id:'automation',  icon:'⚡', label:'Automation'},
+    {id:'subscription',icon:'⭐', label:'Subscription'},
+    {id:'ai-usage',    icon:'🤖', label:'AI usage'},
+    {id:'billing',     icon:'💳', label:'Billing'},
+    {id:'settings',    icon:'⚙',  label:'Settings'},
+    {id:'security',    icon:'🔒', label:'Security'},
+  ];
+
+  // default to profile if current tab is admin-only and user is not admin
+  if(!isAdmin && adminTabs.some(t=>t.id===settingsTab)) settingsTab='profile';
 
   let content='';
-  if(settingsTab==='general'){
-    content=`
-      <div class="settings-section">
-        <div class="settings-section-title">🏢 Workspace</div>
-        <div class="settings-section-sub">General workspace configuration</div>
-        ${row('Workspace Name','The name shown across the app','<input style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px" value="Team Nexus">')}
-        ${row('Workspace URL','Your unique workspace identifier','<input style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px" value="team-nexus">')}
-        ${row('Default View','Default project view for new members','<select style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px"><option>Kanban</option><option>Table</option><option>Gantt</option></select>')}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">🎨 Appearance</div>
-        <div class="settings-section-sub">Customise how the app looks</div>
-        ${toggle('Dark Mode','Always use dark theme',true)}
-        ${toggle('Compact View','Reduce row height in table view',false)}
-        ${toggle('Show Avatars','Show assignee avatars on task cards',true)}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">🔒 Security</div>
-        <div class="settings-section-sub">Access and authentication settings</div>
-        ${toggle('Two-Factor Auth','Require 2FA for all members',false)}
-        ${toggle('SSO Login','Enable single sign-on via your identity provider',false)}
-        ${row('Session Timeout','Auto-logout after inactivity','<select style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px"><option>30 minutes</option><option>1 hour</option><option>8 hours</option><option>Never</option></select>')}
-      </div>`;
-  } else if(settingsTab==='users'){
-    content=`
-      <div class="settings-section">
-        <div class="settings-section-title">👥 Team Members</div>
-        <div class="settings-section-sub">Manage who has access to your workspace</div>
-        <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-user')">＋ Add Member</button></div>
-        <table class="user-table">
-          <thead><tr><th>Member</th><th>Email</th><th>Role</th><th>Projects</th><th>Actions</th></tr></thead>
-          <tbody>${USERS.map(u=>{
-            const projCount=PROJECTS.filter(p=>p.tasks.some(t=>t.assignee===u.id)).length;
-            return `<tr>
-              <td><div style="display:flex;align-items:center;gap:8px">
-                <div class="av" style="background:${u.color}">${ini(u.name)}</div>
-                <span style="font-weight:600">${u.name}</span>
-              </div></td>
-              <td style="color:var(--text2)">${u.email}</td>
-              <td><span class="role-badge" style="background:${ROLE_COLORS[u.role]||'#58637a'}22;color:${ROLE_COLORS[u.role]||'#58637a'};border:1px solid ${ROLE_COLORS[u.role]||'#58637a'}44">${USER_TYPES[u.role]?.label||u.role}</span></td>
-              <td style="color:var(--text2)">${projCount} project${projCount!==1?'s':''}</td>
-              <td><div style="display:flex;gap:6px">
-                <button class="icon-btn" onclick="editUser(${u.id})">✏</button>
-                ${u.id!==1?`<button class="icon-btn red" onclick="removeUser(${u.id})">🗑</button>`:''}
-              </div></td>
-            </tr>`;
-          }).join('')}</tbody>
-        </table>
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">🔑 Role Permissions</div>
-        <div class="settings-section-sub">Control what each role can do</div>
-        <div class="perm-grid">
-          ${Object.keys(USER_TYPES).map(role=>`
-            <div class="perm-card">
-              <div class="perm-card-title">
-                <span class="role-badge" style="background:${ROLE_COLORS[role]}22;color:${ROLE_COLORS[role]};border:1px solid ${ROLE_COLORS[role]}44">${USER_TYPES[role].label}</span>
-                <div style="font-size:11px;color:var(--text3);margin-top:4px">${USER_TYPES[role].desc}</div>
-              </div>
-              ${Object.entries(PERMISSIONS[role]||{}).map(([perm,val])=>`
-                <div class="perm-row">
-                  <span>${perm.replace(/([A-Z])/g,' $1').toLowerCase()}</span>
-                  <div class="toggle${val?' on':''}" onclick="togglePerm('${role}','${perm}',this)"></div>
-                </div>`).join('')}
-            </div>`).join('')}
-        </div>
-      </div>`;
-  } else if(settingsTab==='customfields'){
-    content=`
-      <div class="settings-section">
-        <div class="settings-section-title">🔧 Custom Fields</div>
-        <div class="settings-section-sub">Global custom fields that appear on all tasks across all projects</div>
-        <div style="margin-bottom:14px"><button class="btn" onclick="openCustomFieldModal()">＋ Add Custom Field</button></div>
-        <div class="cf-list">
-          ${CUSTOM_FIELDS.length?CUSTOM_FIELDS.map(cf=>`
-            <div class="cf-item">
-              <div class="cf-icon">${FIELD_ICONS[cf.type]||'📋'}</div>
-              <div class="cf-info">
-                <div class="cf-name">${cf.name}</div>
-                <div class="cf-meta">Type: <strong>${cf.type}</strong>${cf.options?.length?` · Options: ${cf.options.join(', ')}`:''}${cf.desc?' · '+cf.desc:''}</div>
-              </div>
-              <div class="cf-actions">
-                <button class="icon-btn" onclick="editCf('${cf.id}')">✏</button>
-                <button class="icon-btn red" onclick="deleteCf('${cf.id}')">🗑</button>
-              </div>
-            </div>`).join('')
-            :`<div style="color:var(--text3);font-size:13px;padding:16px 0">No custom fields yet. Add one to get started.</div>`}
-        </div>
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">ℹ Field Types</div>
-        <div class="settings-section-sub">Choose the right type for your data</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
-          ${[['Aa','Text','Free-form text input'],['#','Number','Numeric values and calculations'],['📅','Date','Date picker'],['▾','Select','Dropdown with predefined options'],['☑','Checkbox','Boolean true/false'],['🔗','URL','Link to external resource']].map(([icon,name,desc])=>`
-            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px">
-              <div style="font-size:18px;margin-bottom:6px">${icon}</div>
-              <div style="font-size:13px;font-weight:600;margin-bottom:3px">${name}</div>
-              <div style="font-size:11px;color:var(--text3)">${desc}</div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-  } else if(settingsTab==='forms'){
-    const scMap={published:{c:'#22c993',l:'Published'},draft:{c:'#f59e4a',l:'Draft'}};
-    const typeLabel={sequential:'Sequential',simple:'Simple',parallel:'Parallel',none:'None'};
-    const shareLabel={open:'🌐 Public',email:'📧 Email gate',password:'🔒 Password',internal:'🏠 Internal'};
-    content=`
-      <div class="settings-section">
-        <div class="settings-section-title">📋 Forms</div>
-        <div class="settings-section-sub">Manage intake forms and surveys. Users access them from the Forms menu item in the left nav.</div>
-        <div style="margin-bottom:14px;display:flex;gap:8px">
-          <button class="btn" onclick="openNewFormSettingsModal()">＋ New Form</button>
-        </div>
-        ${FORMS.map(f=>{
-          const sc=scMap[f.status]||scMap.draft;
-          const respCount=FORM_RESPONSES.filter(r=>r.formId===f.id).length;
-          const pendCount=FORM_RESPONSES.filter(r=>r.formId===f.id&&r.status==='pending').length;
-          return `<div class="cf-item" style="margin-bottom:10px;align-items:flex-start;flex-direction:column;gap:0;padding:14px 16px">
-            <div style="display:flex;align-items:center;gap:10px;width:100%;margin-bottom:8px">
-              <div style="font-size:20px">${f.emoji}</div>
-              <div style="flex:1;min-width:0">
-                <div style="font-size:13px;font-weight:700">${f.name}</div>
-                <div style="font-size:11px;color:var(--text3);margin-top:2px">${f.desc}</div>
-              </div>
-              <span class="pill" style="background:${sc.c}22;color:${sc.c};border:1px solid ${sc.c}44">${sc.l}</span>
-            </div>
-            <div style="display:flex;gap:14px;font-size:11px;color:var(--text3);margin-bottom:10px;flex-wrap:wrap">
-              <span>${f.questions.length} questions</span>
-              <span>${respCount} responses${pendCount?` · <span style="color:var(--progress)">${pendCount} pending</span>`:''}</span>
-              <span>${shareLabel[f.shareType]||'Internal'}</span>
-              <span>Approval: ${typeLabel[f.approval.type]||'None'}</span>
-              <span>→ ${f.targetProject==='p1'?'Website Revamp':f.targetProject==='p2'?'Mobile App V2':'No task'}</span>
-            </div>
-            <div style="display:flex;gap:6px;flex-wrap:wrap">
-              <button class="icon-btn" onclick="editFormSettings('${f.id}')">✏ Edit form</button>
-              <button class="icon-btn" onclick="viewFormResponses('${f.id}')">📊 Responses (${respCount})</button>
-              <button class="icon-btn" onclick="toggleFormStatus('${f.id}')">${f.status==='published'?'⏸ Unpublish':'🚀 Publish'}</button>
-              <button class="icon-btn" onclick="previewForm('${f.id}')">👁 Preview</button>
-              <button class="icon-btn red" onclick="deleteForm('${f.id}')">🗑</button>
-            </div>
-          </div>`;
-        }).join('')}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">⚙ Form defaults</div>
-        <div class="settings-section-sub">Global defaults applied to all new forms</div>
-        ${toggle('Notify owner on submission','Owner receives an in-app notification',true)}
-        ${toggle('Send submitter confirmation','External submitters receive a receipt',true)}
-        ${toggle('One submission per email','Prevents duplicate submissions',true)}
-        ${row('Approval reminder','Re-notify approvers if no action taken','<select style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:5px 9px;color:var(--text);font-size:12px;font-family:inherit;outline:none"><option>24 hours</option><option>48 hours</option><option>3 days</option><option>Never</option></select>')}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">📦 Form templates</div>
-        <div class="settings-section-sub">Start a new form from a pre-built structure</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
-          ${[['📋','Project Intake','Priority, budget, and stakeholder fields'],['🐛','Bug Report','Severity, reproduce steps, screenshots'],['⭐','Client Feedback','Rating, NPS, open-ended questions'],['🎓','Onboarding','New member or client onboarding flow']].map(([icon,name,desc])=>`
-            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:12px;cursor:pointer;transition:.15s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">
-              <div style="font-size:18px;margin-bottom:6px">${icon}</div>
-              <div style="font-size:13px;font-weight:600;margin-bottom:3px">${name}</div>
-              <div style="font-size:11px;color:var(--text3)">${desc}</div>
-            </div>`).join('')}
-        </div>
-      </div>`;
-  } else if(settingsTab==='notifications'){
-    content=`
-      <div class="settings-section">
-        <div class="settings-section-title">🔔 Notification Preferences</div>
-        <div class="settings-section-sub">Control when and how you receive notifications</div>
-        ${toggle('Task assigned to me','Get notified when a task is assigned to you',true)}
-        ${toggle('Task status changed','Get notified when a task you own changes status',true)}
-        ${toggle('New comment on my task','Get notified when someone comments on your task',true)}
-        ${toggle('Due date approaching','Remind me 24h before task due dates',true)}
-        ${toggle('Project status update','Weekly project summary email',false)}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">📧 Delivery Channels</div>
-        <div class="settings-section-sub">Choose how notifications are delivered</div>
-        ${toggle('In-app notifications','Show notifications within the app',true)}
-        ${toggle('Email notifications','Send notifications to your email',true)}
-        ${toggle('Slack integration','Post notifications to a Slack channel',false)}
-      </div>`;
-  } else if(settingsTab==='admin'){
-    content=`
-      <div class="settings-section">
-        <div class="settings-section-title">🏢 Workspace Management</div>
-        <div class="settings-section-sub">Manage your workspace identity and configuration</div>
-        ${row('Workspace Name','Shown in the header and emails','<input style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none" value="Team Nexus">')}
-        ${row('Workspace URL','Used for sharing and API access','<input style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none" value="team-nexus">')}
-        ${row('Timezone','Default timezone for due dates and reports','<select style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none"><option>UTC</option><option>Eastern Time</option><option>Pacific Time</option><option>Central European</option></select>')}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">💳 Plan &amp; Billing</div>
-        <div class="settings-section-sub">Manage your subscription and usage</div>
-        <div style="display:flex;align-items:center;gap:12px;padding:14px;background:var(--abg);border:1px solid var(--accent);border-radius:10px;margin-bottom:14px">
-          <div style="font-size:28px">⭐</div>
-          <div style="flex:1">
-            <div style="font-size:14px;font-weight:700;color:var(--accent)">Pro Plan — Trial</div>
-            <div style="font-size:12px;color:var(--text3);margin-top:2px">Trial ends in 30 days · Unlimited projects &amp; members</div>
-          </div>
-          <button class="btn" style="font-size:12px">Upgrade</button>
-        </div>
-        ${row('Billing Email','Invoices are sent to this address','<input style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none" value="admin@nexus.io">')}
-        ${row('Billing Cycle','Monthly or annual billing','<select style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text);font-family:inherit;font-size:13px;outline:none"><option>Monthly</option><option>Annual (save 20%)</option></select>')}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">🔑 API &amp; Integrations</div>
-        <div class="settings-section-sub">Connect external tools and manage API access</div>
-        ${row('API Key','Use this key to authenticate API requests','<div style="display:flex;gap:6px;align-items:center"><input style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:6px 10px;color:var(--text2);font-family:monospace;font-size:12px;outline:none;width:220px" value="nx_live_••••••••••••••••" readonly><button class="btn ghost" style="font-size:11px;padding:5px 10px">Regenerate</button></div>')}
-        ${toggle('Slack Integration','Post task updates to a Slack channel',false)}
-        ${toggle('GitHub Integration','Link commits and PRs to tasks',false)}
-        ${toggle('Zapier Webhooks','Trigger automations on task events',false)}
-      </div>
-      <div class="settings-section">
-        <div class="settings-section-title">📋 Audit Log</div>
-        <div class="settings-section-sub">Recent workspace-level activity</div>
-        <table class="user-table">
-          <thead><tr><th>Action</th><th>User</th><th>Date</th></tr></thead>
-          <tbody>
-            <tr><td>Created project <strong>Website Revamp</strong></td><td>Admin User</td><td style="color:var(--text3)">Today, 9:14 AM</td></tr>
-            <tr><td>Added member <strong>Jordan Lee</strong></td><td>Admin User</td><td style="color:var(--text3)">Yesterday, 3:42 PM</td></tr>
-            <tr><td>Changed role of <strong>Sam Rivera</strong> → PM</td><td>Admin User</td><td style="color:var(--text3)">Mar 25, 11:08 AM</td></tr>
-            <tr><td>Published form <strong>Project Intake</strong></td><td>Admin User</td><td style="color:var(--text3)">Mar 24, 2:30 PM</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="settings-section" style="border-color:rgba(239,68,68,.25)">
-        <div class="settings-section-title" style="color:var(--blocked)">⚠ Danger Zone</div>
-        <div class="settings-section-sub">Irreversible actions — proceed with caution</div>
-        ${row('Delete Workspace','Permanently delete this workspace and all its data','<button class="btn danger" style="font-size:12px" onclick="alert(\'This action cannot be undone.\')">Delete Workspace</button>')}
-      </div>`;
-  }
+  if(settingsTab==='profile')           content=settingsProfile();
+  else if(settingsTab==='work-schedule')content=settingsWorkSchedule();
+  else if(settingsTab==='account-info') content=settingsAccountInfo();
+  else if(settingsTab==='email-prefs')  content=settingsEmailPrefs();
+  else if(settingsTab==='accessibility')content=settingsAccessibility();
+  else if(settingsTab==='appearance')   content=settingsAppearance();
+  else if(settingsTab==='users')        content=settingsUsers();
+  else if(settingsTab==='work-schedules')content=settingsWorkSchedules();
+  else if(settingsTab==='time-tracking')content=settingsTimeTracking();
+  else if(settingsTab==='spaces')       content=settingsSpaces();
+  else if(settingsTab==='request-forms')content=settingsRequestForms();
+  else if(settingsTab==='item-types')   content=settingsItemTypes();
+  else if(settingsTab==='workflows')    content=settingsWorkflows();
+  else if(settingsTab==='custom-fields')content=settingsCustomFields();
+  else if(settingsTab==='automation')   content=settingsAutomation();
+  else if(settingsTab==='subscription') content=settingsSubscription();
+  else if(settingsTab==='ai-usage')     content=settingsAiUsage();
+  else if(settingsTab==='billing')      content=settingsBilling();
+  else if(settingsTab==='settings')     content=settingsGeneral();
+  else if(settingsTab==='security')     content=settingsSecurity();
+
+  const navItem=t=>`<div class="settings-nav-item${settingsTab===t.id?' active':''}" onclick="showSettings('${t.id}')"><span class="nav-icon">${t.icon}</span>${t.label}</div>`;
 
   document.getElementById('view-settings').innerHTML=`
     <div class="settings-layout">
-      <div class="settings-nav">
-        ${tabs.map(t=>`<div class="settings-nav-item${settingsTab===t.id?' active':''}" onclick="showSettings('${t.id}')">${t.label}</div>`).join('')}
+      <div class="settings-sidebar">
+        <div class="settings-sidebar-section">👤 Personal settings</div>
+        ${personalTabs.map(navItem).join('')}
+        ${isAdmin?`<div class="settings-sidebar-section">⚙ Account management</div>${adminTabs.map(navItem).join('')}`:''}
       </div>
       <div class="settings-content">${content}</div>
     </div>`;
 }
 
+
+// ═══════════════════════ PERSONAL SETTINGS TABS ═══════════════════════
+function settingsProfile(){
+  const u=USERS[0];
+  const p=myPrefs();
+  return `<div class="settings-section">
+    <div class="settings-section-title">👤 Profile</div>
+    <div class="settings-section-sub">Your public identity across the platform</div>
+    <div style="display:flex;align-items:center;gap:18px;margin-bottom:20px">
+      <div class="profile-av" id="profile-av" style="background:${u.color}">${ini(u.name)}</div>
+      <div>
+        <button class="btn ghost" style="font-size:12px" onclick="document.getElementById('av-color').click()">Change colour</button>
+        <input type="color" id="av-color" value="${u.color}" style="opacity:0;width:0;height:0;position:absolute" onchange="USERS[0].color=this.value;document.getElementById('profile-av').style.background=this.value;document.getElementById('nav-user-av').style.background=this.value">
+        <div style="font-size:11px;color:var(--text3);margin-top:4px">Shown as your avatar throughout the app</div>
+      </div>
+    </div>
+    ${row('Full name','Displayed on tasks, comments and reports',`<input class="s-inp" value="${u.name}" onblur="USERS[0].name=this.value;document.getElementById('nav-user-name').textContent=this.value">`)}
+    ${row('Email','Your login and notification address',`<input class="s-inp" type="email" value="${u.email}" onblur="USERS[0].email=this.value">`)}
+    ${row('Job title','Shown on your profile card',`<input class="s-inp" value="${u.jobTitle||''}" placeholder="e.g. Product Manager" onblur="USERS[0].jobTitle=this.value">`)}
+    ${row('Timezone','Used for due-date display and reminders',`<select class="s-sel"><option>America/New_York (EST)</option><option>America/Chicago (CST)</option><option>America/Los_Angeles (PST)</option><option>Europe/London (GMT)</option><option>Asia/Kolkata (IST)</option><option>Australia/Sydney (AEST)</option></select>`)}
+  </div>`;
+}
+
+function settingsWorkSchedule(){
+  const p=myPrefs();
+  const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const sched=WORK_SCHEDULES.find(s=>s.id===p.scheduleId)||WORK_SCHEDULES[0];
+  const vacRows=p.vacations.map((v,i)=>`
+    <div class="holiday-row">
+      <span>${v.label}</span>
+      <span style="color:var(--text3)">${v.start} → ${v.end}</span>
+      <button class="icon-btn red" onclick="removeVacation(${i})">✕</button>
+    </div>`).join('');
+  return `<div class="settings-section">
+    <div class="settings-section-title">📅 My working hours</div>
+    <div class="settings-section-sub">Your personal schedule used for capacity and Gantt planning</div>
+    ${row('Base schedule',`Inheriting holidays from <strong>${sched.name}</strong>`,`<select class="s-sel" onchange="myPrefs().scheduleId=this.value;renderSettings()">${WORK_SCHEDULES.map(s=>`<option value="${s.id}"${s.id===p.scheduleId?' selected':''}>${s.name}</option>`).join('')}</select>`)}
+    ${row('Working hours','Start and end of your workday',`<div style="display:flex;align-items:center;gap:8px"><input class="s-inp" type="time" style="width:100px" value="${p.workHours.start}" onchange="myPrefs().workHours.start=this.value"><span style="color:var(--text3)">to</span><input class="s-inp" type="time" style="width:100px" value="${p.workHours.end}" onchange="myPrefs().workHours.end=this.value"></div>`)}
+    ${row('Working days','Days you are available',`<div style="display:flex;gap:6px">${days.map((d,i)=>`<div class="day-chip${p.workDays.includes(i)?' on':''}" onclick="toggleWorkDay(${i},this)">${d}</div>`).join('')}</div>`)}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">🌴 Personal time off</div>
+    <div class="settings-section-sub">Vacation and leave days are blocked in Gantt and skipped during scheduling</div>
+    <div style="margin-bottom:12px">${vacRows||'<div style="color:var(--text3);font-size:13px;padding:8px 0">No time off added yet.</div>'}</div>
+    <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
+      <div><div style="font-size:11px;color:var(--text3);margin-bottom:4px">Label</div><input class="s-inp" id="vac-label" placeholder="e.g. Summer holiday" style="width:160px"></div>
+      <div><div style="font-size:11px;color:var(--text3);margin-bottom:4px">From</div><input class="s-inp" id="vac-start" type="date" style="width:130px"></div>
+      <div><div style="font-size:11px;color:var(--text3);margin-bottom:4px">To</div><input class="s-inp" id="vac-end" type="date" style="width:130px"></div>
+      <button class="btn" onclick="addVacation()">Add</button>
+    </div>
+    <div style="margin-top:16px;padding:12px;background:var(--surface2);border-radius:10px;border:1px solid var(--border);display:flex;align-items:center;gap:10px">
+      <span style="font-size:20px">📆</span>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:600">Connect Outlook Calendar</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Automatically sync out-of-office and vacation from your Outlook calendar (requires backend integration)</div>
+      </div>
+      <button class="btn ghost" style="font-size:12px" onclick="alert('Outlook sync requires backend setup — coming soon!')">Connect</button>
+    </div>
+  </div>`;
+}
+
+function settingsAccountInfo(){
+  const u=USERS[0];
+  return `<div class="settings-section">
+    <div class="settings-section-title">🔑 Account info</div>
+    <div class="settings-section-sub">Manage your login credentials and connected accounts</div>
+    ${row('Email address','Your sign-in email',`<input class="s-inp" type="email" value="${u.email}">`)}
+    ${row('Password','Last changed 90 days ago',`<button class="btn ghost" style="font-size:12px">Change password</button>`)}
+    ${row('Two-factor auth','Add an extra layer of security to your account',`<div class="toggle" onclick="this.classList.toggle('on')"></div>`)}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">🔗 Connected accounts</div>
+    <div class="settings-section-sub">Link external services for login and integrations</div>
+    ${['Google','Microsoft','GitHub','Slack'].map(svc=>`
+      <div class="settings-row">
+        <div><div class="settings-row-label">${svc}</div><div class="settings-row-sub">Sign in with ${svc}</div></div>
+        <button class="btn ghost" style="font-size:12px">Connect</button>
+      </div>`).join('')}
+  </div>`;
+}
+
+function settingsEmailPrefs(){
+  const p=myPrefs();const n=p.notifications;
+  return `<div class="settings-section">
+    <div class="settings-section-title">📧 Email preferences</div>
+    <div class="settings-section-sub">Choose which emails you receive from the platform</div>
+    ${ptoggle('Task assigned to me','Notified when a task is assigned to you','taskAssigned')}
+    ${ptoggle('New comment on my tasks','Someone comments on a task assigned to you','taskCommented')}
+    ${ptoggle('Task completed','A task you created or follow is marked done','taskCompleted')}
+    ${ptoggle('Status changed','A task or project status changes','statusChanged')}
+    ${ptoggle('Due date approaching','Reminder 24 h before a task due date','dueSoon')}
+    ${ptoggle('@Mentions','Someone mentions you in a comment','mentions')}
+    ${ptoggle('Weekly digest','Summary of your activity and upcoming tasks','weeklyDigest')}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">📬 Digest frequency</div>
+    <div class="settings-section-sub">How often to bundle notification emails</div>
+    ${row('Email digest cadence','Batching reduces inbox noise',`<select class="s-sel" onchange="myPrefs().notifications.emailDigest=this.value">
+      <option value="instant"${n.emailDigest==='instant'?' selected':''}>Instant (every event)</option>
+      <option value="hourly"${n.emailDigest==='hourly'?' selected':''}>Hourly</option>
+      <option value="daily"${n.emailDigest==='daily'?' selected':''}>Daily digest</option>
+      <option value="never"${n.emailDigest==='never'?' selected':''}>Never (in-app only)</option>
+    </select>`)}
+  </div>`;
+}
+
+function settingsAccessibility(){
+  const p=myPrefs();const a=p.accessibility;
+  return `<div class="settings-section">
+    <div class="settings-section-title">♿ Accessibility</div>
+    <div class="settings-section-sub">Personal overrides — account defaults are set by your administrator</div>
+    ${row('Font size','Affects all text in the app',`<select class="s-sel" onchange="applyFontSize(this.value);myPrefs().accessibility.fontSize=this.value">
+      <option value="small"${a.fontSize==='small'?' selected':''}>Small</option>
+      <option value="medium"${a.fontSize==='medium'?' selected':''}>Medium (default)</option>
+      <option value="large"${a.fontSize==='large'?' selected':''}>Large</option>
+    </select>`)}
+    ${row('Contrast','Increase contrast for better readability',`<select class="s-sel" onchange="applyContrast(this.value);myPrefs().accessibility.contrast=this.value">
+      <option value="standard"${a.contrast==='standard'?' selected':''}>Standard</option>
+      <option value="high"${a.contrast==='high'?' selected':''}>High contrast</option>
+    </select>`)}
+    ${atoggle('Reduced motion','Disable animations and transitions','reducedMotion')}
+    ${atoggle('Enhanced keyboard focus','Show visible focus rings on all interactive elements','keyboardFocus')}
+  </div>`;
+}
+
+function settingsAppearance(){
+  const p=myPrefs();const ap=p.appearance;
+  return `<div class="settings-section">
+    <div class="settings-section-title">🎨 Appearance</div>
+    <div class="settings-section-sub">Customise how the app looks for you</div>
+    ${row('Display density','Adjust spacing in lists and tables',`<select class="s-sel" onchange="myPrefs().appearance.density=this.value">
+      <option value="comfortable"${ap.density==='comfortable'?' selected':''}>Comfortable</option>
+      <option value="compact"${ap.density==='compact'?' selected':''}>Compact</option>
+    </select>`)}
+    ${toggle('Show assignee avatars','Display avatar thumbnails on task cards',ap.showAvatars)}
+    ${toggle('Show task counts in nav','Show open-task count badges in sidebar',true)}
+    ${toggle('Animate transitions','Smooth slide and fade animations',true)}
+  </div>`;
+}
+
+
+// ═══════════════════════ ACCOUNT MANAGEMENT TABS ═══════════════════════
+function settingsUsers(){
+  const ROLE_COLORS=Object.fromEntries(Object.entries(USER_TYPES).map(([k,v])=>[k,v.color]));
+  return `<div class="settings-section">
+    <div class="settings-section-title">👥 Team Members</div>
+    <div class="settings-section-sub">Manage who has access to your workspace</div>
+    <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-user')">＋ Add Member</button></div>
+    <table class="user-table">
+      <thead><tr><th>Member</th><th>Email</th><th>User type</th><th>Projects</th><th></th></tr></thead>
+      <tbody>${USERS.map(u=>{
+        const projCount=PROJECTS.filter(p=>p.tasks.some(t=>t.assignee===u.id)).length;
+        const c=ROLE_COLORS[u.role]||'#58637a';
+        return `<tr>
+          <td><div style="display:flex;align-items:center;gap:8px">
+            <div class="av" style="background:${u.color}">${ini(u.name)}</div>
+            <span style="font-weight:600">${u.name}</span>
+          </div></td>
+          <td style="color:var(--text2)">${u.email}</td>
+          <td><div><span class="role-badge" style="background:${c}22;color:${c};border:1px solid ${c}44">${USER_TYPES[u.role]?.label||u.role}</span>
+            <div style="font-size:10px;color:var(--text3);margin-top:2px">${USER_TYPES[u.role]?.desc||''}</div></div></td>
+          <td style="color:var(--text2)">${projCount} project${projCount!==1?'s':''}</td>
+          <td><div style="display:flex;gap:6px">
+            <button class="icon-btn" onclick="editUser(${u.id})">✏</button>
+            ${u.id!==1?`<button class="icon-btn red" onclick="removeUser(${u.id})">🗑</button>`:''}
+          </div></td></tr>`;
+      }).join('')}</tbody>
+    </table>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">🔑 Role permissions</div>
+    <div class="settings-section-sub">Toggle what each user type can do — changes apply immediately</div>
+    <div class="perm-grid">
+      ${Object.keys(USER_TYPES).map(role=>{
+        const c=ROLE_COLORS[role]||'#58637a';
+        return `<div class="perm-card">
+          <div class="perm-card-title">
+            <span class="role-badge" style="background:${c}22;color:${c};border:1px solid ${c}44">${USER_TYPES[role].label}</span>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px">${USER_TYPES[role].desc}</div>
+          </div>
+          ${Object.entries(PERMISSIONS[role]||{}).map(([perm,val])=>`
+            <div class="perm-row">
+              <span>${perm.replace(/([A-Z])/g,' $1').toLowerCase()}</span>
+              <div class="toggle${val?' on':''}" onclick="togglePerm('${role}','${perm}',this)"></div>
+            </div>`).join('')}
+        </div>`;
+      }).join('')}
+    </div>
+  </div>`;
+}
+
+function settingsWorkSchedules(){
+  return `<div class="settings-section">
+    <div class="settings-section-title">🗓 Work schedules</div>
+    <div class="settings-section-sub">Define company-wide and team-specific schedules. These drive Gantt date calculations and capacity planning.</div>
+    <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-schedule')">＋ New schedule</button></div>
+    ${WORK_SCHEDULES.map(s=>`
+      <div style="border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;background:var(--surface2)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+          <div>
+            <div style="font-size:14px;font-weight:700">${s.name} ${s.isDefault?'<span style="font-size:10px;background:var(--abg);color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:1px 6px;margin-left:6px">Default</span>':''}</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:2px">⏰ ${s.workHours.start}–${s.workHours.end} &nbsp;·&nbsp; ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].filter((_,i)=>s.workDays.includes(i)).join(', ')} &nbsp;·&nbsp; ${s.timezone}</div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="icon-btn" onclick="editSchedule('${s.id}')">✏</button>
+            ${!s.isDefault?`<button class="icon-btn red" onclick="deleteSchedule('${s.id}')">🗑</button>`:''}
+          </div>
+        </div>
+        <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Public holidays (${s.holidays.length})</div>
+        ${s.holidays.map(h=>`<div class="holiday-row"><span>${h.name}</span><span style="color:var(--text3)">${h.date}</span></div>`).join('')}
+        <div style="margin-top:10px;font-size:12px;color:var(--text3)">Assigned to: ${s.assignedTo.length?s.assignedTo.map(id=>USERS.find(u=>u.id===id)?.name||'').filter(Boolean).join(', '):'No one yet'}</div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function settingsTimeTracking(){
+  return `<div class="settings-section">
+    <div class="settings-section-title">⏱ Time tracking</div>
+    <div class="settings-section-sub">Configure how time is logged across the platform</div>
+    ${toggle('Enable time tracking','Allow members to log hours against tasks',true)}
+    ${toggle('Require activity type','Users must select an activity when logging time',true)}
+    ${toggle('Lock past timesheets','Prevent edits to timesheet entries older than 7 days',false)}
+    ${row('Default billable rate','Hourly rate used in reports when no project rate is set','<div style="display:flex;align-items:center;gap:6px"><span style="color:var(--text2);font-size:13px">$</span><input class="s-inp" type="number" value="150" style="width:80px"> <span style="color:var(--text3);font-size:12px">/ hr</span></div>')}
+    ${row('Timesheet approval','Who must approve submitted timesheets','<select class="s-sel"><option>No approval required</option><option>Direct manager</option><option>Project admin</option></select>')}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">🏷 Activity types</div>
+    <div class="settings-section-sub">Labels users pick when logging time</div>
+    ${['Development','Design','Meetings','Research','QA & Testing','Client calls','Admin'].map(a=>`
+      <div class="settings-row">
+        <div class="settings-row-label">${a}</div>
+        <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>`).join('')}
+    <div style="margin-top:12px"><button class="btn ghost" style="font-size:12px">＋ Add activity type</button></div>
+  </div>`;
+}
+
+
+function settingsSpaces(){
+  const fmtDate=d=>d?new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'—';
+  return `<div class="settings-section">
+    <div class="settings-section-title">🏢 Spaces (Workspaces)</div>
+    <div class="settings-section-sub">
+      <span>Active <strong>${WORKSPACES.filter(w=>true).length}</strong> spaces</span>
+      <button class="btn" style="float:right;font-size:12px" onclick="openM('modal-workspace')">＋ New space</button>
+    </div>
+    <table class="spaces-table">
+      <thead><tr><th>Name</th><th>Members</th><th>Projects</th><th>Created</th><th></th></tr></thead>
+      <tbody>${WORKSPACES.map((ws,i)=>{
+        const members=USERS;
+        const projs=getWorkspaceProjects(ws.id);
+        return `<tr onclick="showWorkspace('${ws.id}')">
+          <td><div style="display:flex;align-items:center;gap:10px">
+            <div style="width:32px;height:32px;border-radius:8px;background:${ws.color}22;border:1px solid ${ws.color}44;display:flex;align-items:center;justify-content:center;font-size:16px">${ws.emoji}</div>
+            <div><div style="font-weight:600">${ws.name}</div><div style="font-size:11px;color:var(--text3)">${ws.desc||''}</div></div>
+          </div></td>
+          <td><div class="space-av-row">${members.slice(0,4).map(u=>`<div class="space-av" style="background:${u.color}">${ini(u.name)}</div>`).join('')}${members.length>4?`<div class="space-av" style="background:var(--surface3);color:var(--text2)">+${members.length-4}</div>`:''}</div></td>
+          <td style="color:var(--text2)">${projs.length}</td>
+          <td style="color:var(--text3);font-size:12px">${fmtDate(ws.createdAt||'2025-08-21')}</td>
+          <td><button class="icon-btn" onclick="event.stopPropagation();showWorkspace('${ws.id}')">→</button></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table>
+  </div>`;
+}
+
+function settingsRequestForms(){
+  const scMap={published:{c:'#22c993',l:'Published'},draft:{c:'#f59e4a',l:'Draft'},archived:{c:'#94a3b8',l:'Archived'}};
+  return `<div class="settings-section">
+    <div class="settings-section-title">📋 Request forms</div>
+    <div class="settings-section-sub">Forms that external users or team members can submit to create tasks or requests</div>
+    <div style="margin-bottom:14px"><button class="btn" onclick="showSettings('forms');showView('forms');renderFormsView()">Open Forms builder →</button></div>
+    <table class="user-table">
+      <thead><tr><th>Form</th><th>Type</th><th>Status</th><th>Responses</th><th></th></tr></thead>
+      <tbody>${FORMS.map(f=>{
+        const sc=scMap[f.status]||scMap.draft;
+        const resp=FORM_RESPONSES.filter(r=>r.formId===f.id).length;
+        return `<tr>
+          <td><div style="display:flex;align-items:center;gap:8px"><span style="font-size:18px">${f.emoji}</span><span style="font-weight:600">${f.name}</span></div></td>
+          <td style="color:var(--text2);font-size:12px;text-transform:capitalize">${f.type}</td>
+          <td><span class="role-badge" style="background:${sc.c}22;color:${sc.c};border:1px solid ${sc.c}44">${sc.l}</span></td>
+          <td style="color:var(--text2)">${resp}</td>
+          <td><button class="icon-btn" onclick="openPublicForm('${f.id}')">↗</button></td>
+        </tr>`;
+      }).join('')}</tbody>
+    </table>
+  </div>`;
+}
+
+function settingsItemTypes(){
+  return `<div class="settings-section">
+    <div class="settings-section-title">🧩 Custom item types</div>
+    <div class="settings-section-sub">Define the types of work items your team uses. Each type can have its own workflow and icon.</div>
+    <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-item-type')">＋ New item type</button></div>
+    ${ITEM_TYPES.map(t=>`
+      <div class="itype-row">
+        <div style="width:32px;height:32px;border-radius:8px;background:${t.color}22;border:1px solid ${t.color}44;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">${t.icon}</div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600">${t.name} ${t.isSystem?'<span style="font-size:9px;background:var(--surface3);border:1px solid var(--border2);border-radius:4px;padding:1px 5px;color:var(--text3)">System</span>':''}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">${t.desc} &nbsp;·&nbsp; Workflow: <span style="color:var(--accent)">${WORKFLOWS.find(w=>w.id===t.workflowId)?.name||'None'}</span></div>
+        </div>
+        <div style="display:flex;gap:6px">
+          <select class="s-sel" style="font-size:11px;padding:4px 6px" onchange="ITEM_TYPES.find(x=>x.id==='${t.id}').workflowId=this.value">
+            ${WORKFLOWS.map(w=>`<option value="${w.id}"${w.id===t.workflowId?' selected':''}>${w.name}</option>`).join('')}
+          </select>
+          ${!t.isSystem?`<button class="icon-btn red" onclick="ITEM_TYPES=ITEM_TYPES.filter(x=>x.id!=='${t.id}');renderSettings()">🗑</button>`:''}
+        </div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function settingsWorkflows(){
+  return `<div class="settings-section">
+    <div class="settings-section-title">🔀 Workflows</div>
+    <div class="settings-section-sub">Define status sequences for different types of work. Workflows control which transitions are allowed between statuses.</div>
+    <div style="margin-bottom:14px"><button class="btn" onclick="openWorkflowModal()">＋ New workflow</button></div>
+    ${WORKFLOWS.map(wf=>`
+      <div style="border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px;background:var(--surface2)">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+          <div>
+            <span style="font-size:14px;font-weight:700">${wf.name}</span>
+            ${wf.isDefault?'<span style="font-size:10px;background:var(--abg);color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:1px 6px;margin-left:6px">Default</span>':''}
+            <div style="font-size:11px;color:var(--text3);margin-top:2px">${wf.desc}</div>
+          </div>
+          <button class="btn ghost" style="font-size:12px" onclick="editWorkflow('${wf.id}')">Edit statuses</button>
+        </div>
+        <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px">
+          ${wf.statuses.map((s,i)=>`
+            <span class="wf-chip" style="background:${s.color}22;color:${s.color};border-color:${s.color}44">${s.name}</span>
+            ${i<wf.statuses.length-1?'<span class="wf-arrow">→</span>':''}`).join('')}
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:var(--text3)">Used by: ${ITEM_TYPES.filter(t=>t.workflowId===wf.id).map(t=>t.name).join(', ')||'No item types yet'}</div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function settingsCustomFields(){
+  const FIELD_ICONS={text:'T',number:'#',date:'📅',select:'▾',checkbox:'☑',url:'🔗'};
+  return `<div class="settings-section">
+    <div class="settings-section-title">🔧 Custom fields</div>
+    <div class="settings-section-sub">Global custom fields appear on all tasks across all projects</div>
+    <div style="margin-bottom:14px"><button class="btn" onclick="openCustomFieldModal()">＋ Add custom field</button></div>
+    <div class="cf-list">
+      ${CUSTOM_FIELDS.length?CUSTOM_FIELDS.map(cf=>`
+        <div class="cf-item">
+          <div class="cf-icon">${FIELD_ICONS[cf.type]||'?'}</div>
+          <div class="cf-info">
+            <div class="cf-name">${cf.name}</div>
+            <div class="cf-meta">${cf.type}${cf.options?.length?' · '+cf.options.join(', '):''}${cf.desc?' · '+cf.desc:''}</div>
+          </div>
+          <div class="cf-actions">
+            <button class="icon-btn" onclick="editCustomField('${cf.id}')">✏</button>
+            <button class="icon-btn red" onclick="deleteCustomField('${cf.id}')">🗑</button>
+          </div>
+        </div>`).join('')
+      :'<div style="color:var(--text3);font-size:13px">No custom fields yet.</div>'}
+    </div>
+  </div>`;
+}
+
+
+function settingsAutomation(){
+  const OOB=[
+    {icon:'🔄',title:'Auto-assign on status change',desc:'When a task moves to a specific status, automatically assign it to a designated team member'},
+    {icon:'📬',title:'Notify on overdue',desc:'When a due date passes without completion, notify the assignee and escalate priority to Critical'},
+    {icon:'📁',title:'Move task on completion',desc:'When status changes to Done, move the task to an archive folder and notify the creator'},
+    {icon:'🔁',title:'Recurring task creator',desc:'Automatically create a copy of a task on a set schedule (daily, weekly, monthly)'},
+    {icon:'⚠',title:'Blocked task alert',desc:'When a task is marked Blocked, notify the project admin and all dependent task owners'},
+    {icon:'📊',title:'Weekly summary',desc:'Every Monday morning, send a digest of open, overdue, and completed tasks to the team'},
+  ];
+  const userMap=Object.fromEntries(USERS.map(u=>[u.id,u.name]));
+  return `<div class="settings-section">
+    <div class="settings-section-title">⚡ Active automations</div>
+    <div class="settings-section-sub">Rules that run automatically. Triggers, conditions, and actions execute in order.</div>
+    <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-automation')">＋ Create custom automation</button></div>
+    ${AUTOMATIONS.map(a=>`
+      <div class="auto-row">
+        <div class="toggle${a.enabled?' on':''}" onclick="a=AUTOMATIONS.find(x=>x.id==='${a.id}');if(a)a.enabled=!a.enabled;renderSettings()"></div>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:13px;font-weight:600">${a.name}</div>
+          <div style="font-size:11px;color:var(--text3);margin-top:2px">
+            Trigger: <strong>${a.trigger.type.replace(/_/g,' ')}${a.trigger.to?' → '+a.trigger.to:''}</strong>
+            &nbsp;·&nbsp; Actions: ${a.actions.map(x=>x.type.replace(/_/g,' ')).join(' + ')}
+          </div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <span class="auto-badge" style="background:${a.enabled?'#10b98122':'#94a3b822'};color:${a.enabled?'#10b981':'#94a3b8'};border:1px solid ${a.enabled?'#10b98144':'#94a3b844'}">${a.enabled?'Active':'Paused'}</span>
+          <div style="font-size:10px;color:var(--text3);margin-top:3px">${a.triggerCount} runs this month</div>
+          <div style="font-size:10px;color:var(--text3)">By ${userMap[a.createdBy]||'Unknown'}</div>
+        </div>
+        <button class="icon-btn red" onclick="AUTOMATIONS=AUTOMATIONS.filter(x=>x.id!=='${a.id}');renderSettings()" style="flex-shrink:0">🗑</button>
+      </div>`).join('')}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">🚀 Quick-start templates</div>
+    <div class="settings-section-sub">Add a pre-built automation in one click, then customise as needed</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:4px">
+      ${OOB.map(o=>`
+        <div class="oob-card" onclick="addOobAutomation('${o.title}')">
+          <div class="oob-card-icon">${o.icon}</div>
+          <div class="oob-card-title">${o.title}</div>
+          <div class="oob-card-desc">${o.desc}</div>
+          <div style="margin-top:10px"><span style="font-size:11px;color:var(--accent);font-weight:600">＋ Add automation →</span></div>
+        </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function settingsSubscription(){
+  const features=[
+    ['Unlimited projects & tasks','✓'],['Up to 25 members','✓'],['Kanban, Table & Gantt views','✓'],
+    ['Custom fields','✓'],['Automations (50/month)','✓'],['Time tracking','✓'],
+    ['Request forms','✓'],['Priority support','✓'],['SSO / SAML','✗'],['Unlimited automations','✗'],['Advanced AI features','✗'],
+  ];
+  return `<div class="settings-section">
+    <div class="plan-card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <div>
+          <div style="font-size:20px;font-weight:800;color:var(--accent)">⭐ Pro Plan</div>
+          <div style="font-size:12px;color:var(--text3);margin-top:2px">30-day trial · Renews Jan 1 2027 · $49 / month</div>
+        </div>
+        <button class="btn" style="font-size:13px">Upgrade to Business</button>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+        ${features.map(([f,v])=>`
+          <div class="plan-feature">
+            <span class="ck" style="color:${v==='✓'?'var(--done)':'var(--text3)'}">${v}</span>
+            <span style="color:${v==='✓'?'var(--text)':'var(--text3)'}">${f}</span>
+          </div>`).join('')}
+      </div>
+    </div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">📦 Usage this period</div>
+    <div class="settings-section-sub">Resets on the 1st of each month</div>
+    ${[['Members','5 of 25 used',20],['Projects','3 of unlimited',0],['Automations triggered','40 of 50',80],['Storage','1.2 GB of 10 GB',12]].map(([label,sub,pct])=>`
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="font-weight:600">${label}</span><span style="color:var(--text3)">${sub}</span></div>
+        ${pct?`<div style="height:6px;background:var(--surface3);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:${pct>80?'var(--blocked)':'var(--accent)'};border-radius:3px"></div></div>`:''}
+      </div>`).join('')}
+  </div>`;
+}
+
+function settingsAiUsage(){
+  return `<div class="settings-section">
+    <div class="settings-section-title">🤖 AI features</div>
+    <div class="settings-section-sub">Toggle AI-powered features for your workspace</div>
+    ${toggle('Task summarisation','Auto-generate a plain-English summary of task details and comments',true)}
+    ${toggle('Smart auto-assign','Suggest assignees based on workload and past task patterns',false)}
+    ${toggle('Due date suggestions','Recommend due dates based on similar past tasks',false)}
+    ${toggle('Duplicate detection','Flag tasks that appear to be duplicates of existing items',true)}
+    ${toggle('Weekly AI digest','AI-written summary of project health sent every Monday',false)}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">📊 AI usage this month</div>
+    <div class="settings-section-sub">Each AI action consumes credits from your plan allowance</div>
+    ${[['Task summaries generated','34 of 500',7],['Auto-assign suggestions','12 of 500',2],['Digest emails sent','4 of 20',20]].map(([label,sub,pct])=>`
+      <div style="margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="font-weight:600">${label}</span><span style="color:var(--text3)">${sub}</span></div>
+        <div style="height:6px;background:var(--surface3);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:var(--accent);border-radius:3px"></div></div>
+      </div>`).join('')}
+  </div>`;
+}
+
+function settingsBilling(){
+  const invoices=[
+    {date:'Mar 1 2026',desc:'Pro Plan – March 2026',amount:'$49.00',status:'Paid'},
+    {date:'Feb 1 2026',desc:'Pro Plan – February 2026',amount:'$49.00',status:'Paid'},
+    {date:'Jan 1 2026',desc:'Pro Plan – January 2026',amount:'$49.00',status:'Paid'},
+  ];
+  return `<div class="settings-section">
+    <div class="settings-section-title">🏢 Billing details</div>
+    <div class="settings-section-sub">Company information shown on invoices</div>
+    ${row('Company name','',`<input class="s-inp" value="Team Nexus Inc." style="width:240px">`)}
+    ${row('Billing email','Invoices are sent here',`<input class="s-inp" type="email" value="billing@nexus.io" style="width:240px">`)}
+    ${row('Address','',`<input class="s-inp" value="123 Market St, San Francisco CA 94105" style="width:280px">`)}
+    ${row('Tax / VAT ID','Optional — printed on invoices',`<input class="s-inp" placeholder="e.g. US123456789" style="width:180px">`)}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">💳 Payment method</div>
+    <div class="settings-section-sub">Your card on file</div>
+    <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--surface2);border:1px solid var(--border);border-radius:10px;margin-bottom:12px">
+      <span style="font-size:22px">💳</span>
+      <div style="flex:1"><div style="font-size:13px;font-weight:600">Visa ending in 4242</div><div style="font-size:11px;color:var(--text3)">Expires 09/2028</div></div>
+      <button class="btn ghost" style="font-size:12px">Update</button>
+    </div>
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">🧾 Invoices</div>
+    <div class="settings-section-sub">Download past invoices as PDF</div>
+    <table class="user-table">
+      <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+      <tbody>${invoices.map(inv=>`<tr>
+        <td style="color:var(--text2)">${inv.date}</td>
+        <td>${inv.desc}</td>
+        <td style="font-weight:600">${inv.amount}</td>
+        <td><span class="role-badge" style="background:#10b98122;color:#10b981;border:1px solid #10b98144">${inv.status}</span></td>
+        <td><button class="icon-btn" onclick="alert('PDF download requires backend integration')">⬇</button></td>
+      </tr>`).join('')}</tbody>
+    </table>
+  </div>`;
+}
+
+function settingsGeneral(){
+  return `<div class="settings-section">
+    <div class="settings-section-title">🏢 Workspace</div>
+    <div class="settings-section-sub">General workspace configuration</div>
+    ${row('Workspace name','Shown in the header and emails',`<input class="s-inp" value="Team Nexus">`)}
+    ${row('Workspace URL','Your unique workspace identifier',`<input class="s-inp" value="team-nexus">`)}
+    ${row('Default view','Default project view for new members',`<select class="s-sel"><option>Kanban</option><option>Table</option><option>Gantt</option></select>`)}
+    ${row('Default timezone','Used for due-date display and reports',`<select class="s-sel"><option>UTC</option><option selected>Eastern Time (ET)</option><option>Pacific Time (PT)</option><option>Central European (CET)</option><option>India Standard Time (IST)</option></select>`)}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">📋 Audit log</div>
+    <div class="settings-section-sub">Recent workspace-level activity</div>
+    <table class="user-table">
+      <thead><tr><th>Action</th><th>User</th><th>Date</th></tr></thead>
+      <tbody>
+        <tr><td>Created project <strong>Website Revamp</strong></td><td>Alex Morgan</td><td style="color:var(--text3)">Today, 9:14 AM</td></tr>
+        <tr><td>Added member <strong>Casey Kim</strong></td><td>Alex Morgan</td><td style="color:var(--text3)">Yesterday, 3:42 PM</td></tr>
+        <tr><td>Changed role of <strong>Sam Rivera</strong> → External</td><td>Alex Morgan</td><td style="color:var(--text3)">Mar 25, 11:08 AM</td></tr>
+        <tr><td>Published form <strong>Project Intake</strong></td><td>Jamie Taylor</td><td style="color:var(--text3)">Mar 24, 2:30 PM</td></tr>
+        <tr><td>Created workflow <strong>Creative Workflow</strong></td><td>Alex Morgan</td><td style="color:var(--text3)">Mar 20, 10:00 AM</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="settings-section" style="border-color:rgba(239,68,68,.25)">
+    <div class="settings-section-title" style="color:var(--blocked)">⚠ Danger zone</div>
+    <div class="settings-section-sub">Irreversible actions — proceed with caution</div>
+    ${row('Delete workspace','Permanently delete this workspace and all data','<button class="btn danger" style="font-size:12px" onclick="alert(\'This action cannot be undone.\')">Delete workspace</button>')}
+  </div>`;
+}
+
+function settingsSecurity(){
+  return `<div class="settings-section">
+    <div class="settings-section-title">🔒 Authentication</div>
+    <div class="settings-section-sub">Control how members sign in to the workspace</div>
+    ${toggle('Require two-factor auth','All members must enable 2FA to access the workspace',false)}
+    ${toggle('SSO / SAML login','Enable single sign-on via your identity provider',false)}
+    ${row('Session timeout','Auto-logout after inactivity',`<select class="s-sel"><option>30 minutes</option><option>1 hour</option><option selected>8 hours</option><option>Never</option></select>`)}
+    ${row('Allowed email domains','Only emails from these domains can join','<input class="s-inp" placeholder="e.g. nexus.io, contractor.com" style="width:260px">')}
+  </div>
+  <div class="settings-section">
+    <div class="settings-section-title">🛡 Data & privacy</div>
+    <div class="settings-section-sub">Manage how workspace data is handled</div>
+    ${toggle('Guest access','Allow external users to view shared items without an account',true)}
+    ${toggle('Export data','Allow members to export tasks and project data',true)}
+    ${toggle('Activity tracking','Log member activity for audit purposes',true)}
+    ${row('Data retention','How long deleted items are kept before permanent removal',`<select class="s-sel"><option>30 days</option><option selected>90 days</option><option>1 year</option></select>`)}
+  </div>`;
+}
+
+
+// ═══════════════════════ SETTINGS HELPER FUNCTIONS ═══════════════════════
+
+// Shared input style helpers
 function row(label,sub,input){
   return `<div class="settings-row"><div><div class="settings-row-label">${label}</div><div class="settings-row-sub">${sub}</div></div>${input}</div>`;
 }
@@ -2203,10 +2775,180 @@ function toggle(label,sub,on){
   return `<div class="settings-row"><div><div class="settings-row-label">${label}</div><div class="settings-row-sub">${sub}</div></div>
     <div class="toggle${on?' on':''}" onclick="this.classList.toggle('on')"></div></div>`;
 }
+// Personal-prefs toggle (reads/writes to USER_PREFS)
+function ptoggle(label,sub,key){
+  const val=myPrefs().notifications[key];
+  return `<div class="settings-row"><div><div class="settings-row-label">${label}</div><div class="settings-row-sub">${sub}</div></div>
+    <div class="toggle${val?' on':''}" onclick="myPrefs().notifications['${key}']=!myPrefs().notifications['${key}'];this.classList.toggle('on')"></div></div>`;
+}
+function atoggle(label,sub,key){
+  const val=myPrefs().accessibility[key];
+  return `<div class="settings-row"><div><div class="settings-row-label">${label}</div><div class="settings-row-sub">${sub}</div></div>
+    <div class="toggle${val?' on':''}" onclick="myPrefs().accessibility['${key}']=!myPrefs().accessibility['${key}'];this.classList.toggle('on');applyAccessibility()"></div></div>`;
+}
 function togglePerm(role,perm,el){
   if(PERMISSIONS[role])PERMISSIONS[role][perm]=!PERMISSIONS[role][perm];
   el.classList.toggle('on');
 }
+
+// Accessibility appliers
+function applyFontSize(size){
+  document.body.classList.remove('fs-small','fs-large');
+  if(size==='small')document.body.classList.add('fs-small');
+  if(size==='large')document.body.classList.add('fs-large');
+}
+function applyContrast(mode){
+  document.body.classList.toggle('contrast-high',mode==='high');
+}
+function applyAccessibility(){
+  const a=myPrefs().accessibility;
+  applyFontSize(a.fontSize);
+  applyContrast(a.contrast);
+}
+
+// Work day toggle
+function toggleWorkDay(idx,el){
+  const p=myPrefs();
+  const i=p.workDays.indexOf(idx);
+  if(i>=0)p.workDays.splice(i,1);else p.workDays.push(idx);
+  el.classList.toggle('on');
+}
+
+// Vacation management
+function addVacation(){
+  const label=document.getElementById('vac-label')?.value.trim();
+  const start=document.getElementById('vac-start')?.value;
+  const end=document.getElementById('vac-end')?.value;
+  if(!label||!start||!end){alert('Please fill in all vacation fields.');return;}
+  myPrefs().vacations.push({id:'v'+Date.now(),start,end,label});
+  renderSettings();
+}
+function removeVacation(idx){
+  myPrefs().vacations.splice(idx,1);
+  renderSettings();
+}
+
+// Schedule management
+function editSchedule(id){
+  const s=WORK_SCHEDULES.find(x=>x.id===id);if(!s)return;
+  alert('Schedule editor coming soon — will allow editing holidays, work days, and hours for "'+s.name+'"');
+}
+function deleteSchedule(id){
+  if(!confirm('Delete this schedule?'))return;
+  WORK_SCHEDULES=WORK_SCHEDULES.filter(x=>x.id!==id);
+  renderSettings();
+}
+
+// Workflow modal
+function openWorkflowModal(id){
+  const wf=id?WORKFLOWS.find(w=>w.id===id):null;
+  const statuses=wf?wf.statuses:[
+    {id:'new_s1',name:'To Do',color:'#94a3b8',transitions:['new_s2']},
+    {id:'new_s2',name:'In Progress',color:'#2563eb',transitions:['new_s3']},
+    {id:'new_s3',name:'Done',color:'#10b981',transitions:[]},
+  ];
+  document.getElementById('modal-workflow-body').innerHTML=`
+    <div class="field"><label>Workflow name</label><input id="wf-name" class="s-inp" value="${wf?wf.name:''}" placeholder="e.g. Marketing Campaign"/></div>
+    <div class="field"><label>Description</label><input id="wf-desc" class="s-inp" value="${wf?wf.desc:''}" placeholder="What kind of work is this for?"/></div>
+    <div class="field"><label>Statuses <span style="font-size:11px;color:var(--text3)">(drag to reorder, click × to remove)</span></label>
+      <div id="wf-status-list">${statuses.map((s,i)=>`
+        <div class="wf-status-row" data-id="${s.id}">
+          <input type="color" value="${s.color}" style="width:28px;height:28px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="this.nextElementSibling.style.background=this.value">
+          <div class="wf-dot" style="background:${s.color}"></div>
+          <input class="s-inp" value="${s.name}" style="flex:1;min-width:80px" placeholder="Status name">
+          ${statuses.length>2?`<button class="icon-btn red" onclick="this.closest('.wf-status-row').remove()">✕</button>`:''}
+        </div>`).join('')}
+      </div>
+      <button class="btn ghost" style="font-size:12px;margin-top:8px" onclick="addWfStatus()">＋ Add status</button>
+    </div>`;
+  document.getElementById('wf-save-btn').onclick=()=>saveWorkflow(id);
+  openM('modal-workflow');
+}
+function editWorkflow(id){openWorkflowModal(id);}
+function addWfStatus(){
+  const list=document.getElementById('wf-status-list');
+  const div=document.createElement('div');div.className='wf-status-row';div.dataset.id='ns'+Date.now();
+  div.innerHTML=`<input type="color" value="#8b5cf6" style="width:28px;height:28px;border:none;border-radius:6px;cursor:pointer;padding:2px" onchange="this.nextElementSibling.style.background=this.value"><div class="wf-dot" style="background:#8b5cf6"></div><input class="s-inp" value="New status" style="flex:1;min-width:80px"><button class="icon-btn red" onclick="this.closest('.wf-status-row').remove()">✕</button>`;
+  list.appendChild(div);
+}
+function saveWorkflow(existingId){
+  const name=document.getElementById('wf-name').value.trim();if(!name)return;
+  const desc=document.getElementById('wf-desc').value.trim();
+  const rows=[...document.getElementById('wf-status-list').querySelectorAll('.wf-status-row')];
+  const statuses=rows.map(r=>{
+    const color=r.querySelector('input[type=color]').value;
+    const sname=r.querySelector('input[type=text],input:not([type=color])').value.trim();
+    return {id:r.dataset.id,name:sname,color,transitions:[]};
+  });
+  // auto-wire linear transitions
+  statuses.forEach((s,i)=>{if(i<statuses.length-1)s.transitions=[statuses[i+1].id];});
+  if(existingId){
+    const wf=WORKFLOWS.find(w=>w.id===existingId);
+    if(wf){wf.name=name;wf.desc=desc;wf.statuses=statuses;}
+  } else {
+    WORKFLOWS.push({id:'wf'+Date.now(),name,desc,isDefault:false,statuses});
+  }
+  closeM('modal-workflow');renderSettings();
+}
+
+// Automation modal
+function addOobAutomation(title){
+  AUTOMATIONS.push({id:'auto'+Date.now(),name:title,enabled:true,
+    trigger:{type:'status_change',to:'Done'},conditions:[],
+    actions:[{type:'notify',target:'assignee'}],
+    createdBy:USERS[0].id,createdAt:new Date().toISOString().slice(0,10),triggerCount:0});
+  renderSettings();
+}
+
+// Item type modal
+function openItemTypeModal(){
+  document.getElementById('modal-item-type-body').innerHTML=`
+    <div class="field"><label>Name</label><input id="itype-name" class="s-inp" placeholder="e.g. Epic"/></div>
+    <div class="field"><label>Icon</label><input id="itype-icon" class="s-inp" value="📌" style="width:60px"/></div>
+    <div class="field"><label>Colour</label><input id="itype-color" type="color" value="#8b5cf6" style="width:60px;height:36px;border:none;border-radius:8px;cursor:pointer"/></div>
+    <div class="field"><label>Description</label><input id="itype-desc" class="s-inp" placeholder="What kind of work does this represent?"/></div>
+    <div class="field"><label>Default workflow</label>
+      <select id="itype-wf" class="s-sel" style="width:100%">
+        ${WORKFLOWS.map(w=>`<option value="${w.id}">${w.name}</option>`).join('')}
+      </select>
+    </div>`;
+  openM('modal-item-type');
+}
+function saveItemType(){
+  const name=document.getElementById('itype-name').value.trim();if(!name)return;
+  ITEM_TYPES.push({id:'itype_'+Date.now(),name,icon:document.getElementById('itype-icon').value||'📌',
+    color:document.getElementById('itype-color').value,isSystem:false,
+    workflowId:document.getElementById('itype-wf').value,
+    desc:document.getElementById('itype-desc').value});
+  closeM('modal-item-type');renderSettings();
+}
+
+// Work schedule modal
+function openScheduleModal(){
+  document.getElementById('modal-schedule-body').innerHTML=`
+    <div class="field"><label>Schedule name</label><input id="sched-name" class="s-inp" placeholder="e.g. India Team"/></div>
+    <div class="field"><label>Timezone</label>
+      <select id="sched-tz" class="s-sel" style="width:100%">
+        ${['America/New_York','America/Chicago','America/Los_Angeles','Europe/London','Europe/Paris','Asia/Kolkata','Asia/Tokyo','Australia/Sydney'].map(tz=>`<option value="${tz}">${tz}</option>`).join('')}
+      </select>
+    </div>
+    <div class="field" style="display:flex;gap:10px">
+      <div style="flex:1"><label>Start time</label><input id="sched-start" type="time" class="s-inp" value="09:00"/></div>
+      <div style="flex:1"><label>End time</label><input id="sched-end" type="time" class="s-inp" value="17:00"/></div>
+    </div>`;
+  openM('modal-schedule');
+}
+function saveSchedule(){
+  const name=document.getElementById('sched-name').value.trim();if(!name)return;
+  WORK_SCHEDULES.push({id:'sched'+Date.now(),name,isDefault:false,
+    timezone:document.getElementById('sched-tz').value,
+    workDays:[1,2,3,4,5],
+    workHours:{start:document.getElementById('sched-start').value,end:document.getElementById('sched-end').value},
+    assignedTo:[],holidays:[]});
+  closeM('modal-schedule');renderSettings();
+}
+
+
 
 function editUser(id){
   const u=USERS.find(x=>x.id===id);if(!u)return;
