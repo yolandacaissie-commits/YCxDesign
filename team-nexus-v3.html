@@ -579,6 +579,33 @@ body.nav-closed .nav-overlay{display:block}
 .stub-ds-row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;justify-content:center}
 .stub-ds-btn{padding:6px 14px;border:1px solid var(--border2);border-radius:12px;background:var(--surface);font-size:12px;color:var(--text2);cursor:pointer;transition:.15s}
 .stub-ds-btn:hover,.stub-ds-btn.on{border-color:var(--accent);color:var(--accent);background:var(--abg)}
+
+/* ── LOGIN SCREEN ── */
+#login-screen{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;align-items:center;justify-content:center;transition:opacity .4s ease,visibility .4s ease}
+#login-screen.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.login-bg{position:absolute;inset:0;opacity:.35;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='800'%3E%3Cpath d='M0 400 Q200 320 400 400 T800 400' fill='none' stroke='%231AA6B7' stroke-width='1.5' opacity='.6'/%3E%3Cpath d='M0 350 Q200 270 400 350 T800 350' fill='none' stroke='%231AA6B7' stroke-width='1' opacity='.4'/%3E%3Cpath d='M0 300 Q200 220 400 300 T800 300' fill='none' stroke='%231AA6B7' stroke-width='1' opacity='.3'/%3E%3Cpath d='M0 450 Q200 370 400 450 T800 450' fill='none' stroke='%231AA6B7' stroke-width='1' opacity='.4'/%3E%3Cpath d='M0 500 Q200 420 400 500 T800 500' fill='none' stroke='%231AA6B7' stroke-width='1' opacity='.3'/%3E%3Cpath d='M0 250 Q200 170 400 250 T800 250' fill='none' stroke='%231AA6B7' stroke-width='.8' opacity='.25'/%3E%3Cpath d='M0 550 Q200 470 400 550 T800 550' fill='none' stroke='%231AA6B7' stroke-width='.8' opacity='.25'/%3E%3Cpath d='M0 200 Q200 120 400 200 T800 200' fill='none' stroke='%231AA6B7' stroke-width='.6' opacity='.18'/%3E%3Cpath d='M0 600 Q200 520 400 600 T800 600' fill='none' stroke='%231AA6B7' stroke-width='.6' opacity='.18'/%3E%3C/svg%3E");background-size:cover;pointer-events:none}
+.login-firefly{position:absolute;width:3px;height:3px;border-radius:50%;background:rgba(90,210,201,.9);animation:firefly 2s ease-in-out infinite;pointer-events:none}
+.login-card{position:relative;z-index:1;background:var(--surface);border:1px solid var(--border2);border-radius:20px;padding:44px 40px;width:100%;max-width:420px;box-shadow:0 8px 40px rgba(11,114,133,.12)}
+.login-logo-row{display:flex;align-items:center;gap:10px;margin-bottom:32px;justify-content:center}
+.login-brand{font-family:'Lora',Georgia,serif;font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.3px}
+.login-brand span{color:var(--accent)}
+.login-heading{font-family:'Lora',Georgia,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:6px;text-align:center}
+.login-sub{font-size:13px;color:var(--text2);text-align:center;margin-bottom:28px}
+.login-field{margin-bottom:16px}
+.login-field label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;letter-spacing:.3px;text-transform:uppercase}
+.login-inp{width:100%;padding:11px 14px;border:1.5px solid var(--border2);border-radius:10px;background:var(--surface2);color:var(--text);font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;transition:.15s}
+.login-inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,166,183,.12)}
+.login-btn{width:100%;padding:12px;background:linear-gradient(135deg,#1AA6B7,#5AD2C9);border:none;border-radius:10px;color:#0B1320;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer;transition:opacity .15s,transform .1s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+.login-btn:hover{opacity:.92}
+.login-btn:active{transform:scale(.99)}
+.login-err{color:#ef4444;font-size:12px;text-align:center;margin-top:8px;min-height:18px}
+.login-divider{display:flex;align-items:center;gap:12px;margin:22px 0 18px;color:var(--text3);font-size:12px}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.login-demos{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.login-demo-btn{padding:6px 12px;border:1px solid var(--border2);border-radius:8px;background:var(--surface2);color:var(--text2);font-size:11px;font-weight:500;cursor:pointer;transition:.12s;font-family:inherit}
+.login-demo-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--abg)}
+.login-demo-btn .demo-role{font-size:10px;color:var(--text3);display:block;margin-top:1px}
+
 </style>
 </head>
 <body>
@@ -1048,6 +1075,7 @@ let USERS=[
   {id:3,name:'Sam Rivera',    email:'sam@nexus.io',       color:'#8b5cf6',role:'external'},
   {id:4,name:'Casey Kim',     email:'casey@nexus.io',     color:'#5AD2C9',role:'contributor'},
   {id:5,name:'Riley Park',    email:'riley@nexus.io',     color:'#94a3b8',role:'viewer'},
+  {id:6,name:'Yolanda Caissie', email:'yolanda.c@decisionfoundry.com', color:'#1AA6B7',role:'admin'},
 ];
 
 // Shared custom fields (global, shown in all projects)
@@ -3582,15 +3610,65 @@ function addLocation(){
   openTask(curTask.id);
 }
 
+
+// ═══════════════════════ LOGIN ═══════════════════════
+const DEMO_PASSWORDS = {}; // password: "demo1234" for all users in demo
+
+function loginSubmit(){
+  const email = document.getElementById('login-email').value.trim().toLowerCase();
+  const pw    = document.getElementById('login-pw').value;
+  const errEl = document.getElementById('login-err');
+  if(!email){ errEl.textContent='Please enter your email address.'; return; }
+  const user = USERS.find(u => u.email.toLowerCase() === email);
+  if(!user){ errEl.textContent='No account found for that email address.'; return; }
+  if(pw && pw !== 'demo1234'){ errEl.textContent='Incorrect password. (Demo hint: demo1234)'; return; }
+  errEl.textContent='';
+  loginAs(user.id);
+}
+
+function loginAs(userId){
+  const idx = USERS.findIndex(u => u.id === userId);
+  if(idx < 0) return;
+  if(idx > 0){
+    const u = USERS.splice(idx, 1)[0];
+    USERS.unshift(u);
+  }
+  // Update nav user display
+  const u = USERS[0];
+  document.getElementById('nav-user-av').style.background = u.color;
+  document.getElementById('nav-user-av').textContent = ini(u.name);
+  document.getElementById('nav-user-name').textContent = u.name;
+  document.getElementById('nav-user-role').textContent = USER_TYPES[u.role]?.label || u.role;
+  // Hide login screen
+  document.getElementById('login-screen').classList.add('hidden');
+  // Show app
+  showHome();
+  renderNavWorkspaces();
+  renderNavPinned();
+}
+
+function renderLoginDemos(){
+  const el = document.getElementById('login-demos');
+  if(!el) return;
+  el.innerHTML = USERS.map(u => `
+    <button class="login-demo-btn" onclick="loginAs(${u.id})">
+      <span>${u.name}</span>
+      <span class="demo-role">${USER_TYPES[u.role]?.label || u.role}</span>
+    </button>`).join('');
+}
+
+// Pre-fill Yolanda's email if she's been "invited"
+document.getElementById('login-email').value = 'yolanda.c@decisionfoundry.com';
+renderLoginDemos();
+
 // ═══════════════════════ INIT ═══════════════════════
 // Keyboard shortcut: Ctrl+K
 document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openCmd();}
 });
 
-showHome();
-renderNavWorkspaces();
-renderNavPinned();
+// showHome() is called by loginAs() after authentication
+// Initial demo accounts are rendered by renderLoginDemos() above
 </script>
 </body>
 </html>
