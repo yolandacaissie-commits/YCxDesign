@@ -611,6 +611,42 @@ body.nav-closed .nav-overlay{display:block}
 <body>
 
 <!-- HAMBURGER (visible when nav closed) -->
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-bg"></div>
+  <div class="login-firefly" style="left:15%;top:30%;animation-delay:0s;animation-duration:2.2s"></div><div class="login-firefly" style="left:72%;top:20%;animation-delay:0.4s;animation-duration:2.8s"></div><div class="login-firefly" style="left:30%;top:65%;animation-delay:0.8s;animation-duration:2.0s"></div><div class="login-firefly" style="left:85%;top:55%;animation-delay:1.1s;animation-duration:2.5s"></div><div class="login-firefly" style="left:50%;top:40%;animation-delay:0.3s;animation-duration:2.6s"></div><div class="login-firefly" style="left:20%;top:75%;animation-delay:1.5s;animation-duration:2.1s"></div><div class="login-firefly" style="left:60%;top:25%;animation-delay:0.7s;animation-duration:2.9s"></div><div class="login-firefly" style="left:40%;top:80%;animation-delay:1.2s;animation-duration:2.3s"></div>
+  <div class="login-card">
+    <div class="login-logo-row">
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
+  <defs><linearGradient id="bgg2" x1="0" y1="0" x2="36" y2="36" gradientUnits="userSpaceOnUse"><stop stop-color="#1AA6B7"/><stop offset="1" stop-color="#5AD2C9"/></linearGradient></defs>
+  <rect width="36" height="36" rx="10" fill="url(#bgg2)"/>
+  <rect x="7" y="20" width="5" height="10" rx="2" fill="white"/>
+  <rect x="15" y="13" width="5" height="17" rx="2" fill="white" opacity=".85"/>
+  <rect x="23" y="7" width="5" height="23" rx="2" fill="white" opacity=".7"/>
+  <path d="M9.5 20 Q18 10 25.5 7" stroke="#CFF7F2" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+</svg>
+      <div class="login-brand">YC<span>×</span>Design</div>
+    </div>
+    <div class="login-heading">Welcome back</div>
+    <div class="login-sub">Sign in to your workspace</div>
+    <div class="login-field">
+      <label>Email address</label>
+      <input class="login-inp" id="login-email" type="email" placeholder="you@company.com" autocomplete="email" onkeydown="if(event.key==='Enter')loginSubmit()">
+    </div>
+    <div class="login-field">
+      <label>Password</label>
+      <input class="login-inp" id="login-pw" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')loginSubmit()">
+    </div>
+    <button class="login-btn" onclick="loginSubmit()">
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:#0B1320;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Sign in
+    </button>
+    <div class="login-err" id="login-err"></div>
+    <div class="login-divider">or sign in as a demo user</div>
+    <div class="login-demos" id="login-demos"></div>
+  </div>
+</div>
+
 <button class="hamburger" id="hamburger" onclick="toggleNav()" title="Open menu">☰</button>
 <div class="nav-overlay" onclick="toggleNav()"></div>
 
