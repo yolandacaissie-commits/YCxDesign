@@ -331,7 +331,11 @@ tr.row-expanded td:first-child{border-left:2px solid var(--accent)}
 .settings-nav-item{padding:7px 14px;cursor:pointer;font-size:13px;font-weight:500;color:var(--text2);transition:.12s;display:flex;align-items:center;gap:8px;border-radius:0}
 .settings-nav-item:hover{background:rgba(11,114,133,0.04);color:var(--text)}
 .settings-nav-item.active{background:rgba(26,166,183,0.14);color:var(--accent);font-weight:600;border-right:2px solid var(--accent)}
-.settings-nav-item .nav-icon{width:18px;text-align:center;font-size:14px;flex-shrink:0}
+.settings-nav-item .nav-icon{width:18px;height:18px;text-align:center;font-size:14px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+/* Settings sidebar SVG icon sizing */
+.settings-sidebar-section svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.settings-nav-item .nav-icon svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
 .settings-content{flex:1;min-width:0;overflow-y:auto;padding:24px 28px}
 /* settings section cards */
 .settings-section{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:20px}
@@ -613,10 +617,10 @@ body.nav-closed .nav-overlay{display:block}
       <div class="nav-more-panel" id="nav-more-panel">
         <div class="nav-item" style="font-size:12px" onclick="showStub('Workload','👥','See team capacity across all workspaces.')"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Workload</div>
         <div class="nav-item" style="font-size:12px"><span class="nav-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Created by me</div>
-        <div class="nav-item" style="font-size:12px"><span class="nav-icon" style="font-size:13px">💬</span>Stream</div>
+        <div class="nav-item" style="font-size:12px"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Stream</div>
         <div class="nav-item" style="font-size:12px"><span class="nav-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Starred tasks</div>
         <div class="nav-div"></div>
-        <div class="nav-item" style="font-size:12px" onclick="showSettings()"><span class="nav-icon" style="font-size:13px">⚙️</span>Customize menu</div>
+        <div class="nav-item" style="font-size:12px" onclick="showSettings()"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Customize menu</div>
       </div>
     </div>
 
@@ -637,7 +641,7 @@ body.nav-closed .nav-overlay{display:block}
     <div id="nav-workspaces"></div>
     <div class="nav-add-ws" onclick="openM('modal-workspace')">＋ New Workspace</div>
     <div class="nav-div"></div>
-    <div class="nav-item" onclick="showSettings()"><span class="nav-icon">⚙️</span>Settings</div>
+    <div class="nav-item" onclick="showSettings()"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Settings</div>
   </div>
 
   <!-- Footer / User -->
@@ -687,7 +691,7 @@ body.nav-closed .nav-overlay{display:block}
           <button class="zbtn" onclick="setZoom(14,this)">3M</button>
         </div>
         <button class="tbtn" onclick="goToday()">📍 Today</button>
-        <button class="tbtn" id="g-col-btn" onclick="toggleColPanel('gantt')">⚙ Columns</button>
+        <button class="tbtn" id="g-col-btn" onclick="toggleColPanel('gantt')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Columns</button>
         <div style="flex:1"></div>
         <div class="g-legend">
           <span><span style="color:var(--done)">●</span> Done</span>
@@ -718,7 +722,7 @@ body.nav-closed .nav-overlay{display:block}
 <!-- COLUMN SETTINGS PANEL (shared, floating above nav) -->
 <div class="col-panel" id="col-panel">
   <div class="col-panel-head">
-    <span class="col-panel-title">⚙ Column visibility</span>
+    <span class="col-panel-title"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Column visibility</span>
     <button class="icon-btn" onclick="closeColPanel()">✕</button>
   </div>
   <div id="col-panel-body"></div>
@@ -800,7 +804,7 @@ body.nav-closed .nav-overlay{display:block}
     <span class="sec-lbl">📝 Description</span>
     <textarea class="desc-area" id="d-desc" rows="3" placeholder="Add a description..." onblur="saveF('description',this.value)"></textarea>
     <div class="tabs">
-      <div class="tab on" id="tab-c" onclick="switchTab('c')">💬 Comments</div>
+      <div class="tab on" id="tab-c" onclick="switchTab('c')"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:3px"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Comments</div>
       <div class="tab" id="tab-h" onclick="switchTab('h')">🕑 History</div>
     </div>
     <div id="pane-c">
@@ -876,7 +880,7 @@ body.nav-closed .nav-overlay{display:block}
 <!-- WORKSPACE MODAL -->
 <div class="modal-bg" id="modal-workspace">
   <div class="modal">
-    <div class="modal-title">🏢 New Workspace</div>
+    <div class="modal-title"><span class="nav-icon" style="display:inline-flex;margin-right:4px"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>New Workspace</div>
     <div class="field"><label>Workspace Name</label><input id="ws-name" placeholder="e.g. Product Team"/></div>
     <div class="field"><label>Description</label><input id="ws-desc" placeholder="What does this workspace cover?"/></div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-workspace')">Cancel</button><button class="btn" onclick="createWorkspace()">Create</button></div>
@@ -938,7 +942,7 @@ body.nav-closed .nav-overlay{display:block}
 <!-- FOLDER MODAL -->
 <div class="modal-bg" id="modal-folder">
   <div class="modal">
-    <div class="modal-title">📁 New Folder</div>
+    <div class="modal-title"><span class="nav-icon" style="display:inline-flex;margin-right:4px"><svg viewBox="0 0 24 24"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span>New Folder</div>
     <div class="field"><label>Folder Name</label><input id="fl-name" placeholder="e.g. Website Projects"/></div>
     <div class="field"><label>Workspace</label>
       <select id="fl-ws" class="meta-sel" style="width:100%;padding:6px 8px"></select>
@@ -999,7 +1003,7 @@ let FOLDERS=[
 
 let PINNED=[
   {type:'project',id:'p1',label:'Corporate Website Revamp',icon:'🌐'},
-  {type:'workspace',id:'ws2',label:'Design',icon:'🎨'},
+  {type:'workspace',id:'ws2',label:'Design',icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="14" r="1" fill="currentColor"/><circle cx="12" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="14" r="1" fill="currentColor"/></svg>'},
 ];
 
 let TIMESHEET_ENTRIES=[
@@ -1086,7 +1090,7 @@ let WORK_SCHEDULES=[
 let ITEM_TYPES=[
   {id:'itype_task',name:'Task',icon:'✅',color:'#1AA6B7',isSystem:true,workflowId:'wf1',desc:'Standard work item'},
   {id:'itype_bug',name:'Bug',icon:'🐛',color:'#ef4444',isSystem:false,workflowId:'wf2',desc:'Defect or unexpected behaviour'},
-  {id:'itype_feature',name:'Feature',icon:'⭐',color:'#8b5cf6',isSystem:false,workflowId:'wf1',desc:'New capability or enhancement'},
+  {id:'itype_feature',name:'Feature',icon:'<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>',color:'#8b5cf6',isSystem:false,workflowId:'wf1',desc:'New capability or enhancement'},
   {id:'itype_epic',name:'Epic',icon:'🚀',color:'#f59e4a',isSystem:false,workflowId:'wf1',desc:'Large body of work spanning multiple tasks'},
   {id:'itype_story',name:'Story',icon:'📖',color:'#5AD2C9',isSystem:false,workflowId:'wf1',desc:'User-facing narrative or requirement'},
 ];
@@ -1227,23 +1231,23 @@ function renderNavWorkspaces(){
   c.innerHTML=WORKSPACES.map(ws=>`
     <div class="ws-nav-group">
       <div class="ws-nav-head${curWorkspaceId===ws.id&&!curProjectId?' active':''}" onclick="toggleWsNav('${ws.id}')">
-        <span style="font-size:15px">${ws.emoji}</span>
+        <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
         <span style="flex:1;overflow:hidden;text-overflow:ellipsis">${ws.name}</span>
         <span class="ws-chevron${ws.expanded?' open':''}">›</span>
       </div>
       ${ws.expanded?`<div class="ws-nav-children">
         ${getFolders(ws.id).map(fl=>`
           <div class="ws-child" onclick="openFolder('${ws.id}','${fl.id}')">
-            <span>📁</span><span style="overflow:hidden;text-overflow:ellipsis">${fl.name}</span>
+            <span class="nav-icon" style="width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></span><span style="overflow:hidden;text-overflow:ellipsis">${fl.name}</span>
           </div>
           ${getProjectsInFolder(fl.id).map(p=>`
             <div class="ws-child ws-child-proj${curProjectId===p.id?' active':''}" onclick="openProject('${p.id}')">
-              <span>${p.emoji||'📋'}</span><span style="overflow:hidden;text-overflow:ellipsis">${p.name}</span>
+              <span class="nav-icon" style="width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><span style="overflow:hidden;text-overflow:ellipsis">${p.name}</span>
             </div>`).join('')}
         `).join('')}
         ${getProjectsInWorkspaceNoFolder(ws.id).map(p=>`
           <div class="ws-child${curProjectId===p.id?' active':''}" onclick="openProject('${p.id}')">
-            <span>${p.emoji||'📋'}</span><span style="overflow:hidden;text-overflow:ellipsis">${p.name}</span>
+            <span class="nav-icon" style="width:14px;height:14px;flex-shrink:0"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><span style="overflow:hidden;text-overflow:ellipsis">${p.name}</span>
           </div>`).join('')}
         <div class="ws-child" style="color:var(--text3);font-style:italic" onclick="showWorkspace('${ws.id}')">
           <span>···</span><span>View all</span>
@@ -1271,7 +1275,7 @@ function showWorkspace(wsId){
   navActive(null);
   setTopbar(ws.name,ws.desc||'Workspace',[
     `<button class="btn" onclick="openM('modal-proj')">＋ Project</button>`,
-    `<button class="btn ghost" onclick="openFolderModal('${wsId}')">📁 Folder</button>`,
+    `<button class="btn ghost" onclick="openFolderModal('${wsId}')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Folder</button>`,
   ]);
   showView('workspace');renderWorkspace(wsId);renderNavWorkspaces();closeDetail();closeColPanel();
   closeNavIfMobile();
@@ -1283,23 +1287,23 @@ function renderWorkspace(wsId){
   const looseProjets=getProjectsInWorkspaceNoFolder(wsId);
   const el=document.getElementById('view-workspace');
   el.innerHTML=`
-    <div class="ws-bc"><span class="ws-bc-link" onclick="showHome()">Home</span> <span>›</span> <span>${ws.emoji} ${ws.name}</span></div>
+    <div class="ws-bc"><span class="ws-bc-link" onclick="showHome()">Home</span> <span>›</span> <span>${ws.name}</span></div>
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-      <div style="font-size:26px">${ws.emoji}</div>
+      <div style="width:44px;height:44px;border-radius:12px;background:var(--abg);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0"><svg viewBox="0 0 24 24" style="width:22px;height:22px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <div>
         <div style="font-size:18px;font-weight:700">${ws.name}</div>
         <div style="font-size:12px;color:var(--text3)">${ws.desc||''}</div>
       </div>
     </div>
     <div class="ws-tools-bar">
-      <div class="ws-tool-btn" onclick="showStub('Calendar','📅','View tasks and deadlines in calendar format.')"><span>📅</span>Calendar</div>
-      <div class="ws-tool-btn" onclick="showStub('Dashboard','🔲','Visual KPI dashboard for this workspace.')"><span>🔲</span>Dashboard</div>
-      <div class="ws-tool-btn" onclick="showStub('Reports','📊','Reporting and analytics for this workspace.')"><span>📊</span>Reports</div>
-      <div class="ws-tool-btn" onclick="showTimesheets()"><span>⏱</span>Timesheets</div>
-      <div class="ws-tool-btn" onclick="showSettings()"><span>⚙️</span>Workspace Settings</div>
+      <div class="ws-tool-btn" onclick="showStub('Calendar','📅','View tasks and deadlines in calendar format.')"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg></span>Calendar</div>
+      <div class="ws-tool-btn" onclick="showStub('Dashboard','🔲','Visual KPI dashboard for this workspace.')"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span>Dashboard</div>
+      <div class="ws-tool-btn" onclick="showStub('Reports','📊','Reporting and analytics for this workspace.')"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>Reports</div>
+      <div class="ws-tool-btn" onclick="showTimesheets()"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Timesheets</div>
+      <div class="ws-tool-btn" onclick="showSettings()"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Workspace Settings</div>
     </div>
     ${folders.length?`
-      <div class="home-sec-title" style="margin-top:8px">📁 Folders</div>
+      <div class="home-sec-title" style="margin-top:8px"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Folders</div>
       <div class="ws-grid" style="margin-bottom:20px">
         ${folders.map(fl=>{
           const pCount=getProjectsInFolder(fl.id).length;
@@ -1311,7 +1315,7 @@ function renderWorkspace(wsId){
           </div>`;
         }).join('')}
       </div>`:''}
-    <div class="home-sec-title">📋 Projects</div>
+    <div class="home-sec-title"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>Projects</div>
     ${getWorkspaceProjects(wsId).length?`
       <div class="ws-grid">
         ${getWorkspaceProjects(wsId).map(p=>{
@@ -1320,7 +1324,7 @@ function renderWorkspace(wsId){
           const loc=p.locations.find(l=>l.workspaceId===wsId);
           const folder=loc?.folderId?FOLDERS.find(f=>f.id===loc.folderId):null;
           return `<div class="ws-card" onclick="openProject('${p.id}')">
-            <div class="ws-card-tag">${folder?`📁 ${folder.name}`:'No folder'}${p.locations.find(l=>l.isHome&&l.workspaceId===wsId)?'<span style="margin-left:6px;font-size:9px;background:var(--abg);color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 4px">HOME</span>':''}</div>
+            <div class="ws-card-tag">${folder?`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>${folder.name}`:'No folder'}${p.locations.find(l=>l.isHome&&l.workspaceId===wsId)?'<span style="margin-left:6px;font-size:9px;background:var(--abg);color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 4px">HOME</span>':''}</div>
             <div class="ws-card-icon">${p.emoji||'📋'}</div>
             <div class="ws-card-name">${p.name}</div>
             <div class="ws-card-meta">${taskCount} tasks · ${doneCount} done</div>
@@ -1340,14 +1344,14 @@ function openFolder(wsId,folderId){
   const ws=WORKSPACES.find(w=>w.id===wsId);
   if(!folder||!ws)return;
   curWorkspaceId=wsId;curProjectId=null;curView='workspace';
-  setTopbar(folder.name,`${ws.emoji} ${ws.name}`,[`<button class="btn" onclick="openM('modal-proj')">＋ Project</button>`]);
+  setTopbar(folder.name,`${ws.name}`,[`<button class="btn" onclick="openM('modal-proj')">＋ Project</button>`]);
   showView('workspace');closeDetail();
   const projects=getProjectsInFolder(folderId);
   document.getElementById('view-workspace').innerHTML=`
     <div class="ws-bc">
       <span class="ws-bc-link" onclick="showHome()">Home</span> <span>›</span>
-      <span class="ws-bc-link" onclick="showWorkspace('${wsId}')">${ws.emoji} ${ws.name}</span>
-      <span>›</span> <span>${folder.emoji||'📁'} ${folder.name}</span>
+      <span class="ws-bc-link" onclick="showWorkspace('${wsId}')">${ws.name}</span>
+      <span>›</span> <span>${folder.name}</span>
     </div>
     <div class="ws-grid">
       ${projects.map(p=>`
@@ -1396,7 +1400,7 @@ function renderNavPinned(){
   if(!PINNED.length){c.innerHTML=`<div style="padding:4px 12px;font-size:11px;color:var(--text3);font-style:italic">Nothing pinned yet</div>`;return;}
   c.innerHTML=PINNED.map(p=>`
     <div class="nav-pin-item" onclick="${p.type==='project'?`openProject('${p.id}')`:`showWorkspace('${p.id}')`}">
-      <span style="font-size:13px">${p.icon}</span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="17" x2="12" y2="22"/><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24z"/></svg></span>
       <span style="overflow:hidden;text-overflow:ellipsis;flex:1">${p.label}</span>
     </div>`).join('');
 }
@@ -1441,7 +1445,7 @@ function setTopbar(title,sub,actions){
 }
 
 function viewTabsHTML(){
-  return `<div class="view-tabs">${[['kanban','🗂 Kanban'],['table','📋 Table'],['gantt','📅 Gantt']].map(([v,l])=>`<button class="vtab${curView===v?' on':''}" onclick="switchView('${v}')">${l}</button>`).join('')}</div>`;
+  return `<div class="view-tabs">${[['kanban',`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="11" y="3" width="5" height="12" rx="1"/><rect x="19" y="3" width="3" height="7" rx="1"/></svg>Kanban`],['table',`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Table`],['gantt',`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:4px"><line x1="3" y1="6" x2="21" y2="6"/><rect x="3" y="10" width="10" height="3" rx="1"/><rect x="9" y="15" width="10" height="3" rx="1"/><line x1="3" y1="21" x2="21" y2="21"/></svg>Gantt`]].map(([v,l])=>`<button class="vtab${curView===v?' on':''}" onclick="switchView('${v}')">${l}</button>`).join('')}</div>`;
 }
 
 function navActive(id){
@@ -1452,7 +1456,7 @@ function navActive(id){
 function renderNavProjects(){
   document.getElementById('nav-proj-list').innerHTML=PROJECTS.map(p=>`
     <div class="nav-item${curProjectId===p.id?' active':''}" onclick="openProject('${p.id}')">
-      <span class="nav-icon">${p.emoji||'📁'}</span>
+      <span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span>
       <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0">${p.name}</span>
       <span class="nav-count">${p.tasks.length}</span>
     </div>`).join('');
@@ -1514,7 +1518,7 @@ function renderKanban(){
               <span class="k-pri" style="background:${c}20;color:${c}">${PL[t.priority]||t.priority}</span>
               ${u?`<div class="av" style="background:${u.color};width:22px;height:22px;font-size:9px">${ini(u.name)}</div>`:''}
             </div>
-            ${t.dueDate?`<div style="font-size:11px;color:var(--text3);margin-top:7px">📅 ${t.dueDate}</div>`:''}
+            ${t.dueDate?`<div style="font-size:11px;color:var(--text3);margin-top:7px"><svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:2px"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>${t.dueDate}</div>`:''}
           </div>`;
         }).join('')}
       </div>
@@ -1547,7 +1551,7 @@ function renderTable(){
   const cfCols=CUSTOM_FIELDS.filter(cf=>cf.visible!==false);
 
   document.getElementById('tbl-toolbar').innerHTML=`
-    <button class="btn ghost" id="tbl-col-btn" onclick="toggleColPanel('table')" style="font-size:12px">⚙ Columns</button>
+    <button class="btn ghost" id="tbl-col-btn" onclick="toggleColPanel('table')" style="font-size:12px"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Columns</button>
     <span style="font-size:12px;color:var(--text3)">${p.tasks.length} tasks — click task name to open details, other cells to edit inline</span>`;
 
   // Header: standard cols + custom field cols + plus
@@ -2219,28 +2223,28 @@ function saveCustomAutomation(){
 function renderSettings(){
   const isAdmin=USERS[0].role==='admin';
   const personalTabs=[
-    {id:'profile',     icon:'👤', label:'Profile'},
-    {id:'work-schedule',icon:'📅',label:'Work schedule'},
-    {id:'account-info', icon:'🔑',label:'Account info'},
-    {id:'email-prefs',  icon:'📧',label:'Email preferences'},
-    {id:'accessibility',icon:'♿',label:'Accessibility'},
-    {id:'appearance',   icon:'🎨',label:'Appearance'},
+    {id:'profile',     icon:'<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>', label:'Profile'},
+    {id:'work-schedule',icon:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>',label:'Work schedule'},
+    {id:'account-info', icon:'<svg viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3"/></svg>',label:'Account info'},
+    {id:'email-prefs',  icon:'<svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',label:'Email preferences'},
+    {id:'accessibility',icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="1"/><path d="M9 20l3-8 3 8M5 9h14M9 13l1-3h4l1 3"/></svg>',label:'Accessibility'},
+    {id:'appearance',   icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="14" r="1" fill="currentColor"/><circle cx="12" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="14" r="1" fill="currentColor"/></svg>',label:'Appearance'},
   ];
   const adminTabs=[
-    {id:'users',       icon:'👥', label:'Users'},
-    {id:'work-schedules',icon:'🗓',label:'Work schedules'},
-    {id:'time-tracking',icon:'⏱', label:'Time tracking'},
-    {id:'spaces',      icon:'🏢', label:'Spaces'},
-    {id:'request-forms',icon:'📋',label:'Request forms'},
-    {id:'item-types',  icon:'🧩', label:'Custom item types'},
-    {id:'workflows',   icon:'🔀', label:'Workflows'},
-    {id:'custom-fields',icon:'🔧',label:'Custom fields'},
-    {id:'automation',  icon:'⚡', label:'Automation'},
-    {id:'subscription',icon:'⭐', label:'Subscription'},
-    {id:'ai-usage',    icon:'🤖', label:'AI usage'},
-    {id:'billing',     icon:'💳', label:'Billing'},
-    {id:'settings',    icon:'⚙',  label:'Settings'},
-    {id:'security',    icon:'🔒', label:'Security'},
+    {id:'users',       icon:'<svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>', label:'Users'},
+    {id:'work-schedules',icon:'<svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>',label:'Work schedules'},
+    {id:'time-tracking',icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', label:'Time tracking'},
+    {id:'spaces',      icon:'<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10M9 6h.01M15 6h.01M9 10h.01M15 10h.01"/></svg>', label:'Spaces'},
+    {id:'request-forms',icon:'<svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>',label:'Request forms'},
+    {id:'item-types',  icon:'<svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>', label:'Custom item types'},
+    {id:'workflows',   icon:'<svg viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>', label:'Workflows'},
+    {id:'custom-fields',icon:'<svg viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>',label:'Custom fields'},
+    {id:'automation',  icon:'<svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>', label:'Automation'},
+    {id:'subscription',icon:'<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>', label:'Subscription'},
+    {id:'ai-usage',    icon:'<svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 15h.01M16 15h.01M2 15h1M21 15h1"/></svg>', label:'AI usage'},
+    {id:'billing',     icon:'<svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>', label:'Billing'},
+    {id:'settings',    icon:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>',  label:'Settings'},
+    {id:'security',    icon:'<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', label:'Security'},
   ];
 
   // default to profile if current tab is admin-only and user is not admin
@@ -2273,9 +2277,9 @@ function renderSettings(){
   document.getElementById('view-settings').innerHTML=`
     <div class="settings-layout">
       <div class="settings-sidebar">
-        <div class="settings-sidebar-section">👤 Personal settings</div>
+        <div class="settings-sidebar-section"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Personal settings</div>
         ${personalTabs.map(navItem).join('')}
-        ${isAdmin?`<div class="settings-sidebar-section">⚙ Account management</div>${adminTabs.map(navItem).join('')}`:''}
+        ${isAdmin?`<div class="settings-sidebar-section"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Account management</div>${adminTabs.map(navItem).join('')}`:''}
       </div>
       <div class="settings-content">${content}</div>
     </div>`;
@@ -2287,7 +2291,7 @@ function settingsProfile(){
   const u=USERS[0];
   const p=myPrefs();
   return `<div class="settings-section">
-    <div class="settings-section-title">👤 Profile</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Profile</div>
     <div class="settings-section-sub">Your public identity across the platform</div>
     <div style="display:flex;align-items:center;gap:18px;margin-bottom:20px">
       <div class="profile-av" id="profile-av" style="background:${u.color}">${ini(u.name)}</div>
@@ -2315,7 +2319,7 @@ function settingsWorkSchedule(){
       <button class="icon-btn red" onclick="removeVacation(${i})">✕</button>
     </div>`).join('');
   return `<div class="settings-section">
-    <div class="settings-section-title">📅 My working hours</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg> My working hours</div>
     <div class="settings-section-sub">Your personal schedule used for capacity and Gantt planning</div>
     ${row('Base schedule',`Inheriting holidays from <strong>${sched.name}</strong>`,`<select class="s-sel" onchange="myPrefs().scheduleId=this.value;renderSettings()">${WORK_SCHEDULES.map(s=>`<option value="${s.id}"${s.id===p.scheduleId?' selected':''}>${s.name}</option>`).join('')}</select>`)}
     ${row('Working hours','Start and end of your workday',`<div style="display:flex;align-items:center;gap:8px"><input class="s-inp" type="time" style="width:100px" value="${p.workHours.start}" onchange="myPrefs().workHours.start=this.value"><span style="color:var(--text3)">to</span><input class="s-inp" type="time" style="width:100px" value="${p.workHours.end}" onchange="myPrefs().workHours.end=this.value"></div>`)}
@@ -2445,7 +2449,7 @@ function settingsUsers(){
           <td style="color:var(--text2)">${projCount} project${projCount!==1?'s':''}</td>
           <td><div style="display:flex;gap:6px">
             <button class="icon-btn" onclick="editUser(${u.id})">✏</button>
-            ${u.id!==1?`<button class="icon-btn red" onclick="removeUser(${u.id})">🗑</button>`:''}
+            ${u.id!==1?`<button class="icon-btn red" onclick="removeUser(${u.id})"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>`:''}
           </div></td></tr>`;
       }).join('')}</tbody>
     </table>
@@ -2486,7 +2490,7 @@ function settingsWorkSchedules(){
           </div>
           <div style="display:flex;gap:6px">
             <button class="icon-btn" onclick="editSchedule('${s.id}')">✏</button>
-            ${!s.isDefault?`<button class="icon-btn red" onclick="deleteSchedule('${s.id}')">🗑</button>`:''}
+            ${!s.isDefault?`<button class="icon-btn red" onclick="deleteSchedule('${s.id}')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>`:''}
           </div>
         </div>
         <div style="font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px">Public holidays (${s.holidays.length})</div>
@@ -2498,7 +2502,7 @@ function settingsWorkSchedules(){
 
 function settingsTimeTracking(){
   return `<div class="settings-section">
-    <div class="settings-section-title">⏱ Time tracking</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Time tracking</div>
     <div class="settings-section-sub">Configure how time is logged across the platform</div>
     ${toggle('Enable time tracking','Allow members to log hours against tasks',true)}
     ${toggle('Require activity type','Users must select an activity when logging time',true)}
@@ -2522,7 +2526,7 @@ function settingsTimeTracking(){
 function settingsSpaces(){
   const fmtDate=d=>d?new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}):'—';
   return `<div class="settings-section">
-    <div class="settings-section-title">🏢 Spaces (Workspaces)</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22V12h6v10M9 6h.01M15 6h.01M9 10h.01M15 10h.01"/></svg> Spaces (Workspaces)</div>
     <div class="settings-section-sub">
       <span>Active <strong>${WORKSPACES.filter(w=>true).length}</strong> spaces</span>
       <button class="btn" style="float:right;font-size:12px" onclick="openM('modal-workspace')">＋ New space</button>
@@ -2534,7 +2538,7 @@ function settingsSpaces(){
         const projs=getWorkspaceProjects(ws.id);
         return `<tr onclick="showWorkspace('${ws.id}')">
           <td><div style="display:flex;align-items:center;gap:10px">
-            <div style="width:32px;height:32px;border-radius:12px;background:${ws.color}22;border:1px solid ${ws.color}44;display:flex;align-items:center;justify-content:center;font-size:16px">${ws.emoji}</div>
+            <div style="width:32px;height:32px;border-radius:12px;background:${ws.color}22;border:1px solid ${ws.color}44;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" style="width:16px;height:16px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
             <div><div style="font-weight:600">${ws.name}</div><div style="font-size:11px;color:var(--text3)">${ws.desc||''}</div></div>
           </div></td>
           <td><div class="space-av-row">${members.slice(0,4).map(u=>`<div class="space-av" style="background:${u.color}">${ini(u.name)}</div>`).join('')}${members.length>4?`<div class="space-av" style="background:var(--surface3);color:var(--text2)">+${members.length-4}</div>`:''}</div></td>
@@ -2550,7 +2554,7 @@ function settingsSpaces(){
 function settingsRequestForms(){
   const scMap={published:{c:'#5AD2C9',l:'Published'},draft:{c:'#f59e4a',l:'Draft'},archived:{c:'#94a3b8',l:'Archived'}};
   return `<div class="settings-section">
-    <div class="settings-section-title">📋 Request forms</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg> Request forms</div>
     <div class="settings-section-sub">Forms that external users or team members can submit to create tasks or requests</div>
     <div style="margin-bottom:14px"><button class="btn" onclick="showSettings('forms');showView('forms');renderFormsView()">Open Forms builder →</button></div>
     <table class="user-table">
@@ -2586,7 +2590,7 @@ function settingsItemTypes(){
           <select class="s-sel" style="font-size:11px;padding:4px 6px" onchange="ITEM_TYPES.find(x=>x.id==='${t.id}').workflowId=this.value">
             ${WORKFLOWS.map(w=>`<option value="${w.id}"${w.id===t.workflowId?' selected':''}>${w.name}</option>`).join('')}
           </select>
-          ${!t.isSystem?`<button class="icon-btn red" onclick="ITEM_TYPES=ITEM_TYPES.filter(x=>x.id!=='${t.id}');renderSettings()">🗑</button>`:''}
+          ${!t.isSystem?`<button class="icon-btn red" onclick="ITEM_TYPES=ITEM_TYPES.filter(x=>x.id!=='${t.id}');renderSettings()"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>`:''}
         </div>
       </div>`).join('')}
   </div>`;
@@ -2633,7 +2637,7 @@ function settingsCustomFields(){
           </div>
           <div class="cf-actions">
             <button class="icon-btn" onclick="editCustomField('${cf.id}')">✏</button>
-            <button class="icon-btn red" onclick="deleteCustomField('${cf.id}')">🗑</button>
+            <button class="icon-btn red" onclick="deleteCustomField('${cf.id}')"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
           </div>
         </div>`).join('')
       :'<div style="color:var(--text3);font-size:13px">No custom fields yet.</div>'}
@@ -2671,7 +2675,7 @@ function settingsAutomation(){
           <div style="font-size:10px;color:var(--text3);margin-top:3px">${a.triggerCount} runs this month</div>
           <div style="font-size:10px;color:var(--text3)">By ${userMap[a.createdBy]||'Unknown'}</div>
         </div>
-        <button class="icon-btn red" onclick="AUTOMATIONS=AUTOMATIONS.filter(x=>x.id!=='${a.id}');renderSettings()" style="flex-shrink:0">🗑</button>
+        <button class="icon-btn red" onclick="AUTOMATIONS=AUTOMATIONS.filter(x=>x.id!=='${a.id}');renderSettings()" style="flex-shrink:0"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg></button>
       </div>`).join('')}
   </div>
   <div class="settings-section">
@@ -2735,7 +2739,7 @@ function settingsAiUsage(){
     ${toggle('Weekly AI digest','AI-written summary of project health sent every Monday',false)}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">📊 AI usage this month</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 15h.01M16 15h.01M2 15h1M21 15h1"/></svg> AI usage this month</div>
     <div class="settings-section-sub">Each AI action consumes credits from your plan allowance</div>
     ${[['Task summaries generated','34 of 500',7],['Auto-assign suggestions','12 of 500',2],['Digest emails sent','4 of 20',20]].map(([label,sub,pct])=>`
       <div style="margin-bottom:12px">
@@ -2752,7 +2756,7 @@ function settingsBilling(){
     {date:'Jan 1 2026',desc:'Pro Plan – January 2026',amount:'$49.00',status:'Paid'},
   ];
   return `<div class="settings-section">
-    <div class="settings-section-title">🏢 Billing details</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Billing details</div>
     <div class="settings-section-sub">Company information shown on invoices</div>
     ${row('Company name','',`<input class="s-inp" value="Team Nexus Inc." style="width:240px">`)}
     ${row('Billing email','Invoices are sent here',`<input class="s-inp" type="email" value="billing@nexus.io" style="width:240px">`)}
@@ -2786,7 +2790,7 @@ function settingsBilling(){
 
 function settingsGeneral(){
   return `<div class="settings-section">
-    <div class="settings-section-title">🏢 Workspace</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Workspace</div>
     <div class="settings-section-sub">General workspace configuration</div>
     ${row('Workspace name','Shown in the header and emails',`<input class="s-inp" value="Team Nexus">`)}
     ${row('Workspace URL','Your unique workspace identifier',`<input class="s-inp" value="team-nexus">`)}
@@ -2794,7 +2798,7 @@ function settingsGeneral(){
     ${row('Default timezone','Used for due-date display and reports',`<select class="s-sel"><option>UTC</option><option selected>Eastern Time (ET)</option><option>Pacific Time (PT)</option><option>Central European (CET)</option><option>India Standard Time (IST)</option></select>`)}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">📋 Audit log</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg> Audit log</div>
     <div class="settings-section-sub">Recent workspace-level activity</div>
     <table class="user-table">
       <thead><tr><th>Action</th><th>User</th><th>Date</th></tr></thead>
@@ -3330,7 +3334,7 @@ function showReports(){
     <div class="stub-sub">Track progress, velocity and team performance. Choose a data source to get started.</div>
     <div class="stub-ds-row">
       <div class="stub-ds-btn on">Entire account</div>
-      ${WORKSPACES.map(ws=>`<div class="stub-ds-btn" onclick="this.parentElement.querySelectorAll('.stub-ds-btn').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${ws.emoji} ${ws.name}</div>`).join('')}
+      ${WORKSPACES.map(ws=>`<div class="stub-ds-btn" onclick="this.parentElement.querySelectorAll('.stub-ds-btn').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${ws.name}</div>`).join('')}
     </div>
   </div>`;
 }
@@ -3341,7 +3345,7 @@ function showCalendars(){
     <div class="stub-sub">View tasks with due dates across your workspaces on a calendar. Choose a data source:</div>
     <div class="stub-ds-row">
       <div class="stub-ds-btn on">Entire account</div>
-      ${WORKSPACES.map(ws=>`<div class="stub-ds-btn" onclick="this.parentElement.querySelectorAll('.stub-ds-btn').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${ws.emoji} ${ws.name}</div>`).join('')}
+      ${WORKSPACES.map(ws=>`<div class="stub-ds-btn" onclick="this.parentElement.querySelectorAll('.stub-ds-btn').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${ws.name}</div>`).join('')}
     </div>
   </div>`;
 }
@@ -3352,7 +3356,7 @@ function showDashboards(){
     <div class="stub-sub">Build custom dashboards with charts, task lists and metrics. Select a workspace or view account-wide.</div>
     <div class="stub-ds-row">
       <div class="stub-ds-btn on">Entire account</div>
-      ${WORKSPACES.map(ws=>`<div class="stub-ds-btn" onclick="this.parentElement.querySelectorAll('.stub-ds-btn').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${ws.emoji} ${ws.name}</div>`).join('')}
+      ${WORKSPACES.map(ws=>`<div class="stub-ds-btn" onclick="this.parentElement.querySelectorAll('.stub-ds-btn').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${ws.name}</div>`).join('')}
     </div>
   </div>`;
 }
