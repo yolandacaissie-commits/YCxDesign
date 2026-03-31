@@ -295,6 +295,9 @@ tr.row-expanded td:first-child{border-left:2px solid var(--accent)}
 .settings-content{flex:1;min-width:0;overflow-y:auto}
 .settings-section{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:24px;margin-bottom:20px}
 .settings-section-title{font-size:15px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+/* Prevent bare SVGs in section titles from rendering huge */
+.settings-section-title svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
 .settings-section-sub{font-size:12px;color:var(--text3);margin-bottom:18px}
 .settings-row{display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--border)}
 .settings-row:last-child{border-bottom:none;padding-bottom:0}
@@ -524,7 +527,7 @@ body.nav-closed .nav-overlay{display:block}
 .ws-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
 .ws-card{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:16px;cursor:pointer;transition:.15s}
 .ws-card:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.ws-card-icon{font-size:20px;margin-bottom:8px}
+.ws-card-icon{margin-bottom:8px}
 .ws-card-name{font-size:13px;font-weight:700;margin-bottom:3px}
 .ws-card-meta{font-size:11px;color:var(--text3)}
 .ws-card-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text3);margin-bottom:6px}
@@ -822,18 +825,23 @@ body.nav-closed .nav-overlay{display:block}
 <!-- MODALS -->
 <div class="modal-bg" id="modal-proj">
   <div class="modal">
-    <div class="modal-title">✨ New Project</div>
+    <div class="modal-title"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M16.24 7.76l2.12-2.12M5.64 18.36l2.12-2.12"/></svg> New Project</div>
     <div class="field"><label>Project Name</label><input id="m-name" placeholder="e.g. Mobile App V2"/></div>
     <div class="field"><label>Description</label><textarea id="m-desc" rows="2" placeholder="What's this about?"></textarea></div>
     <div class="field"><label>Status</label><select id="m-status"><option value="active">Active</option><option value="on_hold">On Hold</option><option value="completed">Completed</option></select></div>
     <div class="field"><label>Priority</label><select id="m-priority"><option value="medium">Medium</option><option value="low">Low</option><option value="high">High</option><option value="critical">Critical</option></select></div>
+    <div class="field"><label>Colour</label>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input type="color" id="m-color" value="#1AA6B7" style="width:38px;height:32px;border:1px solid var(--border2);border-radius:8px;padding:2px;cursor:pointer;background:var(--surface)">
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><div style="width:20px;height:20px;border-radius:6px;background:#1AA6B7;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#1AA6B7'" title="#1AA6B7"></div><div style="width:20px;height:20px;border-radius:6px;background:#5AD2C9;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#5AD2C9'" title="#5AD2C9"></div><div style="width:20px;height:20px;border-radius:6px;background:#8b5cf6;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#8b5cf6'" title="#8b5cf6"></div><div style="width:20px;height:20px;border-radius:6px;background:#ef4444;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#ef4444'" title="#ef4444"></div><div style="width:20px;height:20px;border-radius:6px;background:#f59e4a;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#f59e4a'" title="#f59e4a"></div><div style="width:20px;height:20px;border-radius:6px;background:#22c55e;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#22c55e'" title="#22c55e"></div><div style="width:20px;height:20px;border-radius:6px;background:#3b82f6;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#3b82f6'" title="#3b82f6"></div><div style="width:20px;height:20px;border-radius:6px;background:#ec4899;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#ec4899'" title="#ec4899"></div><div style="width:20px;height:20px;border-radius:6px;background:#64748b;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('m-color').value='#64748b'" title="#64748b"></div></div>
+    </div></div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-proj')">Cancel</button><button class="btn" onclick="createProject()">Create</button></div>
   </div>
 </div>
 
 <div class="modal-bg" id="modal-task">
   <div class="modal">
-    <div class="modal-title">➕ Add Task</div>
+    <div class="modal-title"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Add Task</div>
     <div class="field"><label>Task Name</label><input id="tm-name" placeholder="What needs to be done?"/></div>
     <div class="field"><label>Status</label><select id="tm-status"><option value="todo">To Do</option><option value="in_progress">In Progress</option><option value="review">In Review</option><option value="done">Done</option></select></div>
     <div class="field"><label>Priority</label><select id="tm-priority"><option value="medium">Medium</option><option value="low">Low</option><option value="high">High</option><option value="critical">Critical</option></select></div>
@@ -883,6 +891,11 @@ body.nav-closed .nav-overlay{display:block}
     <div class="modal-title"><span class="nav-icon" style="display:inline-flex;margin-right:4px"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>New Workspace</div>
     <div class="field"><label>Workspace Name</label><input id="ws-name" placeholder="e.g. Product Team"/></div>
     <div class="field"><label>Description</label><input id="ws-desc" placeholder="What does this workspace cover?"/></div>
+    <div class="field"><label>Colour</label>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input type="color" id="ws-color" value="#1AA6B7" style="width:38px;height:32px;border:1px solid var(--border2);border-radius:8px;padding:2px;cursor:pointer;background:var(--surface)">
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><div style="width:20px;height:20px;border-radius:6px;background:#1AA6B7;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#1AA6B7'" title="#1AA6B7"></div><div style="width:20px;height:20px;border-radius:6px;background:#5AD2C9;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#5AD2C9'" title="#5AD2C9"></div><div style="width:20px;height:20px;border-radius:6px;background:#8b5cf6;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#8b5cf6'" title="#8b5cf6"></div><div style="width:20px;height:20px;border-radius:6px;background:#ef4444;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#ef4444'" title="#ef4444"></div><div style="width:20px;height:20px;border-radius:6px;background:#f59e4a;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#f59e4a'" title="#f59e4a"></div><div style="width:20px;height:20px;border-radius:6px;background:#22c55e;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#22c55e'" title="#22c55e"></div><div style="width:20px;height:20px;border-radius:6px;background:#3b82f6;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#3b82f6'" title="#3b82f6"></div><div style="width:20px;height:20px;border-radius:6px;background:#ec4899;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#ec4899'" title="#ec4899"></div><div style="width:20px;height:20px;border-radius:6px;background:#64748b;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('ws-color').value='#64748b'" title="#64748b"></div></div>
+    </div></div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-workspace')">Cancel</button><button class="btn" onclick="createWorkspace()">Create</button></div>
   </div>
 </div>
@@ -890,7 +903,7 @@ body.nav-closed .nav-overlay{display:block}
 <!-- WORKFLOW MODAL -->
 <div class="modal-bg" id="modal-workflow">
   <div class="modal" style="width:500px">
-    <div class="modal-title">🔀 Workflow editor</div>
+    <div class="modal-title"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg> Workflow editor</div>
     <div id="modal-workflow-body"></div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-workflow')">Cancel</button><button class="btn" id="wf-save-btn">Save workflow</button></div>
   </div>
@@ -899,7 +912,7 @@ body.nav-closed .nav-overlay{display:block}
 <!-- AUTOMATION MODAL -->
 <div class="modal-bg" id="modal-automation">
   <div class="modal" style="width:480px">
-    <div class="modal-title">⚡ Create automation</div>
+    <div class="modal-title"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Create automation</div>
     <div class="field"><label>Name</label><input id="auto-name" class="s-inp" placeholder="e.g. Notify team on completion"/></div>
     <div class="field"><label>Trigger</label>
       <select id="auto-trigger" class="s-sel" style="width:100%">
@@ -924,7 +937,7 @@ body.nav-closed .nav-overlay{display:block}
 <!-- SCHEDULE MODAL -->
 <div class="modal-bg" id="modal-schedule">
   <div class="modal">
-    <div class="modal-title">🗓 New work schedule</div>
+    <div class="modal-title"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg> New work schedule</div>
     <div id="modal-schedule-body"></div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-schedule')">Cancel</button><button class="btn" onclick="saveSchedule()">Create</button></div>
   </div>
@@ -933,7 +946,7 @@ body.nav-closed .nav-overlay{display:block}
 <!-- ITEM TYPE MODAL -->
 <div class="modal-bg" id="modal-item-type">
   <div class="modal">
-    <div class="modal-title">🧩 New item type</div>
+    <div class="modal-title"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> New item type</div>
     <div id="modal-item-type-body"></div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-item-type')">Cancel</button><button class="btn" onclick="saveItemType()">Create</button></div>
   </div>
@@ -947,6 +960,11 @@ body.nav-closed .nav-overlay{display:block}
     <div class="field"><label>Workspace</label>
       <select id="fl-ws" class="meta-sel" style="width:100%;padding:6px 8px"></select>
     </div>
+    <div class="field"><label>Colour</label>
+    <div style="display:flex;align-items:center;gap:8px">
+      <input type="color" id="fl-color" value="#1AA6B7" style="width:38px;height:32px;border:1px solid var(--border2);border-radius:8px;padding:2px;cursor:pointer;background:var(--surface)">
+      <div style="display:flex;gap:6px;flex-wrap:wrap"><div style="width:20px;height:20px;border-radius:6px;background:#1AA6B7;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#1AA6B7'" title="#1AA6B7"></div><div style="width:20px;height:20px;border-radius:6px;background:#5AD2C9;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#5AD2C9'" title="#5AD2C9"></div><div style="width:20px;height:20px;border-radius:6px;background:#8b5cf6;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#8b5cf6'" title="#8b5cf6"></div><div style="width:20px;height:20px;border-radius:6px;background:#ef4444;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#ef4444'" title="#ef4444"></div><div style="width:20px;height:20px;border-radius:6px;background:#f59e4a;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#f59e4a'" title="#f59e4a"></div><div style="width:20px;height:20px;border-radius:6px;background:#22c55e;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#22c55e'" title="#22c55e"></div><div style="width:20px;height:20px;border-radius:6px;background:#3b82f6;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#3b82f6'" title="#3b82f6"></div><div style="width:20px;height:20px;border-radius:6px;background:#ec4899;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#ec4899'" title="#ec4899"></div><div style="width:20px;height:20px;border-radius:6px;background:#64748b;cursor:pointer;border:2px solid transparent;transition:.1s" onclick="document.getElementById('fl-color').value='#64748b'" title="#64748b"></div></div>
+    </div></div>
     <div class="modal-actions"><button class="btn ghost" onclick="closeM('modal-folder')">Cancel</button><button class="btn" onclick="createFolder()">Create</button></div>
   </div>
 </div>
@@ -955,7 +973,7 @@ body.nav-closed .nav-overlay{display:block}
 <div class="cmd-overlay" id="cmd-overlay" onclick="closeCmd(event)">
   <div class="cmd-box" onclick="event.stopPropagation()">
     <div class="cmd-input-row">
-      <span style="font-size:15px;color:var(--text3)">🔍</span>
+      <span style="font-size:15px;color:var(--text3)"><svg viewBox="0 0 24 24" style="width:15px;height:15px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
       <input class="cmd-input" id="cmd-input" placeholder="Search tasks, projects, people, files…" oninput="renderCmdResults()" onkeydown="cmdKey(event)" autocomplete="off"/>
       <span class="cmd-kbd">Esc</span>
     </div>
@@ -996,9 +1014,9 @@ let WORKSPACES=[
 ];
 
 let FOLDERS=[
-  {id:'fl1',name:'Website Projects',workspaceId:'ws1',parentFolderId:null,emoji:'🌐'},
-  {id:'fl2',name:'Mobile',workspaceId:'ws1',parentFolderId:null,emoji:'📱'},
-  {id:'fl3',name:'Brand',workspaceId:'ws2',parentFolderId:null,emoji:'🎨'},
+  {id:'fl1',name:'Website Projects',workspaceId:'ws1',parentFolderId:null,emoji:'🌐',color:'#1AA6B7'},
+  {id:'fl2',name:'Mobile',workspaceId:'ws1',parentFolderId:null,emoji:'📱',color:'#5AD2C9'},
+  {id:'fl3',name:'Brand',workspaceId:'ws2',parentFolderId:null,emoji:'🎨',color:'#8b5cf6'},
 ];
 
 let PINNED=[
@@ -1040,7 +1058,7 @@ let CUSTOM_FIELDS=[
 ];
 
 let PROJECTS=[
-  {id:'p1',name:'Corporate Website Revamp',desc:'Full redesign to Next.js and Tailwind.',status:'active',priority:'high',emoji:'🌐',
+  {id:'p1',name:'Corporate Website Revamp',desc:'Full redesign to Next.js and Tailwind.',status:'active',priority:'high',emoji:'🌐',color:'#1AA6B7',
    locations:[{workspaceId:'ws1',folderId:'fl1',isHome:true},{workspaceId:'ws2',folderId:'fl3',isHome:false}],
    tasks:[
     {id:'t1',title:'Discovery & Requirements',status:'done',priority:'high',assignee:1,duration:10,pred:null,start:rel(-30),end:rel(-21),dueDate:null,description:'Meet with stakeholders to define scope.',comments:[{id:'c1',userId:1,text:'Requirements doc signed off by CEO.',time:rel(-22).toISOString()}],history:[{type:'status_change',from:'todo',to:'done',userId:1,time:rel(-21).toISOString()}],custom:{'cf1':8,'cf2':'Sprint 1'}},
@@ -1051,13 +1069,13 @@ let PROJECTS=[
     {id:'t6',title:'QA & Testing',status:'todo',priority:'high',assignee:2,duration:7,pred:'t5',start:rel(25),end:rel(32),dueDate:null,description:'End-to-end and cross-browser testing.',comments:[],history:[],custom:{}},
     {id:'t7',title:'Launch & Deploy',status:'todo',priority:'critical',assignee:1,duration:3,pred:'t6',start:rel(33),end:rel(36),dueDate:null,description:'Production deployment and monitoring.',comments:[],history:[],custom:{}},
    ]},
-  {id:'p2',name:'Mobile App V2',desc:'Next major release focusing on performance.',status:'active',priority:'medium',emoji:'📱',
+  {id:'p2',name:'Mobile App V2',desc:'Next major release focusing on performance.',status:'active',priority:'medium',emoji:'📱',color:'#5AD2C9',
    locations:[{workspaceId:'ws1',folderId:'fl2',isHome:true}],
    tasks:[
     {id:'t8',title:'Performance Audit',status:'todo',priority:'high',assignee:3,duration:5,pred:null,start:rel(0),end:rel(5),dueDate:null,description:'Identify bottlenecks.',comments:[],history:[],custom:{}},
     {id:'t9',title:'Redesign Onboarding',status:'todo',priority:'medium',assignee:2,duration:7,pred:'t8',start:rel(6),end:rel(13),dueDate:null,description:'Simplify first-run experience.',comments:[],history:[],custom:{}},
    ]},
-  {id:'p3',name:'Brand Refresh',desc:'Update visual identity.',status:'on_hold',priority:'low',emoji:'🎨',
+  {id:'p3',name:'Brand Refresh',desc:'Update visual identity.',status:'on_hold',priority:'low',emoji:'🎨',color:'#8b5cf6',
    locations:[{workspaceId:'ws2',folderId:'fl3',isHome:true},{workspaceId:'ws3',folderId:null,isHome:false}],
    tasks:[
     {id:'t11',title:'Brand Audit',status:'done',priority:'medium',assignee:2,duration:5,pred:null,start:rel(-40),end:rel(-35),dueDate:null,description:'Review current brand assets.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:2,time:rel(-35).toISOString()}],custom:{}},
@@ -1309,7 +1327,7 @@ function renderWorkspace(wsId){
           const pCount=getProjectsInFolder(fl.id).length;
           return `<div class="ws-card" onclick="openFolder('${wsId}','${fl.id}')">
             <div class="ws-card-tag">Folder</div>
-            <div class="ws-card-icon">${fl.emoji||'📁'}</div>
+            <div class="ws-card-icon" style="width:44px;height:44px;border-radius:12px;background:${fl.color||'#1AA6B7'}22;border:1px solid ${fl.color||'#1AA6B7'}44;display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:${fl.color||'#1AA6B7'};stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg></div>
             <div class="ws-card-name">${fl.name}</div>
             <div class="ws-card-meta">${pCount} project${pCount!==1?'s':''}</div>
           </div>`;
@@ -1325,7 +1343,7 @@ function renderWorkspace(wsId){
           const folder=loc?.folderId?FOLDERS.find(f=>f.id===loc.folderId):null;
           return `<div class="ws-card" onclick="openProject('${p.id}')">
             <div class="ws-card-tag">${folder?`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>${folder.name}`:'No folder'}${p.locations.find(l=>l.isHome&&l.workspaceId===wsId)?'<span style="margin-left:6px;font-size:9px;background:var(--abg);color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:1px 4px">HOME</span>':''}</div>
-            <div class="ws-card-icon">${p.emoji||'📋'}</div>
+            <div class="ws-card-icon" style="width:44px;height:44px;border-radius:12px;background:${p.color||'#1AA6B7'}22;border:1px solid ${p.color||'#1AA6B7'}44;display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:${p.color||'#1AA6B7'};stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <div class="ws-card-name">${p.name}</div>
             <div class="ws-card-meta">${taskCount} tasks · ${doneCount} done</div>
           </div>`;
@@ -1356,7 +1374,7 @@ function openFolder(wsId,folderId){
     <div class="ws-grid">
       ${projects.map(p=>`
         <div class="ws-card" onclick="openProject('${p.id}')">
-          <div class="ws-card-icon">${p.emoji||'📋'}</div>
+          <div class="ws-card-icon" style="width:44px;height:44px;border-radius:12px;background:${p.color||'#1AA6B7'}22;border:1px solid ${p.color||'#1AA6B7'}44;display:flex;align-items:center;justify-content:center;margin-bottom:10px"><svg viewBox="0 0 24 24" style="width:20px;height:20px;stroke:${p.color||'#1AA6B7'};stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
           <div class="ws-card-name">${p.name}</div>
           <div class="ws-card-meta">${p.tasks.length} tasks · ${p.tasks.filter(t=>t.status==='done').length} done</div>
         </div>`).join('')}
@@ -1369,10 +1387,8 @@ function openFolder(wsId,folderId){
 function createWorkspace(){
   const name=document.getElementById('ws-name').value.trim();if(!name)return;
   const desc=document.getElementById('ws-desc').value.trim();
-  const emojis=['🔵','🟢','🟠','🟣','🔴','⚫'];
-  const colors=['#1AA6B7','#5AD2C9','#f59e4a','#8b5cf6','#ef4444','#64748b'];
-  const i=WORKSPACES.length%emojis.length;
-  WORKSPACES.push({id:'ws'+Date.now(),name,desc,color:colors[i],emoji:emojis[i],expanded:false});
+  const color=document.getElementById('ws-color')?.value||'#1AA6B7';
+  WORKSPACES.push({id:'ws'+Date.now(),name,desc,color,emoji:'',expanded:false});
   closeM('modal-workspace');
   document.getElementById('ws-name').value='';document.getElementById('ws-desc').value='';
   renderNavWorkspaces();
@@ -1386,8 +1402,8 @@ function openFolderModal(wsId){
 function createFolder(){
   const name=document.getElementById('fl-name').value.trim();if(!name)return;
   const wsId=document.getElementById('fl-ws').value;
-  const emojis=['🌐','📱','🎨','🔧','📊','🚀','💡','🏗'];
-  FOLDERS.push({id:'fl'+Date.now(),name,workspaceId:wsId,parentFolderId:null,emoji:emojis[FOLDERS.length%emojis.length]});
+  const color=document.getElementById('fl-color')?.value||'#1AA6B7';
+  FOLDERS.push({id:'fl'+Date.now(),name,workspaceId:wsId,parentFolderId:null,emoji:'',color});
   closeM('modal-folder');
   document.getElementById('fl-name').value='';
   renderNavWorkspaces();
@@ -1476,7 +1492,7 @@ function renderProjects(){
         const avs=[...new Set(p.tasks.map(t=>t.assignee).filter(Boolean))].slice(0,4);
         return `<div class="proj-card" onclick="openProject('${p.id}')">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-            <div class="proj-card-icon">${p.emoji||'📁'}</div>
+            <div class="proj-card-icon" style="background:${p.color||'#1AA6B7'}22;border:1px solid ${p.color||'#1AA6B7'}44"><svg viewBox="0 0 24 24" style="width:18px;height:18px;stroke:${p.color||'#1AA6B7'};stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
             <div class="pill" style="background:${sc.c}22;color:${sc.c};border:1px solid ${sc.c}44">${sc.l}</div>
           </div>
           <div class="proj-card-name">${p.name}</div>
@@ -2326,7 +2342,7 @@ function settingsWorkSchedule(){
     ${row('Working days','Days you are available',`<div style="display:flex;gap:6px">${days.map((d,i)=>`<div class="day-chip${p.workDays.includes(i)?' on':''}" onclick="toggleWorkDay(${i},this)">${d}</div>`).join('')}</div>`)}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">🌴 Personal time off</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M17 12h2a2 2 0 0 1 0 4h-2"/><path d="M17 12H7a2 2 0 0 0 0 4h10"/><path d="M10 12 9 4.5a2.5 2.5 0 0 1 5 0L13 12"/><path d="M12 16v6"/></svg> Personal time off</div>
     <div class="settings-section-sub">Vacation and leave days are blocked in Gantt and skipped during scheduling</div>
     <div style="margin-bottom:12px">${vacRows||'<div style="color:var(--text3);font-size:13px;padding:8px 0">No time off added yet.</div>'}</div>
     <div style="display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap">
@@ -2349,14 +2365,14 @@ function settingsWorkSchedule(){
 function settingsAccountInfo(){
   const u=USERS[0];
   return `<div class="settings-section">
-    <div class="settings-section-title">🔑 Account info</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2l-9.6 9.6M15.5 7.5l3 3"/></svg> Account info</div>
     <div class="settings-section-sub">Manage your login credentials and connected accounts</div>
     ${row('Email address','Your sign-in email',`<input class="s-inp" type="email" value="${u.email}">`)}
     ${row('Password','Last changed 90 days ago',`<button class="btn ghost" style="font-size:12px">Change password</button>`)}
     ${row('Two-factor auth','Add an extra layer of security to your account',`<div class="toggle" onclick="this.classList.toggle('on')"></div>`)}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">🔗 Connected accounts</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> Connected accounts</div>
     <div class="settings-section-sub">Link external services for login and integrations</div>
     ${['Google','Microsoft','GitHub','Slack'].map(svc=>`
       <div class="settings-row">
@@ -2369,7 +2385,7 @@ function settingsAccountInfo(){
 function settingsEmailPrefs(){
   const p=myPrefs();const n=p.notifications;
   return `<div class="settings-section">
-    <div class="settings-section-title">📧 Email preferences</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg> Email preferences</div>
     <div class="settings-section-sub">Choose which emails you receive from the platform</div>
     ${ptoggle('Task assigned to me','Notified when a task is assigned to you','taskAssigned')}
     ${ptoggle('New comment on my tasks','Someone comments on a task assigned to you','taskCommented')}
@@ -2380,7 +2396,7 @@ function settingsEmailPrefs(){
     ${ptoggle('Weekly digest','Summary of your activity and upcoming tasks','weeklyDigest')}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">📬 Digest frequency</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg> Digest frequency</div>
     <div class="settings-section-sub">How often to bundle notification emails</div>
     ${row('Email digest cadence','Batching reduces inbox noise',`<select class="s-sel" onchange="myPrefs().notifications.emailDigest=this.value">
       <option value="instant"${n.emailDigest==='instant'?' selected':''}>Instant (every event)</option>
@@ -2394,7 +2410,7 @@ function settingsEmailPrefs(){
 function settingsAccessibility(){
   const p=myPrefs();const a=p.accessibility;
   return `<div class="settings-section">
-    <div class="settings-section-title">♿ Accessibility</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="4" r="1"/><path d="M9 20l3-8 3 8M5.5 8.5h13M8 14h8"/></svg> Accessibility</div>
     <div class="settings-section-sub">Personal overrides — account defaults are set by your administrator</div>
     ${row('Font size','Affects all text in the app',`<select class="s-sel" onchange="applyFontSize(this.value);myPrefs().accessibility.fontSize=this.value">
       <option value="small"${a.fontSize==='small'?' selected':''}>Small</option>
@@ -2413,7 +2429,7 @@ function settingsAccessibility(){
 function settingsAppearance(){
   const p=myPrefs();const ap=p.appearance;
   return `<div class="settings-section">
-    <div class="settings-section-title">🎨 Appearance</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="12" r="10"/><circle cx="8" cy="14" r="1" fill="currentColor"/><circle cx="12" cy="8" r="1" fill="currentColor"/><circle cx="16" cy="14" r="1" fill="currentColor"/></svg> Appearance</div>
     <div class="settings-section-sub">Customise how the app looks for you</div>
     ${row('Display density','Adjust spacing in lists and tables',`<select class="s-sel" onchange="myPrefs().appearance.density=this.value">
       <option value="comfortable"${ap.density==='comfortable'?' selected':''}>Comfortable</option>
@@ -2430,7 +2446,7 @@ function settingsAppearance(){
 function settingsUsers(){
   const ROLE_COLORS=Object.fromEntries(Object.entries(USER_TYPES).map(([k,v])=>[k,v.color]));
   return `<div class="settings-section">
-    <div class="settings-section-title">👥 Team Members</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Team Members</div>
     <div class="settings-section-sub">Manage who has access to your workspace</div>
     <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-user')">＋ Add Member</button></div>
     <table class="user-table">
@@ -2455,7 +2471,7 @@ function settingsUsers(){
     </table>
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">🔑 Role permissions</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Role permissions</div>
     <div class="settings-section-sub">Toggle what each user type can do — changes apply immediately</div>
     <div class="perm-grid">
       ${Object.keys(USER_TYPES).map(role=>{
@@ -2478,7 +2494,7 @@ function settingsUsers(){
 
 function settingsWorkSchedules(){
   return `<div class="settings-section">
-    <div class="settings-section-title">🗓 Work schedules</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg> Work schedules</div>
     <div class="settings-section-sub">Define company-wide and team-specific schedules. These drive Gantt date calculations and capacity planning.</div>
     <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-schedule')">＋ New schedule</button></div>
     ${WORK_SCHEDULES.map(s=>`
@@ -2486,7 +2502,7 @@ function settingsWorkSchedules(){
         <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
           <div>
             <div style="font-size:14px;font-weight:700">${s.name} ${s.isDefault?'<span style="font-size:10px;background:var(--abg);color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:1px 6px;margin-left:6px">Default</span>':''}</div>
-            <div style="font-size:12px;color:var(--text3);margin-top:2px">⏰ ${s.workHours.start}–${s.workHours.end} &nbsp;·&nbsp; ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].filter((_,i)=>s.workDays.includes(i)).join(', ')} &nbsp;·&nbsp; ${s.timezone}</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:2px"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> ${s.workHours.start}–${s.workHours.end} &nbsp;·&nbsp; ${['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].filter((_,i)=>s.workDays.includes(i)).join(', ')} &nbsp;·&nbsp; ${s.timezone}</div>
           </div>
           <div style="display:flex;gap:6px">
             <button class="icon-btn" onclick="editSchedule('${s.id}')">✏</button>
@@ -2511,7 +2527,7 @@ function settingsTimeTracking(){
     ${row('Timesheet approval','Who must approve submitted timesheets','<select class="s-sel"><option>No approval required</option><option>Direct manager</option><option>Project admin</option></select>')}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">🏷 Activity types</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Activity types</div>
     <div class="settings-section-sub">Labels users pick when logging time</div>
     ${['Development','Design','Meetings','Research','QA & Testing','Client calls','Admin'].map(a=>`
       <div class="settings-row">
@@ -2576,7 +2592,7 @@ function settingsRequestForms(){
 
 function settingsItemTypes(){
   return `<div class="settings-section">
-    <div class="settings-section-title">🧩 Custom item types</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> Custom item types</div>
     <div class="settings-section-sub">Define the types of work items your team uses. Each type can have its own workflow and icon.</div>
     <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-item-type')">＋ New item type</button></div>
     ${ITEM_TYPES.map(t=>`
@@ -2598,7 +2614,7 @@ function settingsItemTypes(){
 
 function settingsWorkflows(){
   return `<div class="settings-section">
-    <div class="settings-section-title">🔀 Workflows</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg> Workflows</div>
     <div class="settings-section-sub">Define status sequences for different types of work. Workflows control which transitions are allowed between statuses.</div>
     <div style="margin-bottom:14px"><button class="btn" onclick="openWorkflowModal()">＋ New workflow</button></div>
     ${WORKFLOWS.map(wf=>`
@@ -2624,7 +2640,7 @@ function settingsWorkflows(){
 function settingsCustomFields(){
   const FIELD_ICONS={text:'T',number:'#',date:'📅',select:'▾',checkbox:'☑',url:'🔗'};
   return `<div class="settings-section">
-    <div class="settings-section-title">🔧 Custom fields</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> Custom fields</div>
     <div class="settings-section-sub">Global custom fields appear on all tasks across all projects</div>
     <div style="margin-bottom:14px"><button class="btn" onclick="openCustomFieldModal()">＋ Add custom field</button></div>
     <div class="cf-list">
@@ -2657,7 +2673,7 @@ function settingsAutomation(){
   ];
   const userMap=Object.fromEntries(USERS.map(u=>[u.id,u.name]));
   return `<div class="settings-section">
-    <div class="settings-section-title">⚡ Active automations</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> Active automations</div>
     <div class="settings-section-sub">Rules that run automatically. Triggers, conditions, and actions execute in order.</div>
     <div style="margin-bottom:14px"><button class="btn" onclick="openM('modal-automation')">＋ Create custom automation</button></div>
     ${AUTOMATIONS.map(a=>`
@@ -2679,7 +2695,7 @@ function settingsAutomation(){
       </div>`).join('')}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">🚀 Quick-start templates</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.64 5.64l2.12 2.12M16.24 16.24l2.12 2.12M16.24 7.76l2.12-2.12M5.64 18.36l2.12-2.12"/></svg> Quick-start templates</div>
     <div class="settings-section-sub">Add a pre-built automation in one click, then customise as needed</div>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:4px">
       ${OOB.map(o=>`
@@ -2718,7 +2734,7 @@ function settingsSubscription(){
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">📦 Usage this period</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg> Usage this period</div>
     <div class="settings-section-sub">Resets on the 1st of each month</div>
     ${[['Members','5 of 25 used',20],['Projects','3 of unlimited',0],['Automations triggered','40 of 50',80],['Storage','1.2 GB of 10 GB',12]].map(([label,sub,pct])=>`
       <div style="margin-bottom:12px">
@@ -2730,7 +2746,7 @@ function settingsSubscription(){
 
 function settingsAiUsage(){
   return `<div class="settings-section">
-    <div class="settings-section-title">🤖 AI features</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 15h.01M16 15h.01M2 15h1M21 15h1"/></svg> AI features</div>
     <div class="settings-section-sub">Toggle AI-powered features for your workspace</div>
     ${toggle('Task summarisation','Auto-generate a plain-English summary of task details and comments',true)}
     ${toggle('Smart auto-assign','Suggest assignees based on workload and past task patterns',false)}
@@ -2764,7 +2780,7 @@ function settingsBilling(){
     ${row('Tax / VAT ID','Optional — printed on invoices',`<input class="s-inp" placeholder="e.g. US123456789" style="width:180px">`)}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">💳 Payment method</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg> Payment method</div>
     <div class="settings-section-sub">Your card on file</div>
     <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--surface2);border:1px solid var(--border);border-radius:12px;margin-bottom:12px">
       <span style="font-size:22px">💳</span>
@@ -2773,7 +2789,7 @@ function settingsBilling(){
     </div>
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">🧾 Invoices</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="12" y2="16"/></svg> Invoices</div>
     <div class="settings-section-sub">Download past invoices as PDF</div>
     <table class="user-table">
       <thead><tr><th>Date</th><th>Description</th><th>Amount</th><th>Status</th><th></th></tr></thead>
@@ -2812,7 +2828,7 @@ function settingsGeneral(){
     </table>
   </div>
   <div class="settings-section" style="border-color:rgba(239,68,68,.25)">
-    <div class="settings-section-title" style="color:var(--blocked)">⚠ Danger zone</div>
+    <div class="settings-section-title" style="color:var(--blocked)"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Danger zone</div>
     <div class="settings-section-sub">Irreversible actions — proceed with caution</div>
     ${row('Delete workspace','Permanently delete this workspace and all data','<button class="btn danger" style="font-size:12px" onclick="alert(\'This action cannot be undone.\')">Delete workspace</button>')}
   </div>`;
@@ -2820,7 +2836,7 @@ function settingsGeneral(){
 
 function settingsSecurity(){
   return `<div class="settings-section">
-    <div class="settings-section-title">🔒 Authentication</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Authentication</div>
     <div class="settings-section-sub">Control how members sign in to the workspace</div>
     ${toggle('Require two-factor auth','All members must enable 2FA to access the workspace',false)}
     ${toggle('SSO / SAML login','Enable single sign-on via your identity provider',false)}
@@ -2828,7 +2844,7 @@ function settingsSecurity(){
     ${row('Allowed email domains','Only emails from these domains can join','<input class="s-inp" placeholder="e.g. nexus.io, contractor.com" style="width:260px">')}
   </div>
   <div class="settings-section">
-    <div class="settings-section-title">🛡 Data & privacy</div>
+    <div class="settings-section-title"><svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Data & privacy</div>
     <div class="settings-section-sub">Manage how workspace data is handled</div>
     ${toggle('Guest access','Allow external users to view shared items without an account',true)}
     ${toggle('Export data','Allow members to export tasks and project data',true)}
@@ -3068,9 +3084,9 @@ document.querySelectorAll('.modal-bg').forEach(bg=>bg.addEventListener('click',e
 
 function createProject(){
   const name=document.getElementById('m-name').value.trim();if(!name)return;
-  const emojis=['🌐','📱','🎨','🔧','📊','🚀','💡','🏗'];
+  const projColor=document.getElementById('m-color')?.value||'#1AA6B7';
   const wsId=curWorkspaceId||WORKSPACES[0]?.id;
-  PROJECTS.push({id:'p'+Date.now(),name,desc:document.getElementById('m-desc').value,status:document.getElementById('m-status').value,priority:document.getElementById('m-priority').value,emoji:emojis[PROJECTS.length%emojis.length],tasks:[],locations:[{workspaceId:wsId,folderId:null,isHome:true}]});
+  PROJECTS.push({id:'p'+Date.now(),name,desc:document.getElementById('m-desc').value,status:document.getElementById('m-status').value,priority:document.getElementById('m-priority').value,emoji:'',color:projColor,tasks:[],locations:[{workspaceId:wsId,folderId:null,isHome:true}]});
   closeM('modal-proj');renderProjects();renderNavWorkspaces();
   document.getElementById('m-name').value='';document.getElementById('m-desc').value='';
 }
