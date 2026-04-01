@@ -152,8 +152,8 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg)
 .mini-av:first-child{margin-left:0}
 
 /* KANBAN */
-#view-kanban{position:absolute;inset:0;overflow-x:auto;padding:16px}
-.kanban-board{display:flex;gap:12px;height:100%;min-width:max-content}
+#view-board{position:absolute;inset:0;overflow-x:auto;padding:16px}
+.board-layout{display:flex;gap:12px;height:100%;min-width:max-content}
 .k-col{width:290px;flex-shrink:0;display:flex;flex-direction:column;border-radius:12px;background:var(--surface);border:1px solid var(--border2)}
 .k-col-head{padding:11px 13px;border-bottom:1px solid var(--border2);display:flex;align-items:center;justify-content:space-between;border-top:3px solid transparent;border-radius:12px 12px 0 0}
 .k-col-title{font-size:13px;font-weight:700}
@@ -710,6 +710,62 @@ body.nav-closed .nav-overlay{display:block}
 .fin-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
 .fin-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 @media(max-width:700px){.fin-grid,.fin-lob-grid{grid-template-columns:1fr}}
+
+/* ── PROJECT TOOLBAR BAR ── */
+.proj-toolbar-bar{display:flex;align-items:center;gap:0;border-bottom:1px solid var(--border2);background:var(--surface);padding:0 16px;min-height:42px;flex-shrink:0;flex-wrap:wrap;position:relative;z-index:5}
+.proj-tb-views{display:flex;align-items:center;gap:1px}
+.proj-tb-tab{display:flex;align-items:center;gap:5px;padding:0 14px;height:42px;font-size:12.5px;font-weight:500;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.proj-tb-tab:hover{color:var(--text2);background:var(--surface2)}
+.proj-tb-tab.on{color:var(--accent);border-bottom-color:var(--accent);font-weight:600}
+.proj-tb-tab svg{opacity:.7}
+.proj-tb-tab.on svg{opacity:1}
+.proj-tb-add-view{display:flex;align-items:center;gap:4px;padding:4px 10px;height:30px;font-size:12px;font-weight:600;color:var(--text3);border:1px dashed var(--border2);border-radius:6px;background:none;cursor:pointer;margin:0 6px;transition:all .15s}
+.proj-tb-add-view:hover{color:var(--accent);border-color:var(--accent);background:var(--abg)}
+.proj-tb-sep{width:1px;background:var(--border2);height:20px;margin:0 10px;flex-shrink:0}
+.proj-tb-controls{display:flex;align-items:center;gap:2px;flex:1;flex-wrap:wrap}
+.proj-tb-btn{display:flex;align-items:center;gap:5px;padding:4px 10px;height:30px;font-size:12px;color:var(--text2);border:1px solid transparent;border-radius:6px;background:none;cursor:pointer;transition:all .15s;white-space:nowrap}
+.proj-tb-btn:hover{background:var(--surface2);border-color:var(--border2)}
+.proj-tb-btn.active{background:var(--abg);border-color:var(--accent);color:var(--accent)}
+.proj-tb-btn svg{width:12px;height:12px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+/* floatin menus */
+.ptb-menu{position:fixed;background:var(--surface);border:1px solid var(--border2);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.12);z-index:600;min-width:200px;padding:6px}
+.ptb-menu-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:6px;font-size:12.5px;cursor:pointer;color:var(--text)}
+.ptb-menu-item:hover{background:var(--surface2)}
+.ptb-menu-item.danger{color:#ef4444}
+.ptb-menu-sep{height:1px;background:var(--border2);margin:4px 0}
+.ptb-menu-label{font-size:10px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;padding:4px 10px}
+/* field panel */
+.field-panel{position:fixed;background:var(--surface);border:1px solid var(--border2);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.14);z-index:600;width:280px;padding:0;overflow:hidden}
+.field-panel-head{padding:12px 14px;border-bottom:1px solid var(--border2)}
+.field-panel-search{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:5px 10px}
+.field-panel-search input{flex:1;border:none;background:transparent;font-size:12.5px;color:var(--text);outline:none}
+.field-panel-body{max-height:320px;overflow-y:auto;padding:6px}
+.field-panel-section{font-size:10px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.6px;padding:8px 8px 4px}
+.field-row{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;font-size:12.5px}
+.field-row:hover{background:var(--surface2)}
+.field-row-name{flex:1;color:var(--text)}
+.toggle-sw{width:32px;height:18px;background:var(--border2);border-radius:9px;position:relative;transition:background .2s;flex-shrink:0;cursor:pointer}
+.toggle-sw.on{background:var(--accent)}
+.toggle-sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:left .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle-sw.on::after{left:16px}
+/* custom field creator */
+.cf-creator{position:fixed;background:var(--surface);border:1px solid var(--border2);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.14);z-index:601;width:240px;padding:16px}
+.cf-creator-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px}
+.cf-creator input{width:100%;box-sizing:border-box;padding:7px 10px;border:1px solid var(--border2);border-radius:6px;font-size:13px;background:var(--surface2);color:var(--text);outline:none;margin-bottom:12px}
+.cf-creator input:focus{border-color:var(--accent)}
+.cf-type-label{font-size:11px;font-weight:600;color:var(--text3);margin-bottom:6px}
+.cf-type-grid{display:flex;flex-direction:column;gap:2px}
+.cf-type-opt{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;font-size:12.5px;cursor:pointer;color:var(--text)}
+.cf-type-opt:hover{background:var(--surface2)}
+.cf-type-opt.sel{background:var(--abg);color:var(--accent);font-weight:600}
+.cf-creator-actions{display:flex;gap:8px;margin-top:14px}
+.cf-creator-actions button{flex:1;padding:7px;border-radius:6px;font-size:12.5px;font-weight:600;cursor:pointer;border:1px solid var(--border2)}
+.cf-creator-actions .cf-save{background:var(--accent);color:#fff;border-color:var(--accent)}
+/* filter panel */
+.filter-panel{position:fixed;background:var(--surface);border:1px solid var(--border2);border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.14);z-index:600;width:340px;padding:14px}
+.filter-rule-row{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.filter-rule-row select,.filter-rule-row input{flex:1;padding:5px 8px;border:1px solid var(--border2);border-radius:6px;font-size:12px;background:var(--surface2);color:var(--text);outline:none}
+.filter-rule-row select:focus,.filter-rule-row input:focus{border-color:var(--accent)}
 </style>
 </head>
 <body>
@@ -850,6 +906,7 @@ body.nav-closed .nav-overlay{display:block}
     <div class="topbar-right" id="topbar-right"></div>
   </div>
   <div class="content">
+    <div id="proj-toolbar-bar" class="proj-toolbar-bar" style="display:none"></div>
     <div id="view-welcome">
       <div class="welcome-topo"></div>
       <!-- fireflies -->
@@ -898,7 +955,7 @@ body.nav-closed .nav-overlay{display:block}
     <div id="view-home" style="display:none"></div>
     <div id="view-projects" style="display:none"></div>
     <div id="view-workspace" style="display:none"></div>
-    <div id="view-kanban" style="display:none"><div class="kanban-board" id="kanban-board"></div></div>
+    <div id="view-board"  style="display:none"><div class="board-layout"  id="board-layout"></div></div>
     <div id="view-forms" style="display:none;position:absolute;inset:0;overflow-y:auto;padding:24px"></div>
     <div id="view-timesheet" style="display:none"></div>
     <div id="view-stub" style="display:none;position:absolute;inset:0"></div>
@@ -1299,7 +1356,7 @@ let CUSTOM_FIELDS=[
 
 let PROJECTS=[
   {id:'p1',name:'Corporate Website Revamp',desc:'Full redesign to Next.js and Tailwind.',status:'active',priority:'high',emoji:'🌐',color:'#1AA6B7',
-   locations:[{workspaceId:'ws1',folderId:'fl1',isHome:true},{workspaceId:'ws2',folderId:'fl3',isHome:false}],
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,locations:[{workspaceId:'ws1',folderId:'fl1',isHome:true},{workspaceId:'ws2',folderId:'fl3',isHome:false}],
    tasks:[
     {id:'t1',title:'Discovery & Requirements',status:'done',priority:'high',assignee:1,duration:10,pred:null,start:rel(-30),end:rel(-21),dueDate:null,description:'Meet with stakeholders to define scope.',comments:[{id:'c1',userId:1,text:'Requirements doc signed off by CEO.',time:rel(-22).toISOString()}],history:[{type:'status_change',from:'todo',to:'done',userId:1,time:rel(-21).toISOString()}],custom:{'cf1':8,'cf2':'Sprint 1'}},
     {id:'t2',title:'UI/UX Design Concepts',status:'in_progress',priority:'high',assignee:2,duration:14,pred:'t1',start:rel(-18),end:rel(3),dueDate:null,description:'Create hi-fi mockups for home and product pages.',comments:[{id:'c2',userId:2,text:'@admin Figma concepts uploaded for review.',time:rel(-10).toISOString()}],history:[{type:'status_change',from:'todo',to:'in_progress',userId:2,time:rel(-18).toISOString()}],custom:{'cf1':13,'cf2':'Sprint 1'}},
@@ -1310,13 +1367,13 @@ let PROJECTS=[
     {id:'t7',title:'Launch & Deploy',status:'todo',priority:'critical',assignee:1,duration:3,pred:'t6',start:rel(33),end:rel(36),dueDate:null,description:'Production deployment and monitoring.',comments:[],history:[],custom:{}},
    ]},
   {id:'p2',name:'Mobile App V2',desc:'Next major release focusing on performance.',status:'active',priority:'medium',emoji:'📱',color:'#5AD2C9',
-   locations:[{workspaceId:'ws1',folderId:'fl2',isHome:true}],
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,locations:[{workspaceId:'ws1',folderId:'fl2',isHome:true}],
    tasks:[
     {id:'t8',title:'Performance Audit',status:'todo',priority:'high',assignee:3,duration:5,pred:null,start:rel(0),end:rel(5),dueDate:null,description:'Identify bottlenecks.',comments:[],history:[],custom:{}},
     {id:'t9',title:'Redesign Onboarding',status:'todo',priority:'medium',assignee:2,duration:7,pred:'t8',start:rel(6),end:rel(13),dueDate:null,description:'Simplify first-run experience.',comments:[],history:[],custom:{}},
    ]},
   {id:'p3',name:'Brand Refresh',desc:'Update visual identity.',status:'on_hold',priority:'low',emoji:'🎨',color:'#8b5cf6',
-   locations:[{workspaceId:'ws2',folderId:'fl3',isHome:true},{workspaceId:'ws3',folderId:null,isHome:false}],
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,locations:[{workspaceId:'ws2',folderId:'fl3',isHome:true},{workspaceId:'ws3',folderId:null,isHome:false}],
    tasks:[
     {id:'t11',title:'Brand Audit',status:'done',priority:'medium',assignee:2,duration:5,pred:null,start:rel(-40),end:rel(-35),dueDate:null,description:'Review current brand assets.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:2,time:rel(-35).toISOString()}],custom:{}},
     {id:'t12',title:'Mood Board & Concepts',status:'in_progress',priority:'medium',assignee:4,duration:7,pred:'t11',start:rel(-5),end:rel(2),dueDate:null,description:'Gather visual inspiration and create initial concept directions.',comments:[{id:'c10',userId:4,text:'Added three concept directions to the shared folder.',time:rel(-2).toISOString()}],history:[{type:'status_change',from:'todo',to:'in_progress',userId:4,time:rel(-5).toISOString()}],custom:{}},
@@ -1333,7 +1390,7 @@ let PROJECTS=[
      {month:'2026-02',actual:38000,estimated:40000},
      {month:'2026-03',actual:22000,estimated:30000},
    ],
-   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
    tasks:[
     {id:'ta1',title:'Requirements Analysis',status:'done',priority:'high',assignee:1,duration:10,pred:null,start:rel(-60),end:rel(-50),dueDate:null,description:'Define project scope and requirements.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:1,time:rel(-50).toISOString()}],custom:{}},
     {id:'ta2',title:'Data Model Design',status:'done',priority:'high',assignee:6,duration:10,pred:'ta1',start:rel(-45),end:rel(-35),dueDate:null,description:'Design data architecture and field mappings.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:6,time:rel(-35).toISOString()}],custom:{}},
@@ -1351,7 +1408,7 @@ let PROJECTS=[
      {month:'2026-02',actual:25000,estimated:28000},
      {month:'2026-03',actual:18000,estimated:20000},
    ],
-   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
    tasks:[
     {id:'tb1',title:'Discovery Workshop',status:'done',priority:'high',assignee:2,duration:7,pred:null,start:rel(-45),end:rel(-38),dueDate:null,description:'Run discovery sessions with client.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:2,time:rel(-38).toISOString()}],custom:{}},
     {id:'tb2',title:'Configuration & Custom Dev',status:'in_progress',priority:'high',assignee:2,duration:30,pred:'tb1',start:rel(-15),end:rel(15),dueDate:null,description:'Salesforce configuration and custom development.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:2,time:rel(-15).toISOString()}],custom:{}},
@@ -1367,7 +1424,7 @@ let PROJECTS=[
      {month:'2026-02',actual:9000,estimated:8000},
      {month:'2026-03',actual:5000,estimated:6000},
    ],
-   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
    tasks:[
     {id:'tc1',title:'Scoping & Planning',status:'done',priority:'medium',assignee:6,duration:5,pred:null,start:rel(-30),end:rel(-25),dueDate:null,description:'Define project scope and deliverables.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:6,time:rel(-25).toISOString()}],custom:{}},
     {id:'tc2',title:'ML Model Development',status:'in_progress',priority:'high',assignee:4,duration:22,pred:'tc1',start:rel(-10),end:rel(12),dueDate:null,description:'Build and validate ML models.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:4,time:rel(-10).toISOString()}],custom:{}},
@@ -1383,7 +1440,7 @@ let PROJECTS=[
      {month:'2026-02',actual:12000,estimated:12000},
      {month:'2026-03',actual:8000,estimated:10000},
    ],
-   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
    tasks:[
     {id:'tn1',title:'Pipeline Architecture',status:'done',priority:'high',assignee:1,duration:7,pred:null,start:rel(-35),end:rel(-28),dueDate:null,description:'Design end-to-end pipeline architecture.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:1,time:rel(-28).toISOString()}],custom:{}},
     {id:'tn2',title:'ETL Development',status:'in_progress',priority:'high',assignee:2,duration:30,pred:'tn1',start:rel(-20),end:rel(10),dueDate:null,description:'Build ETL pipelines and data transformations.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:2,time:rel(-20).toISOString()}],custom:{}},
@@ -1521,13 +1578,14 @@ let formsSettingsTab='list';
 
 // Column config — shared between table and gantt sidebar
 let COLS=[
-  {key:'title',    label:'Task Name',  type:'builtin', tableVisible:true,  ganttVisible:true},
-  {key:'status',   label:'Status',     type:'builtin', tableVisible:true,  ganttVisible:true},
-  {key:'priority', label:'Priority',   type:'builtin', tableVisible:true,  ganttVisible:false},
-  {key:'assignee', label:'Assignee',   type:'builtin', tableVisible:true,  ganttVisible:true},
-  {key:'duration', label:'Duration',   type:'builtin', tableVisible:true,  ganttVisible:false},
-  {key:'dueDate',  label:'Due Date',   type:'builtin', tableVisible:true,  ganttVisible:false},
-  {key:'pred',     label:'Predecessor',type:'builtin', tableVisible:false, ganttVisible:false},
+  {key:'title',    label:'Task Name',   type:'builtin', tableVisible:true,  ganttVisible:true},
+  {key:'pred',     label:'Predecessors',type:'builtin', tableVisible:true,  ganttVisible:false},
+  {key:'duration', label:'Duration',    type:'builtin', tableVisible:true,  ganttVisible:false},
+  {key:'startDate',label:'Start date',  type:'builtin', tableVisible:true,  ganttVisible:false},
+  {key:'dueDate',  label:'Due date',    type:'builtin', tableVisible:true,  ganttVisible:false},
+  {key:'status',   label:'Status',      type:'builtin', tableVisible:true,  ganttVisible:true},
+  {key:'priority', label:'Priority',    type:'builtin', tableVisible:false, ganttVisible:false},
+  {key:'assignee', label:'Assignee',    type:'builtin', tableVisible:true,  ganttVisible:true},
 ];
 
 let curProjectId=null,curView='projects',curTask=null,selTaskId=null;
@@ -1738,24 +1796,28 @@ function showProjects(){
   showView('projects');renderProjects();renderNavWorkspaces();closeDetail();closeColPanel();
 }
 function openProject(id){
-  curProjectId=id;curView='kanban';
+  curProjectId=id;curView='table';
   renderNavWorkspaces();
-  const p=getP();
-  setTopbar(p.name,p.desc||'',[viewTabsHTML(),`<button class="btn" onclick="openM('modal-task')">＋ Task</button>`]);
-  showView('kanban');renderKanban();closeDetail();closeColPanel();
+  const p=getP();if(!p)return;
+  setTopbar(p.name,p.desc||'',[`<button class="btn" onclick="openM('modal-task')">＋ Task</button>`]);
+  showView('table');renderProjToolbar();renderTable();closeDetail();closeColPanel();
+  closeNavIfMobile();
 }
 
 function switchView(v){
   curView=v;const p=getP();if(!p)return;
-  setTopbar(p.name,p.desc||'',[viewTabsHTML(),`<button class="btn" onclick="openM('modal-task')">＋ Task</button>`]);
-  showView(v);closeColPanel();
-  if(v==='kanban')renderKanban();
+  closePtbMenus();
+  showView(v);renderProjToolbar();closeColPanel();
+  if(v==='board')renderBoard();
   else if(v==='table')renderTable();
   else if(v==='gantt'){renderGantt();setTimeout(goToday,80);}
 }
 
 function showView(v){
-  ['welcome','home','projects','workspace','kanban','table','gantt','settings','forms','timesheet','stub','financial'].forEach(n=>{
+  const projViews=new Set(['board','table','gantt']);
+  const tb=document.getElementById('proj-toolbar-bar');
+  if(tb) tb.style.display=(projViews.has(v)&&curProjectId)?'flex':'none';
+  ['welcome','home','projects','workspace','board','table','gantt','settings','forms','timesheet','stub','financial'].forEach(n=>{
     const el=document.getElementById('view-'+n);
     if(el)el.style.display=n===v?'':'none';
   });
@@ -1767,8 +1829,36 @@ function setTopbar(title,sub,actions){
   document.getElementById('topbar-right').innerHTML=actions.join('');
 }
 
-function viewTabsHTML(){
-  return `<div class="view-tabs">${[['kanban',`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="11" y="3" width="5" height="12" rx="1"/><rect x="19" y="3" width="3" height="7" rx="1"/></svg>Kanban`],['table',`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:4px"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Table`],['gantt',`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:4px"><line x1="3" y1="6" x2="21" y2="6"/><rect x="3" y="10" width="10" height="3" rx="1"/><rect x="9" y="15" width="10" height="3" rx="1"/><line x1="3" y1="21" x2="21" y2="21"/></svg>Gantt`]].map(([v,l])=>`<button class="vtab${curView===v?' on':''}" onclick="switchView('${v}')">${l}</button>`).join('')}</div>`;
+function renderProjToolbar(){
+  const p=getP();if(!p)return;
+  const bar=document.getElementById('proj-toolbar-bar');if(!bar)return;
+  const views=p.views||['table'];
+  const VIEW_ICONS={
+    table:`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`,
+    gantt:`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><line x1="3" y1="6" x2="21" y2="6"/><rect x="3" y="10" width="10" height="3" rx="1"/><rect x="9" y="15" width="10" height="3" rx="1"/><line x1="3" y1="21" x2="21" y2="21"/></svg>`,
+    board:`<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="11" y="3" width="5" height="12" rx="1"/><rect x="19" y="3" width="3" height="7" rx="1"/></svg>`,
+  };
+  const VIEW_LABELS={table:'Table',gantt:'Gantt',board:'Board'};
+  const tabsHTML=views.map(v=>`<button class="proj-tb-tab${curView===v?' on':''}" onclick="switchView('${v}')">${VIEW_ICONS[v]||''}${VIEW_LABELS[v]||v}</button>`).join('');
+  const addViewBtn=`<button class="proj-tb-add-view" onclick="openAddViewMenu(event)"><svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>View</button>`;
+  const sf=p.sortField||'startDate',sd=p.sortDir||'asc';
+  const SORT_LABELS={title:'Name',pred:'Predecessors',duration:'Duration',startDate:'Start date',dueDate:'Due date',status:'Status',priority:'Priority',assignee:'Assignee'};
+  const filterOn=(p.filterRules||[]).length>0;
+  const groupOn=!!p.groupBy;
+  const GROUP_LABELS={status:'Status',assignee:'Assignee',priority:'Priority',dueDate:'Due date'};
+  bar.innerHTML=`
+    <div class="proj-tb-views">${tabsHTML}${addViewBtn}</div>
+    <div class="proj-tb-sep"></div>
+    <div class="proj-tb-controls">
+      <button class="proj-tb-btn${filterOn?' active':''}" onclick="openFilterPanel(event)"><svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>Filter${filterOn?' ('+p.filterRules.length+')':''}</button>
+      <button class="proj-tb-btn" onclick="openSortMenu(event)"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="${sd==='asc'?'5 12 12 5 19 12':'5 12 12 19 19 12'}"/></svg>${sd==='asc'?'↑':'↓'} ${SORT_LABELS[sf]||sf}</button>
+      <button class="proj-tb-btn${groupOn?' active':''}" onclick="openGroupMenu(event)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Group${groupOn?': '+(GROUP_LABELS[p.groupBy]||p.groupBy):''}</button>
+      <button class="proj-tb-btn" onclick="openFieldPanel(event)"><svg viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3" cy="6" r="1" fill="currentColor"/><circle cx="3" cy="12" r="1" fill="currentColor"/><circle cx="3" cy="18" r="1" fill="currentColor"/></svg>Fields</button>
+    </div>`;
+}
+
+function closePtbMenus(){
+  document.querySelectorAll('.ptb-menu,.field-panel,.cf-creator,.filter-panel').forEach(el=>el.remove());
 }
 
 function navActive(id){
@@ -1823,9 +1913,9 @@ function renderProjects(){
 }
 
 // ═══════════════════════ KANBAN ═══════════════════════
-function renderKanban(){
+function renderBoard(){
   const p=getP();if(!p)return;
-  document.getElementById('kanban-board').innerHTML=KCOLS.map(col=>{
+  document.getElementById('board-layout').innerHTML=KCOLS.map(col=>{
     const tasks=p.tasks.filter(t=>t.status===col.id);
     return `<div class="k-col" ondragover="kOver(event,'${col.id}')" ondragleave="kLeave(event)" ondrop="kDrop(event,'${col.id}')">
       <div class="k-col-head" style="border-top-color:${col.color}">
@@ -1857,7 +1947,7 @@ function kDrop(e,status){
   if(!dragTaskId)return;
   const t=getP()?.tasks.find(x=>x.id===dragTaskId);
   if(t&&t.status!==status){addHist(t,'status_change',t.status,status);t.status=status;}
-  renderKanban();
+  renderBoard();
 }
 
 // ═══════════════════════ TABLE ═══════════════════════
@@ -1867,65 +1957,244 @@ function allCols(){
   return [...vis,...cfs];
 }
 
+function getPredDisplay(t,tasks){
+  if(!t.pred)return '';
+  const idx=tasks.findIndex(x=>x.id===t.pred);
+  if(idx<0)return '';
+  const rowNum=idx+1;
+  const type=t.predType||'FS';
+  const lag=t.predLag||0;
+  return rowNum+type+(lag>0?'+'+lag:lag<0?String(lag):'');
+}
+
+function parsePredInput(str,tasks){
+  if(!str||!str.trim())return{taskId:null,type:'FS',lag:0};
+  const m=str.trim().match(/^(\d+)(FS|SS|FF|SF)?([+-]\d+)?$/i);
+  if(!m)return null;
+  const rowNum=parseInt(m[1]);
+  if(rowNum<1||rowNum>tasks.length)return null;
+  return{taskId:tasks[rowNum-1].id,type:m[2]?m[2].toUpperCase():'FS',lag:m[3]?parseInt(m[3]):0};
+}
+
+function savePredInput(taskId,inputEl){
+  const p=getP();if(!p)return;
+  const t=p.tasks.find(x=>x.id===taskId);if(!t)return;
+  const parsed=parsePredInput(inputEl.value,p.tasks);
+  if(parsed===null){inputEl.value=getPredDisplay(t,p.tasks);return;}
+  t.pred=parsed.taskId;
+  t.predType=parsed.type;
+  t.predLag=parsed.lag;
+  if(curView==='table')renderTable();
+  if(curView==='gantt')renderGantt();
+}
+
+function getTaskSortVal(t,field,tasks){
+  switch(field){
+    case 'title':return(t.title||'').toLowerCase();
+    case 'pred':{const idx=tasks.findIndex(x=>x.id===t.pred);return idx<0?99999:idx;}
+    case 'duration':return t.duration||0;
+    case 'startDate':return t.start?new Date(t.start).getTime():0;
+    case 'dueDate':return t.dueDate?new Date(t.dueDate).getTime():99999999999;
+    case 'status':{const ord={done:0,in_progress:1,review:2,todo:3,blocked:4};return ord[t.status]??5;}
+    case 'priority':{const ord={critical:0,high:1,medium:2,low:3};return ord[t.priority]??4;}
+    case 'assignee':return(USERS.find(u=>u.id===t.assignee)?.name||'zzz').toLowerCase();
+    default:return 0;
+  }
+}
+
+function applyFilterRule(t,rule,tasks){
+  const{field,op,value}=rule;
+  let v='';
+  if(field==='title')v=(t.title||'').toLowerCase();
+  else if(field==='status')v=t.status||'';
+  else if(field==='priority')v=t.priority||'';
+  else if(field==='assignee')v=USERS.find(u=>u.id===t.assignee)?.name||'';
+  else if(field==='dueDate')v=t.dueDate||'';
+  else if(field==='duration')v=t.duration??null;
+  const lv=(value||'').toLowerCase();
+  switch(op){
+    case 'contains':return v.includes(lv);
+    case 'does not contain':return !v.includes(lv);
+    case 'is':return v===lv;
+    case 'is not':return v!==lv;
+    case 'is empty':return !v;
+    case 'is not empty':return !!v;
+    case '>':return Number(v)>Number(value);
+    case '<':return Number(v)<Number(value);
+    case 'after':return t.dueDate&&t.dueDate>value;
+    case 'before':return t.dueDate&&t.dueDate<value;
+    default:return true;
+  }
+}
+
 function renderTable(){
   const p=getP();if(!p)return;
-  const cols=allCols();
-  const stdCols=COLS.filter(c=>c.tableVisible);
-  const cfCols=CUSTOM_FIELDS.filter(cf=>cf.visible!==false);
+  const vc=p.visibleColumns||['pred','duration','startDate','dueDate','status','assignee'];
+  const BUILTIN_COLS=[
+    {key:'pred',     label:'Predecessors'},
+    {key:'duration', label:'Duration'},
+    {key:'startDate',label:'Start date'},
+    {key:'dueDate',  label:'Due date'},
+    {key:'status',   label:'Status'},
+    {key:'priority', label:'Priority'},
+    {key:'assignee', label:'Assignee'},
+  ];
+  const visCols=BUILTIN_COLS.filter(c=>vc.includes(c.key));
+  const visCFs=CUSTOM_FIELDS.filter(cf=>vc.includes('cf_'+cf.id)||cf.visible!==false&&!vc.length);
 
-  document.getElementById('tbl-toolbar').innerHTML=`
-    <button class="btn ghost" id="tbl-col-btn" onclick="toggleColPanel('table')" style="font-size:12px"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:3px"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Columns</button>
-    <span style="font-size:12px;color:var(--text3)">${p.tasks.length} tasks — click task name to open details, other cells to edit inline</span>`;
+  // Sort
+  let tasks=[...p.tasks];
+  const sf=p.sortField||'startDate',sd=p.sortDir||'asc';
+  tasks.sort((a,b)=>{
+    const va=getTaskSortVal(a,sf,p.tasks),vb=getTaskSortVal(b,sf,p.tasks);
+    if(va<vb)return sd==='asc'?-1:1;
+    if(va>vb)return sd==='asc'?1:-1;
+    return 0;
+  });
 
-  // Header: standard cols + custom field cols + plus
+  // Filter
+  if(p.filterRules&&p.filterRules.length)
+    tasks=tasks.filter(t=>p.filterRules.every(r=>applyFilterRule(t,r,p.tasks)));
+
+  // tbl-toolbar: just count
+  document.getElementById('tbl-toolbar').innerHTML=
+    `<span style="font-size:11.5px;color:var(--text3);padding:6px 0">${tasks.length} task${tasks.length!==1?'s':''}</span>`;
+
+  // Column sort arrows
+  const arr=k=>sf===k?(sd==='asc'?' ↑':' ↓'):'';
+
+  // Header
   document.getElementById('tbl-head').innerHTML=`<tr>
-    ${stdCols.map(c=>`<th>${c.label}</th>`).join('')}
-    ${cfCols.map(cf=>`<th style="color:var(--accent2);opacity:.8">${cf.name}</th>`).join('')}
-    <th class="th-plus" onclick="openAddColPanel()" title="Add column">＋</th>
+    <th class="tbl-rn-th" style="width:32px;color:var(--text3);font-weight:400;font-size:11px"></th>
+    <th style="cursor:pointer;min-width:180px" onclick="toggleTblSort('title')">Name${arr('title')}</th>
+    ${visCols.map(c=>`<th style="cursor:pointer;white-space:nowrap" onclick="toggleTblSort('${c.key}')">${c.label}${arr(c.key)}</th>`).join('')}
+    ${visCFs.map(cf=>`<th style="color:var(--accent);opacity:.85;white-space:nowrap">${cf.name}</th>`).join('')}
+    <th class="th-plus" onclick="openFieldPanel(event)" title="Show/hide fields" style="cursor:pointer;text-align:center;width:36px;font-size:16px;color:var(--text3)">＋</th>
   </tr>`;
 
-  // Body: each task row + optional expanded CF sub-row
+  // Group by
+  const gb=p.groupBy;
   let rows='';
-  p.tasks.forEach(t=>{
-    const isSel=selTaskId===t.id;
-    // Main row — title cell opens panel, other cells inline edit
-    rows+=`<tr class="${isSel?'row-sel':''}" id="trow-${t.id}">`;
-    stdCols.forEach(c=>{
-      if(c.key==='title'){
-        rows+=`<td>
-          <div class="title-cell" onclick="openTask('${t.id}')">
-            <div class="open-detail-btn" title="Open details">↗</div>
-            <input value="${esc(t.title)}" style="font-weight:600;background:transparent;border:none;color:var(--text);font-size:13px;font-family:inherit;outline:none;flex:1;cursor:text;min-width:100px"
-              onclick="event.stopPropagation()"
-              onblur="inlineEdit('${t.id}','title',this.value)"
-              onkeydown="if(event.key==='Enter')this.blur()">
-          </div>
-        </td>`;
-      } else {
-        rows+=tblCell(t,{key:c.key,type:'builtin'},p);
-      }
+  if(gb){
+    const groupMap={};
+    tasks.forEach(t=>{
+      let gk='';
+      if(gb==='status')gk=t.status||'todo';
+      else if(gb==='assignee')gk=USERS.find(u=>u.id===t.assignee)?.name||'Unassigned';
+      else if(gb==='priority')gk=t.priority||'medium';
+      else if(gb==='dueDate')gk=t.dueDate?t.dueDate.slice(0,7):'No date';
+      else gk='Other';
+      if(!groupMap[gk])groupMap[gk]=[];
+      groupMap[gk].push(t);
     });
-    // Custom field cells inline in main row
-    cfCols.forEach(cf=>{
-      rows+=cfInlineCell(t,cf,false);
+    Object.entries(groupMap).forEach(([gk,gTasks])=>{
+      const colSpan=2+visCols.length+visCFs.length+1;
+      rows+=`<tr><td colspan="${colSpan}" style="background:var(--surface2);padding:6px 12px;font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--border2)">${gk} <span style="font-weight:400;opacity:.6">(${gTasks.length})</span></td></tr>`;
+      gTasks.forEach(t=>{ rows+=renderTaskRow(t,p,visCols,visCFs,p.tasks); });
     });
-    rows+=`<td></td></tr>`;
-
-    // Expanded detail sub-row when selected — shows CF labels above values
-    if(isSel&&cfCols.length){
-      const colCount=stdCols.length+cfCols.length+1;
-      rows+=`<tr class="cf-inline-row" id="trow-exp-${t.id}">`;
-      // Blank cells under standard columns
-      stdCols.forEach(()=>{ rows+=`<td class="cf-inline-cell"></td>`; });
-      // CF cells with label
-      cfCols.forEach(cf=>{
-        rows+=cfInlineCell(t,cf,true);
-      });
-      rows+=`<td></td></tr>`;
-    }
-  });
+  } else {
+    tasks.forEach(t=>{ rows+=renderTaskRow(t,p,visCols,visCFs,p.tasks); });
+  }
   document.getElementById('tbl-body').innerHTML=rows;
 }
+
+function renderTaskRow(t,p,visCols,visCFs,allTasks){
+  const isSel=selTaskId===t.id;
+  const rowNum=allTasks.findIndex(x=>x.id===t.id)+1;
+  let row=`<tr class="${isSel?'row-sel':''}" id="trow-${t.id}" onmouseenter="this.querySelector('.open-detail-btn').style.opacity='1'" onmouseleave="this.querySelector('.open-detail-btn').style.opacity='0'">`;
+  // Row number
+  row+=`<td class="tbl-rn-td" style="color:var(--text3);font-size:11px;text-align:center;width:32px;user-select:none">${rowNum}</td>`;
+  // Name cell
+  row+=`<td><div class="title-cell" onclick="openTask('${t.id}')">
+    <div class="open-detail-btn" style="opacity:0;transition:opacity .15s" title="Open details">
+      <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;stroke-width:2;fill:none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+    </div>
+    <input value="${esc(t.title)}" style="font-weight:600;background:transparent;border:none;color:var(--text);font-size:13px;font-family:inherit;outline:none;flex:1;cursor:text;min-width:100px"
+      onclick="event.stopPropagation()"
+      onblur="inlineEdit('${t.id}','title',this.value)"
+      onkeydown="if(event.key==='Enter')this.blur()">
+  </div></td>`;
+  // Builtin visible cols
+  visCols.forEach(c=>{
+    if(c.key==='pred'){
+      const disp=getPredDisplay(t,allTasks);
+      row+=`<td onclick="event.stopPropagation()"><div class="cell editable">
+        <input value="${esc(disp)}" placeholder="e.g. 3FS+2"
+          style="font-size:12px;color:var(--accent2);min-width:60px;font-weight:500"
+          onblur="savePredInput('${t.id}',this)"
+          onkeydown="if(event.key==='Enter')this.blur()">
+      </div></td>`;
+    } else if(c.key==='duration'){
+      row+=`<td onclick="event.stopPropagation()"><div class="cell editable">
+        <input type="number" value="${t.duration||''}" placeholder="—" min="0"
+          style="width:55px;font-size:12px"
+          onblur="inlineEdit('${t.id}','duration',this.value?parseInt(this.value):null)"
+          onkeydown="if(event.key==='Enter')this.blur()">
+        ${t.duration?'<span style="font-size:10px;color:var(--text3)">d</span>':''}
+      </div></td>`;
+    } else if(c.key==='startDate'){
+      const dv=t.start?new Date(t.start).toISOString().slice(0,10):'';
+      row+=`<td onclick="event.stopPropagation()"><div class="cell editable">
+        <input type="date" value="${dv}"
+          style="font-size:12px;color:var(--text2)"
+          onchange="inlineEditStart('${t.id}',this.value)">
+      </div></td>`;
+    } else if(c.key==='dueDate'){
+      const today=new Date().toISOString().slice(0,10);
+      const overdue=t.dueDate&&t.dueDate<today&&t.status!=='done';
+      row+=`<td onclick="event.stopPropagation()"><div class="cell editable">
+        <input type="date" value="${t.dueDate||''}"
+          style="font-size:12px;color:${overdue?'#ef4444':'var(--text2)'}"
+          onchange="inlineEdit('${t.id}','dueDate',this.value||null)">
+      </div></td>`;
+    } else if(c.key==='status'){
+      row+=`<td onclick="event.stopPropagation()"><div class="cell">
+        <select style="background:transparent;border:none;color:${SC[t.status]};font-size:12px;font-weight:600;outline:none;cursor:pointer;font-family:inherit"
+          onchange="inlineEdit('${t.id}','status',this.value)">
+          ${Object.entries(SL).map(([v,l])=>`<option value="${v}" ${t.status===v?'selected':''} style="color:${SC[v]}">${l}</option>`).join('')}
+        </select>
+      </div></td>`;
+    } else if(c.key==='priority'){
+      row+=`<td onclick="event.stopPropagation()"><div class="cell">
+        <select style="background:transparent;border:none;color:${PC[t.priority]};font-size:12px;font-weight:600;outline:none;cursor:pointer;font-family:inherit"
+          onchange="inlineEdit('${t.id}','priority',this.value)">
+          ${Object.entries(PL).map(([v,l])=>`<option value="${v}" ${t.priority===v?'selected':''} style="color:${PC[v]}">${l}</option>`).join('')}
+        </select>
+      </div></td>`;
+    } else if(c.key==='assignee'){
+      const u=USERS.find(x=>x.id===t.assignee);
+      row+=`<td onclick="event.stopPropagation()"><div class="cell" style="gap:6px">
+        ${u?`<div style="width:22px;height:22px;border-radius:50%;background:${u.color};display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0">${ini(u.name)}</div>`:''}
+        <select style="background:transparent;border:none;color:var(--text);font-size:12px;outline:none;cursor:pointer;font-family:inherit"
+          onchange="inlineEdit('${t.id}','assignee',this.value?parseInt(this.value):null)">
+          <option value="">Unassigned</option>
+          ${USERS.map(u2=>`<option value="${u2.id}" ${t.assignee===u2.id?'selected':''}>${u2.name}</option>`).join('')}
+        </select>
+      </div></td>`;
+    } else {
+      row+=`<td></td>`;
+    }
+  });
+  // Custom field cells
+  visCFs.forEach(cf=>{ row+=cfInlineCell(t,cf,false); });
+  row+=`<td></td></tr>`;
+  return row;
+}
+
+function inlineEditStart(taskId,val){
+  const t=getP()?.tasks.find(x=>x.id===taskId);if(!t)return;
+  t.start=val?new Date(val):null;
+  if(curView==='table')renderTable();
+  if(curView==='gantt')renderGantt();
+}
+
+function toggleTblSort(field){
+  const p=getP();if(!p)return;
+  if(p.sortField===field)p.sortDir=p.sortDir==='asc'?'desc':'asc';
+  else{p.sortField=field;p.sortDir='asc';}
+  renderProjToolbar();renderTable();
+}
+
 
 function tblCell(t,col,p){
   const sc=`onclick="event.stopPropagation()"`;
@@ -2272,7 +2541,7 @@ function openTask(id){
     document.getElementById('detail').classList.remove('open');
   }
   // Always do a full re-render so expanded CF row appears/disappears
-  if(curView==='kanban')renderKanban();
+  if(curView==='board')renderBoard();
   else if(curView==='table')renderTable();
   else if(curView==='gantt')renderGantt();
 }
@@ -2324,7 +2593,7 @@ function saveCustomVal(cfId,val){
 function closeDetail(){
   selTaskId=null;curTask=null;
   document.getElementById('detail').classList.remove('open');
-  if(curView==='kanban')renderKanban();
+  if(curView==='board')renderBoard();
   else if(curView==='table')renderTable();
   else if(curView==='gantt')renderGantt();
 }
@@ -2342,7 +2611,7 @@ function saveF(f,v){
   refreshView();
 }
 function refreshView(){
-  if(curView==='kanban')renderKanban();
+  if(curView==='board')renderBoard();
   else if(curView==='table')renderTable();
   else if(curView==='gantt')renderGantt();
 }
@@ -4367,6 +4636,347 @@ function renderFinancialDashboard(){
 
   el.innerHTML=html;
 }
+
+// ═══════════════════ PROJECT TOOLBAR MENUS ═══════════════════
+
+// ── Field toggle panel ──
+function openFieldPanel(evt){
+  closePtbMenus();
+  const p=getP();if(!p)return;
+  const vc=p.visibleColumns||['pred','duration','startDate','dueDate','status','assignee'];
+  const BUILTIN=[
+    {key:'pred',     label:'Predecessors'},
+    {key:'duration', label:'Duration'},
+    {key:'startDate',label:'Start date'},
+    {key:'dueDate',  label:'Due date'},
+    {key:'status',   label:'Status'},
+    {key:'priority', label:'Priority'},
+    {key:'assignee', label:'Assignee'},
+  ];
+  const builtinRows=BUILTIN.map(c=>{
+    const on=vc.includes(c.key);
+    return `<div class="field-row" onclick="toggleFieldVis('${c.key}',event)">
+      <span class="field-row-name">${c.label}</span>
+      <div class="toggle-sw${on?' on':''}" id="tsw-${c.key}"></div>
+    </div>`;
+  }).join('');
+  const cfRows=CUSTOM_FIELDS.map(cf=>{
+    const cfKey='cf_'+cf.id;
+    const on=vc.includes(cfKey);
+    return `<div class="field-row" onclick="toggleFieldVis('${cfKey}',event)">
+      <span class="field-row-name">${cf.name} <span style="font-size:10px;color:var(--text3)">(${cf.type})</span></span>
+      <div class="toggle-sw${on?' on':''}" id="tsw-${cfKey}"></div>
+    </div>`;
+  }).join('');
+  const panel=document.createElement('div');
+  panel.className='field-panel';
+  panel.innerHTML=`
+    <div class="field-panel-head">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:13px;font-weight:700;color:var(--text)">Fields</span>
+        <button onclick="closePtbMenus()" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px;line-height:1">×</button>
+      </div>
+      <div class="field-panel-search">
+        <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:var(--text3);stroke-width:2;fill:none;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Search fields" oninput="filterFieldPanel(this.value)" id="field-panel-search-inp">
+      </div>
+    </div>
+    <div class="field-panel-body" id="field-panel-body">
+      <div class="field-panel-section">General</div>
+      <div id="fp-builtin">${builtinRows}</div>
+      ${CUSTOM_FIELDS.length?`<div class="field-panel-section">Custom fields</div><div id="fp-custom">${cfRows}</div>`:''}
+    </div>
+    <div style="border-top:1px solid var(--border2);padding:8px 10px">
+      <button onclick="openCFCreator(event)" style="display:flex;align-items:center;gap:6px;padding:7px 10px;border-radius:6px;font-size:12.5px;font-weight:600;color:var(--accent);border:1px dashed var(--accent);background:var(--abg);cursor:pointer;width:100%;justify-content:center">
+        <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:2;fill:none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Custom field
+      </button>
+    </div>`;
+  positionMenu(panel, evt);
+  document.body.appendChild(panel);
+  setTimeout(()=>document.addEventListener('click',closePtbOnOutside),10);
+}
+
+function filterFieldPanel(q){
+  const ql=q.toLowerCase();
+  document.querySelectorAll('#field-panel-body .field-row').forEach(row=>{
+    row.style.display=row.textContent.toLowerCase().includes(ql)?'':'none';
+  });
+}
+
+function toggleFieldVis(key,evt){
+  evt&&evt.stopPropagation();
+  const p=getP();if(!p)return;
+  if(!p.visibleColumns)p.visibleColumns=['pred','duration','startDate','dueDate','status','assignee'];
+  const idx=p.visibleColumns.indexOf(key);
+  if(idx>=0)p.visibleColumns.splice(idx,1);
+  else p.visibleColumns.push(key);
+  const sw=document.getElementById('tsw-'+key);
+  if(sw)sw.classList.toggle('on',idx<0);
+  if(curView==='table')renderTable();
+}
+
+// ── Custom field creator ──
+let cfCreatorType='text';
+function openCFCreator(evt){
+  document.querySelectorAll('.cf-creator').forEach(el=>el.remove());
+  const CF_TYPES=[
+    {t:'text',     label:'Text',            icon:'Aa'},
+    {t:'number',   label:'Number',          icon:'#'},
+    {t:'currency', label:'Currency',        icon:'$'},
+    {t:'percent',  label:'Percent',         icon:'%'},
+    {t:'select',   label:'Single select',   icon:'○'},
+    {t:'multiselect',label:'Multiple select',icon:'☰'},
+    {t:'assignee', label:'People',          icon:'👤'},
+    {t:'date',     label:'Date',            icon:'📅'},
+    {t:'duration', label:'Duration',        icon:'⏱'},
+    {t:'checkbox', label:'Checkbox',        icon:'☑'},
+  ];
+  cfCreatorType='text';
+  const el=document.createElement('div');
+  el.className='cf-creator';
+  el.innerHTML=`
+    <div class="cf-creator-title">New custom field</div>
+    <input id="cf-new-name" placeholder="Field name" value="New field">
+    <div class="cf-type-label">Select type</div>
+    <div class="cf-type-grid" id="cf-type-grid">
+      ${CF_TYPES.map(ct=>`
+        <div class="cf-type-opt${ct.t==='text'?' sel':''}" onclick="selCFType('${ct.t}',this)">
+          <span style="width:18px;text-align:center;font-size:12px">${ct.icon}</span>
+          <span>${ct.label}</span>
+        </div>`).join('')}
+    </div>
+    <div id="cf-options-area" style="display:none;margin-top:10px">
+      <div class="cf-type-label">Options (one per line)</div>
+      <textarea id="cf-options-inp" rows="3" style="width:100%;box-sizing:border-box;padding:6px 8px;border:1px solid var(--border2);border-radius:6px;font-size:12px;background:var(--surface2);color:var(--text);outline:none;resize:vertical"></textarea>
+    </div>
+    <div class="cf-creator-actions">
+      <button onclick="closePtbMenus()" style="background:none">Cancel</button>
+      <button class="cf-save" onclick="saveCFCreator()">Create field</button>
+    </div>`;
+  positionMenu(el, evt, true);
+  document.body.appendChild(el);
+}
+
+function selCFType(t,el){
+  cfCreatorType=t;
+  document.querySelectorAll('.cf-type-opt').forEach(o=>o.classList.remove('sel'));
+  el.classList.add('sel');
+  const needsOpts=t==='select'||t==='multiselect';
+  document.getElementById('cf-options-area').style.display=needsOpts?'block':'none';
+}
+
+function saveCFCreator(){
+  const name=document.getElementById('cf-new-name')?.value.trim();
+  if(!name)return;
+  let options=[];
+  if(cfCreatorType==='select'||cfCreatorType==='multiselect'){
+    const raw=document.getElementById('cf-options-inp')?.value||'';
+    options=raw.split('\n').map(s=>s.trim()).filter(Boolean);
+  }
+  const newCF={id:'cf'+Date.now(),name,type:cfCreatorType,options,visible:true,desc:''};
+  CUSTOM_FIELDS.push(newCF);
+  // Also add to current project's visibleColumns
+  const p=getP();
+  if(p){
+    if(!p.visibleColumns)p.visibleColumns=['pred','duration','startDate','dueDate','status','assignee'];
+    p.visibleColumns.push('cf_'+newCF.id);
+  }
+  closePtbMenus();
+  if(curView==='table')renderTable();
+  if(curView==='settings')renderSettings();
+  // Re-open field panel so user sees the new field
+  setTimeout(()=>{
+    const fakeEvt={clientX:window.innerWidth-310,clientY:90};
+    openFieldPanel(fakeEvt);
+  },80);
+}
+
+// ── +View dropdown ──
+function openAddViewMenu(evt){
+  closePtbMenus();
+  const p=getP();if(!p)return;
+  const all=['table','gantt','board'];
+  const available=all.filter(v=>!(p.views||['table']).includes(v));
+  if(!available.length)return;
+  const VIEW_LABELS={table:'Table',gantt:'Gantt chart',board:'Board'};
+  const VIEW_ICONS={
+    table:`<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>`,
+    gantt:`<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none"><line x1="3" y1="6" x2="21" y2="6"/><rect x="3" y="10" width="10" height="3" rx="1"/><rect x="9" y="15" width="10" height="3" rx="1"/><line x1="3" y1="21" x2="21" y2="21"/></svg>`,
+    board:`<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none"><rect x="3" y="3" width="5" height="18" rx="1"/><rect x="11" y="3" width="5" height="12" rx="1"/><rect x="19" y="3" width="3" height="7" rx="1"/></svg>`,
+  };
+  const menu=document.createElement('div');
+  menu.className='ptb-menu';
+  menu.innerHTML=`<div class="ptb-menu-label">Add view</div>`+
+    available.map(v=>`<div class="ptb-menu-item" onclick="addProjectView('${v}')">
+      ${VIEW_ICONS[v]||''}<span>${VIEW_LABELS[v]||v}</span>
+    </div>`).join('');
+  positionMenu(menu, evt);
+  document.body.appendChild(menu);
+  setTimeout(()=>document.addEventListener('click',closePtbOnOutside),10);
+}
+
+function addProjectView(v){
+  const p=getP();if(!p)return;
+  if(!p.views)p.views=['table'];
+  if(!p.views.includes(v))p.views.push(v);
+  closePtbMenus();
+  switchView(v);
+}
+
+// ── Sort menu ──
+function openSortMenu(evt){
+  closePtbMenus();
+  const p=getP();if(!p)return;
+  const FIELDS=[
+    {key:'title',label:'Name'},{key:'pred',label:'Predecessors'},
+    {key:'duration',label:'Duration'},{key:'startDate',label:'Start date'},
+    {key:'dueDate',label:'Due date'},{key:'status',label:'Status'},
+    {key:'priority',label:'Priority'},{key:'assignee',label:'Assignee'},
+  ];
+  const menu=document.createElement('div');
+  menu.className='ptb-menu';
+  menu.style.minWidth='190px';
+  const sf=p.sortField||'startDate', sd=p.sortDir||'asc';
+  menu.innerHTML=`<div class="ptb-menu-label">Sort by</div>`+
+    FIELDS.map(f=>`<div class="ptb-menu-item${sf===f.key?' on':''}" style="${sf===f.key?'color:var(--accent);font-weight:600':''}" onclick="setTblSort('${f.key}')">
+      ${f.label}${sf===f.key?' '+(sd==='asc'?'↑':'↓'):''}
+    </div>`).join('')+
+    `<div class="ptb-menu-sep"></div>
+    <div class="ptb-menu-item" onclick="setTblSortDir('asc')" style="${sd==='asc'?'color:var(--accent);font-weight:600':''}">↑ Ascending</div>
+    <div class="ptb-menu-item" onclick="setTblSortDir('desc')" style="${sd==='desc'?'color:var(--accent);font-weight:600':''}">↓ Descending</div>`;
+  positionMenu(menu, evt);
+  document.body.appendChild(menu);
+  setTimeout(()=>document.addEventListener('click',closePtbOnOutside),10);
+}
+
+function setTblSort(field){
+  const p=getP();if(!p)return;
+  if(p.sortField===field)p.sortDir=p.sortDir==='asc'?'desc':'asc';
+  else{p.sortField=field;p.sortDir='asc';}
+  closePtbMenus();renderProjToolbar();if(curView==='table')renderTable();
+}
+function setTblSortDir(dir){
+  const p=getP();if(!p)return;
+  p.sortDir=dir;closePtbMenus();renderProjToolbar();if(curView==='table')renderTable();
+}
+
+// ── Group menu ──
+function openGroupMenu(evt){
+  closePtbMenus();
+  const p=getP();if(!p)return;
+  const GROUPS=[
+    {key:'status',label:'Status'},{key:'assignee',label:'Assignee'},
+    {key:'priority',label:'Priority'},{key:'dueDate',label:'Due date (month)'},
+  ];
+  const menu=document.createElement('div');
+  menu.className='ptb-menu';
+  menu.innerHTML=`<div class="ptb-menu-label">Group by</div>`+
+    GROUPS.map(g=>`<div class="ptb-menu-item${p.groupBy===g.key?' on':''}" style="${p.groupBy===g.key?'color:var(--accent);font-weight:600':''}" onclick="setGroupBy('${g.key}')">
+      ${g.label}${p.groupBy===g.key?' ✓':''}
+    </div>`).join('')+
+    `<div class="ptb-menu-sep"></div>
+    <div class="ptb-menu-item${!p.groupBy?' on':''}" onclick="setGroupBy(null)">None${!p.groupBy?' ✓':''}</div>`;
+  positionMenu(menu, evt);
+  document.body.appendChild(menu);
+  setTimeout(()=>document.addEventListener('click',closePtbOnOutside),10);
+}
+
+function setGroupBy(key){
+  const p=getP();if(!p)return;
+  p.groupBy=key||null;closePtbMenus();renderProjToolbar();if(curView==='table')renderTable();
+}
+
+// ── Filter panel ──
+function openFilterPanel(evt){
+  closePtbMenus();
+  const p=getP();if(!p)return;
+  if(!p.filterRules)p.filterRules=[];
+  const FILTER_FIELDS=[
+    {key:'title',label:'Name'},{key:'status',label:'Status'},
+    {key:'priority',label:'Priority'},{key:'assignee',label:'Assignee'},
+    {key:'dueDate',label:'Due date'},{key:'duration',label:'Duration'},
+  ];
+  const panel=document.createElement('div');
+  panel.className='filter-panel';
+  function renderRules(){
+    panel.innerHTML=`
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <span style="font-size:13px;font-weight:700;color:var(--text)">Filter</span>
+        <button onclick="closePtbMenus()" style="background:none;border:none;cursor:pointer;color:var(--text3);font-size:16px">×</button>
+      </div>
+      <div id="filter-rules-list">
+        ${p.filterRules.map((r,i)=>`
+          <div class="filter-rule-row">
+            <select onchange="updateFilterRule(${i},'field',this.value)" style="flex:0 0 110px">
+              ${FILTER_FIELDS.map(f=>`<option value="${f.key}"${r.field===f.key?' selected':''}>${f.label}</option>`).join('')}
+            </select>
+            <select onchange="updateFilterRule(${i},'op',this.value)" style="flex:0 0 120px">
+              ${['contains','does not contain','is','is not','is empty','is not empty','>','<','before','after'].map(o=>`<option${r.op===o?' selected':''}>${o}</option>`).join('')}
+            </select>
+            <input value="${r.value||''}" placeholder="value" onblur="updateFilterRule(${i},'value',this.value)" onkeydown="if(event.key==='Enter')this.blur()">
+            <button onclick="removeFilterRule(${i})" style="background:none;border:none;cursor:pointer;color:#ef4444;font-size:16px;padding:0 4px;flex-shrink:0">×</button>
+          </div>`).join('')}
+      </div>
+      <button onclick="addFilterRule()" style="display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:6px;font-size:12.5px;color:var(--accent);border:none;background:none;cursor:pointer;margin-top:4px">
+        <svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add filter
+      </button>
+      ${p.filterRules.length?`<button onclick="clearFilters()" style="display:flex;align-items:center;gap:5px;padding:6px 10px;border-radius:6px;font-size:12.5px;color:#ef4444;border:none;background:none;cursor:pointer">Clear all</button>`:''}`;
+  }
+  renderRules();
+  window._rerenderFilterPanel=renderRules;
+  positionMenu(panel, evt);
+  document.body.appendChild(panel);
+  setTimeout(()=>document.addEventListener('click',closePtbOnOutside),10);
+}
+
+function addFilterRule(){
+  const p=getP();if(!p)return;
+  if(!p.filterRules)p.filterRules=[];
+  p.filterRules.push({field:'title',op:'contains',value:''});
+  if(window._rerenderFilterPanel)window._rerenderFilterPanel();
+  renderProjToolbar();if(curView==='table')renderTable();
+}
+function removeFilterRule(i){
+  const p=getP();if(!p)return;
+  p.filterRules.splice(i,1);
+  if(window._rerenderFilterPanel)window._rerenderFilterPanel();
+  renderProjToolbar();if(curView==='table')renderTable();
+}
+function updateFilterRule(i,key,val){
+  const p=getP();if(!p)return;
+  p.filterRules[i][key]=val;
+  renderProjToolbar();if(curView==='table')renderTable();
+}
+function clearFilters(){
+  const p=getP();if(!p)return;
+  p.filterRules=[];closePtbMenus();renderProjToolbar();if(curView==='table')renderTable();
+}
+
+// ── Shared positioning + outside-click helpers ──
+function positionMenu(el, evt, leftAligned){
+  el.style.position='fixed';
+  el.style.zIndex='600';
+  if(evt){
+    const x=evt.clientX, y=evt.clientY;
+    const spaceRight=window.innerWidth-x;
+    el.style.top=(y+8)+'px';
+    if(leftAligned||spaceRight>240) el.style.left=x+'px';
+    else el.style.right=(window.innerWidth-x)+'px';
+  } else {
+    el.style.top='90px';el.style.right='20px';
+  }
+}
+
+function closePtbOnOutside(e){
+  const keep=e.target.closest('.ptb-menu,.field-panel,.cf-creator,.filter-panel,.proj-tb-add-view,.proj-tb-btn');
+  if(!keep){
+    closePtbMenus();
+    document.removeEventListener('click',closePtbOnOutside);
+  }
+}
+
 // showHome() is called by loginAs() after authentication
 // Initial demo accounts are rendered by renderLoginDemos() above
 </script>
