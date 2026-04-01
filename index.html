@@ -621,6 +621,69 @@ body.nav-closed .nav-overlay{display:block}
   50%{opacity:1;filter:brightness(1.15)}
 }
 .nav-brand .nav-toggle-btn{flex-shrink:0}
+
+/* ── WELCOME SCREEN ── */
+#view-welcome{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#0B1320 0%,#0B2A38 55%,#0B7285 100%);overflow:hidden;z-index:10}
+#view-welcome.active{display:flex}
+.welcome-topo{position:absolute;inset:0;opacity:.18;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='900'%3E%3Cpath d='M0 450 Q225 360 450 450 T900 450' fill='none' stroke='%235AD2C9' stroke-width='1.5'/%3E%3Cpath d='M0 380 Q225 290 450 380 T900 380' fill='none' stroke='%235AD2C9' stroke-width='1'/%3E%3Cpath d='M0 310 Q225 220 450 310 T900 310' fill='none' stroke='%235AD2C9' stroke-width='.8'/%3E%3Cpath d='M0 520 Q225 430 450 520 T900 520' fill='none' stroke='%235AD2C9' stroke-width='1'/%3E%3Cpath d='M0 590 Q225 500 450 590 T900 590' fill='none' stroke='%235AD2C9' stroke-width='.7'/%3E%3Cpath d='M0 240 Q225 150 450 240 T900 240' fill='none' stroke='%235AD2C9' stroke-width='.5'/%3E%3Cpath d='M0 660 Q225 570 450 660 T900 660' fill='none' stroke='%235AD2C9' stroke-width='.5'/%3E%3C/svg%3E");background-size:cover;pointer-events:none}
+.welcome-firefly{position:absolute;width:4px;height:4px;border-radius:50%;background:rgba(90,210,201,.9);animation:firefly 2.5s ease-in-out infinite;pointer-events:none;box-shadow:0 0 6px rgba(90,210,201,.6)}
+.welcome-body{position:relative;z-index:1;text-align:center;max-width:680px;padding:0 24px}
+.welcome-logo{margin-bottom:32px}
+.welcome-greeting{font-family:'Lora',Georgia,serif;font-size:42px;font-weight:700;color:#CFF7F2;letter-spacing:-.5px;line-height:1.15;margin-bottom:10px}
+.welcome-sub{font-size:16px;color:rgba(207,247,242,.65);margin-bottom:44px;font-weight:400}
+.welcome-question{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:rgba(90,210,201,.7);margin-bottom:20px}
+.welcome-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.welcome-action{background:rgba(255,255,255,.06);border:1px solid rgba(90,210,201,.25);border-radius:16px;padding:20px 24px;cursor:pointer;transition:all .2s;min-width:160px;text-align:left;color:#CFF7F2}
+.welcome-action:hover{background:rgba(90,210,201,.12);border-color:rgba(90,210,201,.6);transform:translateY(-2px);box-shadow:0 8px 24px rgba(11,114,133,.3)}
+.welcome-action-icon{width:36px;height:36px;border-radius:10px;background:rgba(26,166,183,.25);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.welcome-action-icon svg{width:18px;height:18px;stroke:#5AD2C9;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.welcome-action-title{font-size:13px;font-weight:600;margin-bottom:3px}
+.welcome-action-sub{font-size:11px;color:rgba(207,247,242,.5)}
+.welcome-skip{margin-top:32px;font-size:12px;color:rgba(207,247,242,.35);cursor:pointer;transition:.15s}
+.welcome-skip:hover{color:rgba(207,247,242,.6)}
+
+/* ── AI ASSISTANT PANEL ── */
+#ai-panel{position:fixed;top:0;right:0;bottom:0;width:380px;background:var(--surface);border-left:1px solid var(--border2);display:flex;flex-direction:column;z-index:500;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 24px rgba(11,114,133,.12)}
+#ai-panel.open{transform:translateX(0)}
+.ai-panel-header{padding:16px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ai-panel-avatar{width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,#0B7285,#5AD2C9);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:pulseLogo 3s ease-in-out infinite}
+.ai-panel-avatar svg{width:18px;height:18px;stroke:white;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ai-panel-title{font-family:'Lora',Georgia,serif;font-size:15px;font-weight:700;color:var(--text)}
+.ai-panel-sub{font-size:11px;color:var(--text3);margin-top:1px}
+.ai-close-btn{margin-left:auto;width:28px;height:28px;border-radius:8px;border:none;background:transparent;cursor:pointer;color:var(--text2);display:flex;align-items:center;justify-content:center;transition:.12s}
+.ai-close-btn:hover{background:var(--surface2);color:var(--text)}
+.ai-messages{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.ai-msg{display:flex;gap:8px;align-items:flex-start}
+.ai-msg.user{flex-direction:row-reverse}
+.ai-msg-bubble{max-width:78%;padding:10px 13px;border-radius:14px;font-size:13px;line-height:1.5}
+.ai-msg.ai .ai-msg-bubble{background:var(--surface2);border:1px solid var(--border);color:var(--text);border-radius:4px 14px 14px 14px}
+.ai-msg.user .ai-msg-bubble{background:linear-gradient(135deg,#1AA6B7,#5AD2C9);color:#0B1320;font-weight:500;border-radius:14px 4px 14px 14px}
+.ai-msg-av{width:26px;height:26px;border-radius:8px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.ai-msg.ai .ai-msg-av{background:linear-gradient(135deg,#0B7285,#1AA6B7);color:white}
+.ai-msg.user .ai-msg-av{background:var(--surface3);color:var(--accent);font-size:11px}
+.ai-action-chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 16px 10px}
+.ai-chip{padding:5px 11px;border:1px solid var(--border2);border-radius:20px;font-size:11px;font-weight:500;cursor:pointer;color:var(--text2);background:var(--surface2);transition:.12s;white-space:nowrap}
+.ai-chip:hover{border-color:var(--accent);color:var(--accent);background:var(--abg)}
+.ai-input-row{padding:12px 14px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
+.ai-input{flex:1;padding:9px 12px;border:1.5px solid var(--border2);border-radius:10px;background:var(--surface2);color:var(--text);font-size:13px;font-family:inherit;outline:none;resize:none;height:38px;transition:.15s}
+.ai-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(26,166,183,.1)}
+.ai-send-btn{width:38px;height:38px;border-radius:10px;border:none;background:linear-gradient(135deg,#1AA6B7,#5AD2C9);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;flex-shrink:0}
+.ai-send-btn:hover{opacity:.88}
+.ai-send-btn svg{width:15px;height:15px;stroke:#0B1320;stroke-width:2.25;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.ai-typing{display:flex;gap:4px;align-items:center;padding:10px 13px}
+.ai-typing span{width:6px;height:6px;border-radius:50%;background:var(--accent);opacity:.4;animation:aiTyping 1.2s ease-in-out infinite}
+.ai-typing span:nth-child(2){animation-delay:.2s}
+.ai-typing span:nth-child(3){animation-delay:.4s}
+@keyframes aiTyping{0%,100%{opacity:.4;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+
+/* AI trigger button in topbar */
+#ai-trigger{display:flex;align-items:center;gap:7px;padding:7px 13px;border-radius:10px;border:1px solid var(--border2);background:var(--surface2);cursor:pointer;font-size:12px;font-weight:600;color:var(--text2);transition:.15s;white-space:nowrap}
+#ai-trigger:hover{border-color:var(--accent);color:var(--accent);background:var(--abg)}
+#ai-trigger svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round}
+#ai-trigger .ai-trig-dot{width:6px;height:6px;border-radius:50%;background:#5AD2C9;animation:pulseLogo 2s ease-in-out infinite;flex-shrink:0}
+
+/* Content area shift when panel open */
+.main.ai-open .content{margin-right:380px;transition:margin-right .3s cubic-bezier(.4,0,.2,1)}
 </style>
 </head>
 <body>
@@ -757,9 +820,55 @@ body.nav-closed .nav-overlay{display:block}
       <div class="topbar-sub" id="topbar-sub">Your workspace</div>
     </div>
     <div class="flex1"></div>
+    <button id="ai-trigger" onclick="toggleAI()"><svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 0 2h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1 0-2h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="9" cy="14" r="1" fill="currentColor"/><circle cx="15" cy="14" r="1" fill="currentColor"/></svg><span>Delta AI</span><div class="ai-trig-dot"></div></button>
     <div class="topbar-right" id="topbar-right"></div>
   </div>
   <div class="content">
+    <div id="view-welcome">
+      <div class="welcome-topo"></div>
+      <!-- fireflies -->
+      <div class="welcome-firefly" style="left:12%;top:25%;animation-delay:0s;animation-duration:2.4s"></div>
+      <div class="welcome-firefly" style="left:78%;top:18%;animation-delay:.6s;animation-duration:3.1s"></div>
+      <div class="welcome-firefly" style="left:35%;top:70%;animation-delay:1.1s;animation-duration:2.7s"></div>
+      <div class="welcome-firefly" style="left:88%;top:60%;animation-delay:.3s;animation-duration:2.2s"></div>
+      <div class="welcome-firefly" style="left:55%;top:35%;animation-delay:1.8s;animation-duration:2.9s"></div>
+      <div class="welcome-firefly" style="left:22%;top:55%;animation-delay:.9s;animation-duration:3.3s"></div>
+      <div class="welcome-body">
+        <div class="welcome-logo">
+          <svg width="140" height="47" viewBox="0 0 300 100" fill="none">
+            <defs><linearGradient id="wGrad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#0B7285"/><stop offset="50%" stop-color="#1AA6B7"/><stop offset="100%" stop-color="#5AD2C9"/></linearGradient></defs>
+            <path class="delta-flow" d="M45 15C48 10 52 10 55 15L90 75C93 80 90 85 85 85H15C10 85 7 80 10 75L45 15Z" fill="url(#wGrad)"/>
+            <text x="110" y="72" fill="#CFF7F2" style="font-family:'Plus Jakarta Sans',sans-serif;font-size:52px;font-weight:700;letter-spacing:-1px">DELTA</text>
+          </svg>
+        </div>
+        <div class="welcome-greeting" id="welcome-greeting">Good morning</div>
+        <div class="welcome-sub" id="welcome-sub">Where would you like to start today?</div>
+        <div class="welcome-question">Choose a starting point</div>
+        <div class="welcome-actions">
+          <div class="welcome-action" onclick="welcomeAction('tasks')">
+            <div class="welcome-action-icon"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+            <div class="welcome-action-title">Review today's tasks</div>
+            <div class="welcome-action-sub">See what's assigned to you</div>
+          </div>
+          <div class="welcome-action" onclick="welcomeAction('timesheets')">
+            <div class="welcome-action-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="welcome-action-title">Team timesheets</div>
+            <div class="welcome-action-sub">Review this week's hours</div>
+          </div>
+          <div class="welcome-action" onclick="welcomeAction('financial')">
+            <div class="welcome-action-icon"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+            <div class="welcome-action-title">Financial Dashboard</div>
+            <div class="welcome-action-sub">Operations overview</div>
+          </div>
+          <div class="welcome-action" onclick="welcomeAction('home')">
+            <div class="welcome-action-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div class="welcome-action-title">Go to home</div>
+            <div class="welcome-action-sub">Your personal dashboard</div>
+          </div>
+        </div>
+        <div class="welcome-skip" onclick="welcomeAction('home')">Skip — take me to my dashboard →</div>
+      </div>
+    </div>
     <div id="view-home" style="display:none"></div>
     <div id="view-projects" style="display:none"></div>
     <div id="view-workspace" style="display:none"></div>
@@ -1538,7 +1647,7 @@ function switchView(v){
 }
 
 function showView(v){
-  ['home','projects','workspace','kanban','table','gantt','settings','forms','timesheet','stub'].forEach(n=>{
+  ['welcome','home','projects','workspace','kanban','table','gantt','settings','forms','timesheet','stub'].forEach(n=>{
     const el=document.getElementById('view-'+n);
     if(el)el.style.display=n===v?'':'none';
   });
@@ -3707,10 +3816,10 @@ function loginAs(userId){
   document.getElementById('dark-toggle').style.display='';
   // Hide login screen
   document.getElementById('login-screen').classList.add('hidden');
-  // Show app
-  showHome();
+  // Show welcome screen
   renderNavWorkspaces();
   renderNavPinned();
+  showWelcome();
 }
 
 function renderLoginDemos(){
@@ -3727,6 +3836,152 @@ function renderLoginDemos(){
 document.getElementById('login-email').value = 'yolanda.c@decisionfoundry.com';
 renderLoginDemos();
 
+
+// ═══════════════════════ WELCOME SCREEN ═══════════════════════
+function showWelcome(){
+  const u=USERS[0];
+  const hour=new Date().getHours();
+  const greet=hour<12?'Good morning':hour<17?'Good afternoon':'Good evening';
+  document.getElementById('welcome-greeting').textContent=greet+', '+u.name.split(' ')[0]+'!';
+  document.getElementById('welcome-sub').textContent='Where would you like to start today?';
+  document.getElementById('view-welcome').classList.add('active');
+  showView('welcome');
+  setTopbar('','',[]); 
+  document.getElementById('topbar').style.display='none';
+}
+
+function welcomeAction(action){
+  document.getElementById('view-welcome').classList.remove('active');
+  document.getElementById('topbar').style.display='';
+  if(action==='tasks'){showMyTasks();}
+  else if(action==='timesheets'){showTimesheets();}
+  else if(action==='financial'){
+    const ws=WORKSPACES.find(w=>w.name==='Operations');
+    if(ws)showWorkspace(ws.id); else showHome();
+  }
+  else{showHome();}
+  renderNavWorkspaces();renderNavPinned();
+}
+
+// ═══════════════════════ AI ASSISTANT ═══════════════════════
+let aiHistory=[];
+let aiOpen=false;
+
+const AI_RESPONSES=[
+  {match:/tasks?|to.?do|assigned/i, reply:"Here are your open tasks — navigating you there now.", action:()=>showMyTasks()},
+  {match:/timesheet|hours|time.?log/i, reply:"Opening the timesheets view for you.", action:()=>showTimesheets()},
+  {match:/financial|finance|dashboard|operations|ops|revenue|cost/i, reply:"Taking you to the Financial Dashboard in Operations.", action:()=>{const ws=WORKSPACES.find(w=>w.name==='Operations');if(ws)showWorkspace(ws.id);else showHome();}},
+  {match:/settings?|profile|account/i, reply:"Opening Settings.", action:()=>showSettings()},
+  {match:/project/i, reply:"Here are all your projects.", action:()=>showProjects()},
+  {match:/home|dashboard|overview/i, reply:"Taking you to your home dashboard.", action:()=>showHome()},
+  {match:/inbox|notification/i, reply:"Opening your inbox.", action:()=>showInbox()},
+  {match:/calendar/i, reply:"Opening Calendars.", action:()=>showCalendars()},
+  {match:/report/i, reply:"Opening Reports.", action:()=>showReports()},
+  {match:/help|what can you do/i, reply:"I can navigate you around Delta, answer questions about your projects and tasks, or summarise what's happening. Try asking me to:\n• 'Show my tasks'\n• 'Open timesheets'\n• 'Go to the financial dashboard'\n• 'Open settings'", action:null},
+  {match:/hello|hi |hey|good/i, reply:()=>{const h=new Date().getHours();const g=h<12?'morning':h<17?'afternoon':'evening';return `Good ${g}, ${USERS[0].name.split(' ')[0]}! How can I help you today?`;}, action:null},
+  {match:/overdue|late|behind/i, reply:()=>{const od=PROJECTS.flatMap(p=>p.tasks.filter(t=>t.dueDate&&new Date(t.dueDate)<new Date()&&t.status!=='done'));return od.length?`You have ${od.length} overdue task${od.length>1?'s':''}. Would you like me to show your task list?`:`Great news — no overdue tasks right now!`;}, action:null},
+];
+
+const AI_CHIPS_DEFAULT=['Show my tasks','Open timesheets','Financial dashboard','What can you do?'];
+
+function toggleAI(){
+  aiOpen=!aiOpen;
+  document.getElementById('ai-panel').classList.toggle('open',aiOpen);
+  document.querySelector('.main').classList.toggle('ai-open',aiOpen);
+  if(aiOpen&&aiHistory.length===0){
+    setTimeout(()=>{
+      const h=new Date().getHours();
+      const g=h<12?'morning':h<17?'afternoon':'evening';
+      aiAddMsg('ai',`Good ${g}, ${USERS[0].name.split(' ')[0]}! I'm Delta AI — I can help you navigate the platform, find information about your projects, or answer questions about your team's work.\n\nWhat would you like to do?`);
+      renderAIChips(AI_CHIPS_DEFAULT);
+    },180);
+  }
+}
+
+function aiKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();aiSend();}}
+
+function aiSend(){
+  const inp=document.getElementById('ai-input');
+  const txt=inp.value.trim();
+  if(!txt)return;
+  inp.value='';inp.style.height='38px';
+  aiAddMsg('user',txt);
+  renderAIChips([]);
+  // Show typing indicator
+  const typingId='ai-typing-'+Date.now();
+  aiAddTyping(typingId);
+  setTimeout(()=>{
+    document.getElementById(typingId)?.remove();
+    aiRespond(txt);
+  },700+Math.random()*400);
+}
+
+function aiChipSend(txt){
+  document.getElementById('ai-input').value='';
+  aiAddMsg('user',txt);
+  renderAIChips([]);
+  const typingId='ai-typing-'+Date.now();
+  aiAddTyping(typingId);
+  setTimeout(()=>{
+    document.getElementById(typingId)?.remove();
+    aiRespond(txt);
+  },600+Math.random()*300);
+}
+
+function aiRespond(txt){
+  const match=AI_RESPONSES.find(r=>r.match.test(txt));
+  if(match){
+    const reply=typeof match.reply==='function'?match.reply():match.reply;
+    aiAddMsg('ai',reply);
+    if(match.action){
+      setTimeout(()=>{
+        match.action();
+        renderAIChips(['Show my tasks','Open timesheets','Back to home','What else?']);
+      },400);
+    } else {
+      renderAIChips(AI_CHIPS_DEFAULT);
+    }
+  } else {
+    // Generic contextual response
+    const fallbacks=[
+      `I'm not sure about that specific query yet, but I can help you navigate Delta. Try asking me to open a specific view or tell you about your tasks.`,
+      `That's a great question! I'm still learning the full scope of your workspace. In the meantime, I can open any section of the app for you — just ask!`,
+      `I can see you're curious about "${txt.slice(0,30)}...". I don't have a specific answer for that yet, but I can navigate you to the most relevant section. What would help most?`,
+    ];
+    aiAddMsg('ai',fallbacks[Math.floor(Math.random()*fallbacks.length)]);
+    renderAIChips(AI_CHIPS_DEFAULT);
+  }
+}
+
+function aiAddMsg(role,text){
+  const u=USERS[0];
+  const el=document.createElement('div');
+  el.className=`ai-msg ${role}`;
+  const av=role==='ai'
+    ?`<div class="ai-msg-av">AI</div>`
+    :`<div class="ai-msg-av" style="background:${u.color}">${ini(u.name)}</div>`;
+  const escaped=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/\n/g,'<br>');
+  el.innerHTML=`${av}<div class="ai-msg-bubble">${escaped}</div>`;
+  const msgs=document.getElementById('ai-messages');
+  msgs.appendChild(el);
+  msgs.scrollTop=msgs.scrollHeight;
+  aiHistory.push({role,text});
+}
+
+function aiAddTyping(id){
+  const el=document.createElement('div');
+  el.className='ai-msg ai';el.id=id;
+  el.innerHTML=`<div class="ai-msg-av">AI</div><div class="ai-msg-bubble" style="padding:6px 13px"><div class="ai-typing"><span></span><span></span><span></span></div></div>`;
+  const msgs=document.getElementById('ai-messages');
+  msgs.appendChild(el);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+
+function renderAIChips(chips){
+  const el=document.getElementById('ai-chips');
+  el.innerHTML=chips.map(c=>`<div class="ai-chip" onclick="aiChipSend('${c}')">${c}</div>`).join('');
+}
+
 // ═══════════════════════ INIT ═══════════════════════
 // Keyboard shortcut: Ctrl+K
 document.addEventListener('keydown',e=>{
@@ -3736,5 +3991,29 @@ document.addEventListener('keydown',e=>{
 // showHome() is called by loginAs() after authentication
 // Initial demo accounts are rendered by renderLoginDemos() above
 </script>
+
+<!-- AI ASSISTANT PANEL -->
+<div id="ai-panel">
+  <div class="ai-panel-header">
+    <div class="ai-panel-avatar">
+      <svg viewBox="0 0 24 24"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 0 2h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1 0-2h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/><circle cx="9" cy="14" r="1" fill="white"/><circle cx="15" cy="14" r="1" fill="white"/></svg>
+    </div>
+    <div>
+      <div class="ai-panel-title">Delta AI</div>
+      <div class="ai-panel-sub">Your intelligent workspace assistant</div>
+    </div>
+    <button class="ai-close-btn" onclick="toggleAI()" title="Close">
+      <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="ai-messages" id="ai-messages"></div>
+  <div class="ai-action-chips" id="ai-chips"></div>
+  <div class="ai-input-row">
+    <textarea class="ai-input" id="ai-input" placeholder="Ask anything or say 'go to timesheets'…" rows="1" onkeydown="aiKey(event)" oninput="this.style.height='38px';this.style.height=Math.min(this.scrollHeight,100)+'px'"></textarea>
+    <button class="ai-send-btn" onclick="aiSend()" title="Send">
+      <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
 </body>
 </html>
