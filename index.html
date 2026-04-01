@@ -766,6 +766,33 @@ body.nav-closed .nav-overlay{display:block}
 .filter-rule-row{display:flex;align-items:center;gap:6px;margin-bottom:8px}
 .filter-rule-row select,.filter-rule-row input{flex:1;padding:5px 8px;border:1px solid var(--border2);border-radius:6px;font-size:12px;background:var(--surface2);color:var(--text);outline:none}
 .filter-rule-row select:focus,.filter-rule-row input:focus{border-color:var(--accent)}
+
+/* ── ACCOUNT MANAGEMENT DASHBOARD ── */
+.acct-page{max-width:1200px;margin:0 auto}
+.acct-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.acct-search{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:6px 12px;flex:1;max-width:280px}
+.acct-search input{flex:1;border:none;background:transparent;font-size:12.5px;color:var(--text);outline:none}
+.acct-filter-btn{display:flex;align-items:center;gap:5px;padding:5px 12px;border-radius:8px;font-size:12px;font-weight:600;border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s}
+.acct-filter-btn:hover{border-color:var(--accent);color:var(--accent)}
+.acct-filter-btn.active{background:var(--abg);border-color:var(--accent);color:var(--accent)}
+.acct-table-wrap{background:var(--surface);border:1px solid var(--border2);border-radius:12px;overflow:hidden}
+.acct-overview-title{font-size:13px;font-weight:700;color:var(--text);padding:14px 16px;border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:6px}
+.acct-overview-count{font-size:12px;font-weight:400;color:var(--text3);margin-left:2px}
+.acct-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.acct-table th{text-align:left;padding:8px 12px;font-size:11px;font-weight:600;color:var(--text3);border-bottom:1px solid var(--border2);white-space:nowrap;cursor:pointer;user-select:none}
+.acct-table th:hover{color:var(--text2)}
+.acct-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.acct-table tr:last-child td{border-bottom:none}
+.acct-table tbody tr{cursor:pointer;transition:background .1s}
+.acct-table tbody tr:hover td{background:var(--surface2)}
+.acct-health-badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.2px}
+.acct-status-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;white-space:nowrap}
+.acct-status-bar{width:4px;height:14px;border-radius:2px;flex-shrink:0}
+.acct-product-tag{display:inline-block;padding:2px 7px;border-radius:6px;font-size:10px;font-weight:600;background:var(--abg);color:var(--accent);border:1px solid var(--accent);margin:1px 2px;white-space:nowrap}
+.acct-owner-cell{display:flex;align-items:center;gap:7px}
+.acct-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;flex-shrink:0}
+.acct-location{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:500;background:var(--surface2);color:var(--text2);white-space:nowrap}
+.acct-empty{padding:32px;text-align:center;color:var(--text3);font-size:13px}
 </style>
 </head>
 <body>
@@ -1001,6 +1028,7 @@ body.nav-closed .nav-overlay{display:block}
     </div>
     <div id="view-settings" style="display:none"></div>
     <div id="view-financial" style="display:none;position:absolute;inset:0;overflow-y:auto;padding:24px"></div>
+    <div id="view-account-mgmt" style="display:none;position:absolute;inset:0;overflow-y:auto;padding:24px"></div>
   </div>
 </div>
 
@@ -1294,12 +1322,16 @@ let WORKSPACES=[
   {id:'ws2',name:'Design',color:'#8b5cf6',emoji:'🎨',desc:'UX, visual design and brand assets.',expanded:false},
   {id:'ws3',name:'Marketing',color:'#f59e4a',emoji:'📢',desc:'Campaigns, content and growth initiatives.',expanded:false},
   {id:'ws4',name:'Operations',color:'#22c55e',emoji:'📊',desc:'Financial operations and resource planning.',expanded:false},
+  {id:'ws5',name:'Client Accounts',color:'#3b82f6',emoji:'🏢',desc:'Active client accounts and delivery tracking.',expanded:false},
 ];
 
 let FOLDERS=[
   {id:'fl1',name:'Website Projects',workspaceId:'ws1',parentFolderId:null,emoji:'🌐',color:'#1AA6B7'},
   {id:'fl2',name:'Mobile',workspaceId:'ws1',parentFolderId:null,emoji:'📱',color:'#5AD2C9'},
   {id:'fl3',name:'Brand',workspaceId:'ws2',parentFolderId:null,emoji:'🎨',color:'#8b5cf6'},
+  {id:'fl4',name:'0. Pipeline',workspaceId:'ws5',parentFolderId:null,emoji:'📋',color:'#94a3b8'},
+  {id:'fl5',name:'3. Execution',workspaceId:'ws5',parentFolderId:null,emoji:'⚡',color:'#22c55e'},
+  {id:'fl6',name:'4. On Hold',workspaceId:'ws5',parentFolderId:null,emoji:'⏸',color:'#f59e4a'},
 ];
 
 let PINNED=[
@@ -1344,14 +1376,24 @@ let USERS=[
   {id:3,name:'Sam Rivera',    email:'sam@nexus.io',       color:'#8b5cf6',role:'external'},
   {id:4,name:'Casey Kim',     email:'casey@nexus.io',     color:'#5AD2C9',role:'contributor'},
   {id:5,name:'Riley Park',    email:'riley@nexus.io',     color:'#94a3b8',role:'viewer'},
-  {id:6,name:'Yolanda Caissie', email:'yolanda.c@decisionfoundry.com', color:'#1AA6B7',role:'admin'},
+  {id:6,name:'Yolanda Caissie',            email:'yolanda.c@decisionfoundry.com', color:'#1AA6B7',role:'admin'},
+  {id:7,name:'Ankit Bhandari',              email:'ankit.b@decisionfoundry.com',   color:'#3b82f6',role:'regular'},
+  {id:8,name:'Raja Aishah Bin Raja AbdulRashid',email:'raja.a@decisionfoundry.com',color:'#8b5cf6',role:'regular'},
+  {id:9,name:'Jomal Andrews',               email:'jomal.a@decisionfoundry.com',   color:'#22c55e',role:'regular'},
 ];
 
 // Shared custom fields (global, shown in all projects)
 let CUSTOM_FIELDS=[
-  {id:'cf1',name:'Story Points',type:'number',desc:'Effort estimate in story points'},
-  {id:'cf2',name:'Sprint',type:'select',options:['Sprint 1','Sprint 2','Sprint 3'],desc:'Which sprint this belongs to'},
-  {id:'cf3',name:'Review URL',type:'url',desc:'Link to design or PR review'},
+  {id:'cf1',name:'Story Points',type:'number',options:[],desc:'Effort estimate in story points',visible:true},
+  {id:'cf2',name:'Sprint',type:'select',options:['Sprint 1','Sprint 2','Sprint 3'],desc:'Which sprint this belongs to',visible:true},
+  {id:'cf3',name:'Review URL',type:'url',options:[],desc:'Link to design or PR review',visible:true},
+  // ── Account Management fields ──
+  {id:'cf_client',name:'Client',type:'text',options:[],desc:'Client company name',visible:true},
+  {id:'cf_acct_owner',name:'Account Owner',type:'assignee',options:[],desc:'Primary account owner',visible:true},
+  {id:'cf_acct_health',name:'Account Health',type:'select',options:['Healthy','At Risk','Critical','Unknown'],desc:'Overall account health',visible:true},
+  {id:'cf_delivery_status',name:'Delivery Status',type:'select',options:['Not Started','In Progress - On Track','In Progress - At Risk','In Progress - Behind','On Hold','Complete'],desc:'Current delivery status',visible:true},
+  {id:'cf_upsell',name:'Upsell / Cross Sell',type:'text',options:[],desc:'Upsell and cross-sell opportunities',visible:true},
+  {id:'cf_products',name:'Products',type:'multiselect',options:['Adverity', 'AgentForce', 'Audit', 'Azure', 'Camptag', 'Churn Prediction/Retention', 'CLTV (Customer Lifetime Value)', 'CPQ (Configure, Price, Quote)', 'DataBricks', 'Data Cloud', 'DBT', 'Data Strategy Consulting', 'Experience Cloud', 'Marketing Cloud', 'MCI (Marketing Cloud Intelligence)', 'Memosight', 'MMM (Marketing Mix Modeling)', 'MTA (Multi-Touch Attribution)', 'Mulesoft', 'NinjaCat', 'Pardot/Marketing Cloud Engagement', 'Power BI', 'Sales Cloud', 'Service Cloud', 'SF CRM', 'SFMC (Sales Marketing Cloud)', 'Sigma', 'Snowflake', 'Supermetrics', 'Tableau'],desc:'Products and services delivered',visible:true},
 ];
 
 let PROJECTS=[
@@ -1444,6 +1486,61 @@ let PROJECTS=[
    tasks:[
     {id:'tn1',title:'Pipeline Architecture',status:'done',priority:'high',assignee:1,duration:7,pred:null,start:rel(-35),end:rel(-28),dueDate:null,description:'Design end-to-end pipeline architecture.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:1,time:rel(-28).toISOString()}],custom:{}},
     {id:'tn2',title:'ETL Development',status:'in_progress',priority:'high',assignee:2,duration:30,pred:'tn1',start:rel(-20),end:rel(10),dueDate:null,description:'Build ETL pipelines and data transformations.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:2,time:rel(-20).toISOString()}],custom:{}},
+   ]},
+  // ── CLIENT ACCOUNT PROJECTS ──
+  {id:'p8',name:'TBC - Addressable Media LLC',desc:'MCI implementation for Addressable Media.',
+   status:'on_hold',priority:'medium',emoji:'🏢',color:'#f59e4a',
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,
+   custom:{cf_client:'Addressable Media Inc',cf_acct_owner:7,cf_acct_health:'Healthy',cf_delivery_status:'On Hold',cf_upsell:'',cf_products:['MCI (Marketing Cloud Intelligence)']},
+   locations:[{workspaceId:'ws5',folderId:'fl6',isHome:true}],
+   tasks:[
+    {id:'tp8_1',title:'Project Scoping',status:'done',priority:'high',assignee:7,duration:5,pred:null,start:rel(-60),end:rel(-55),dueDate:null,description:'Define project scope.',comments:[],history:[],custom:{}},
+    {id:'tp8_2',title:'Implementation',status:'todo',priority:'high',assignee:7,duration:20,pred:'tp8_1',start:rel(5),end:rel(25),dueDate:rel(25).toISOString().slice(0,10),description:'MCI implementation.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p9',name:'25I001 Aria Systems - Salesforce',desc:'Salesforce and BI delivery for Aria Systems.',
+   status:'active',priority:'high',emoji:'🏢',color:'#1AA6B7',
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,
+   custom:{cf_client:'Aria Systems',cf_acct_owner:8,cf_acct_health:'Healthy',cf_delivery_status:'In Progress - On Track',cf_upsell:'Chatting about MTA, Reporting, Salesforce A/B testing',cf_products:['Sales Cloud','MTA (Multi-Touch Attribution)']},
+   locations:[{workspaceId:'ws5',folderId:'fl5',isHome:true}],
+   tasks:[
+    {id:'tp9_1',title:'Discovery',status:'done',priority:'high',assignee:8,duration:7,pred:null,start:rel(-45),end:rel(-38),dueDate:null,description:'Client discovery sessions.',comments:[],history:[],custom:{}},
+    {id:'tp9_2',title:'SF Configuration',status:'in_progress',priority:'high',assignee:8,duration:30,pred:'tp9_1',start:rel(-15),end:rel(15),dueDate:rel(15).toISOString().slice(0,10),description:'Salesforce configuration.',comments:[],history:[],custom:{}},
+    {id:'tp9_3',title:'BI Integration',status:'todo',priority:'medium',assignee:2,duration:14,pred:'tp9_2',start:rel(16),end:rel(30),dueDate:rel(30).toISOString().slice(0,10),description:'BI dashboard integration.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p10',name:'26C010 Aria Systems - AgentForce',desc:'AgentForce and Data Cloud delivery for Aria Systems.',
+   status:'active',priority:'high',emoji:'🏢',color:'#8b5cf6',
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,
+   custom:{cf_client:'Aria Systems',cf_acct_owner:6,cf_acct_health:'Healthy',cf_delivery_status:'In Progress - On Track',cf_upsell:'',cf_products:['AgentForce','Data Cloud']},
+   locations:[{workspaceId:'ws5',folderId:'fl5',isHome:true}],
+   tasks:[
+    {id:'tp10_1',title:'Platform Setup',status:'done',priority:'high',assignee:6,duration:7,pred:null,start:rel(-30),end:rel(-23),dueDate:null,description:'AgentForce platform setup.',comments:[],history:[],custom:{}},
+    {id:'tp10_2',title:'Agent Development',status:'in_progress',priority:'high',assignee:6,duration:21,pred:'tp10_1',start:rel(-10),end:rel(11),dueDate:rel(11).toISOString().slice(0,10),description:'Build AI agents.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p11',name:'Axos Bank',desc:'Pipeline opportunity — Axos Bank.',
+   status:'active',priority:'low',emoji:'🏦',color:'#94a3b8',
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,
+   custom:{cf_client:'Axos Bank',cf_acct_owner:7,cf_acct_health:'Healthy',cf_delivery_status:'Not Started',cf_upsell:'',cf_products:[]},
+   locations:[{workspaceId:'ws5',folderId:'fl4',isHome:true}],
+   tasks:[
+    {id:'tp11_1',title:'Initial Discovery Call',status:'todo',priority:'medium',assignee:7,duration:2,pred:null,start:rel(7),end:rel(9),dueDate:rel(9).toISOString().slice(0,10),description:'Introductory discovery call.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p12',name:'25L036 BAL - MCI',desc:'MCI implementation for BAL.',
+   status:'active',priority:'medium',emoji:'🏢',color:'#22c55e',
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,
+   custom:{cf_client:'BAL',cf_acct_owner:9,cf_acct_health:'Healthy',cf_delivery_status:'In Progress - On Track',cf_upsell:'',cf_products:['MCI (Marketing Cloud Intelligence)']},
+   locations:[{workspaceId:'ws5',folderId:'fl5',isHome:true}],
+   tasks:[
+    {id:'tp12_1',title:'MCI Setup',status:'done',priority:'high',assignee:9,duration:10,pred:null,start:rel(-40),end:rel(-30),dueDate:null,description:'MCI platform setup.',comments:[],history:[],custom:{}},
+    {id:'tp12_2',title:'Dashboard Build',status:'in_progress',priority:'high',assignee:9,duration:14,pred:'tp12_1',start:rel(-5),end:rel(9),dueDate:rel(9).toISOString().slice(0,10),description:'Build MCI dashboards.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p13',name:'25B017 Belardi Wong - MCI',desc:'MCI delivery for Belardi Wong — at risk.',
+   status:'active',priority:'high',emoji:'🏢',color:'#ef4444',
+   views:['table'],visibleColumns:['pred','duration','startDate','dueDate','status','assignee'],sortField:'startDate',sortDir:'asc',filterRules:[],groupBy:null,
+   custom:{cf_client:'Belardi Wong',cf_acct_owner:8,cf_acct_health:'At Risk',cf_delivery_status:'In Progress - On Track',cf_upsell:'',cf_products:['MCI (Marketing Cloud Intelligence)','Sales Cloud']},
+   locations:[{workspaceId:'ws5',folderId:'fl5',isHome:true}],
+   tasks:[
+    {id:'tp13_1',title:'MCI Implementation',status:'in_progress',priority:'critical',assignee:8,duration:21,pred:null,start:rel(-20),end:rel(1),dueDate:rel(1).toISOString().slice(0,10),description:'MCI implementation — overdue risk.',comments:[],history:[],custom:{}},
+    {id:'tp13_2',title:'Sales Cloud Integration',status:'todo',priority:'high',assignee:2,duration:10,pred:'tp13_1',start:rel(2),end:rel(12),dueDate:rel(12).toISOString().slice(0,10),description:'Sales Cloud integration.',comments:[],history:[],custom:{}},
    ]},
 ];
 
@@ -1684,6 +1781,7 @@ function renderWorkspace(wsId){
       <div class="ws-tool-btn" onclick="showTimesheets()"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Timesheets</div>
       <div class="ws-tool-btn" onclick="showSettings()"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Workspace Settings</div>
       ${wsId==='ws4'?`<div class="ws-tool-btn" onclick="showFinancialDashboard()" style="color:var(--accent);font-weight:600"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="3" width="6" height="8" rx="1"/><rect x="10" y="3" width="6" height="5" rx="1"/><rect x="18" y="3" width="4" height="11" rx="1"/><line x1="2" y1="17" x2="22" y2="17"/></svg></span>Financial Dashboard</div>`:''}
+      ${wsId==='ws5'?`<div class="ws-tool-btn" onclick="showAccountDashboard()" style="color:var(--accent);font-weight:600"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Account Management</div>`:''}
     </div>
     ${folders.length?`
       <div class="home-sec-title" style="margin-top:8px"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Folders</div>
@@ -1817,7 +1915,7 @@ function showView(v){
   const projViews=new Set(['board','table','gantt']);
   const tb=document.getElementById('proj-toolbar-bar');
   if(tb) tb.style.display=(projViews.has(v)&&curProjectId)?'flex':'none';
-  ['welcome','home','projects','workspace','board','table','gantt','settings','forms','timesheet','stub','financial'].forEach(n=>{
+  ['welcome','home','projects','workspace','board','table','gantt','settings','forms','timesheet','stub','financial','account-mgmt'].forEach(n=>{
     const el=document.getElementById('view-'+n);
     if(el)el.style.display=n===v?'':'none';
   });
@@ -4236,6 +4334,7 @@ function welcomeAction(action){
     const ws=WORKSPACES.find(w=>w.name==='Operations');
     if(ws)showWorkspace(ws.id); else showHome();
   }
+  else if(action==='accounts'){showAccountDashboard();}
   else{showHome();}
   renderNavWorkspaces();renderNavPinned();
 }
@@ -4248,6 +4347,7 @@ const AI_RESPONSES=[
   {match:/tasks?|to.?do|assigned/i, reply:"Here are your open tasks — navigating you there now.", action:()=>showMyTasks()},
   {match:/timesheet|hours|time.?log/i, reply:"Opening the timesheets view for you.", action:()=>showTimesheets()},
   {match:/financial|finance|dashboard|operations|ops|revenue|cost/i, reply:"Taking you to the Financial Dashboard in Operations.", action:()=>showFinancialDashboard()},
+    {match:/account.?management|client.?account|account.?dashboard|accounts|health/i, reply:"Opening the Account Management Dashboard.", action:()=>showAccountDashboard()},
   {match:/settings?|profile|account/i, reply:"Opening Settings.", action:()=>showSettings()},
   {match:/project/i, reply:"Here are all your projects.", action:()=>showProjects()},
   {match:/home|dashboard|overview/i, reply:"Taking you to your home dashboard.", action:()=>showHome()},
@@ -4977,6 +5077,157 @@ function closePtbOnOutside(e){
   }
 }
 
+
+// ═══════════════════ ACCOUNT MANAGEMENT DASHBOARD ═══════════════════
+
+function showAccountDashboard(){
+  curView='account-mgmt';
+  setTopbar('Account Management','Client accounts · delivery tracking & health',[
+    `<button class="btn ghost" onclick="showWorkspace('ws5')"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;vertical-align:-1px;margin-right:5px"><polyline points="15 18 9 12 15 6"/></svg>Client Accounts</button>`
+  ]);
+  showView('account-mgmt');
+  renderAccountDashboard('','','');
+  renderNavWorkspaces();closeDetail();closeColPanel();closeNavIfMobile();
+}
+
+function renderAccountDashboard(searchQ, healthFilter, statusFilter){
+  const el=document.getElementById('view-account-mgmt');
+  const acctProjects=PROJECTS.filter(p=>p.custom&&p.custom.cf_client!==undefined);
+
+  const HEALTH_COLORS={
+    'Healthy': {bg:'#dcfce7',color:'#15803d'},
+    'At Risk':  {bg:'#fef9c3',color:'#a16207'},
+    'Critical': {bg:'#fee2e2',color:'#dc2626'},
+    'Unknown':  {bg:'var(--surface2)',color:'var(--text3)'},
+  };
+  const STATUS_COLORS={
+    'In Progress - On Track': {bar:'#22c55e', bg:'#dcfce722', color:'#15803d'},
+    'In Progress - At Risk':  {bar:'#f59e4a', bg:'#fef9c322', color:'#a16207'},
+    'In Progress - Behind':   {bar:'#ef4444', bg:'#fee2e222', color:'#dc2626'},
+    'On Hold':                {bar:'#f59e4a', bg:'#fef9c322', color:'#a16207'},
+    'Not Started':            {bar:'#94a3b8', bg:'var(--surface2)', color:'var(--text3)'},
+    'Complete':               {bar:'#1AA6B7', bg:'var(--abg)', color:'var(--accent)'},
+  };
+
+  function getLocation(p){
+    const homeLoc=p.locations?.find(l=>l.isHome)||p.locations?.[0];
+    if(!homeLoc)return'—';
+    if(homeLoc.folderId){
+      const fl=FOLDERS.find(f=>f.id===homeLoc.folderId);
+      return fl?fl.name:'—';
+    }
+    const ws=WORKSPACES.find(w=>w.id===homeLoc.workspaceId);
+    return ws?ws.name:'—';
+  }
+
+  // Filter
+  let rows=acctProjects.filter(p=>{
+    if(searchQ){
+      const q=searchQ.toLowerCase();
+      const match=p.name.toLowerCase().includes(q)||(p.custom.cf_client||'').toLowerCase().includes(q);
+      if(!match)return false;
+    }
+    if(healthFilter&&p.custom.cf_acct_health!==healthFilter)return false;
+    if(statusFilter&&p.custom.cf_delivery_status!==statusFilter)return false;
+    return true;
+  });
+
+  // KPI strip
+  const totalAccts=acctProjects.length;
+  const healthyCnt=acctProjects.filter(p=>p.custom.cf_acct_health==='Healthy').length;
+  const atRiskCnt=acctProjects.filter(p=>p.custom.cf_acct_health==='At Risk').length;
+  const criticalCnt=acctProjects.filter(p=>p.custom.cf_acct_health==='Critical').length;
+
+  let out=`<div class="acct-page">
+    <div class="ws-bc" style="margin-bottom:14px"><span class="ws-bc-link" onclick="showHome()">Home</span> <span>›</span> <span class="ws-bc-link" onclick="showWorkspace('ws5')">Client Accounts</span> <span>›</span> <span>Account Management</span></div>
+    <div class="fin-stat-row">
+      <div class="fin-stat"><div class="fin-stat-val">${totalAccts}</div><div class="fin-stat-lbl">Total Accounts</div></div>
+      <div class="fin-stat"><div class="fin-stat-val" style="color:#15803d">${healthyCnt}</div><div class="fin-stat-lbl">Healthy</div></div>
+      <div class="fin-stat"><div class="fin-stat-val" style="color:#a16207">${atRiskCnt}</div><div class="fin-stat-lbl">At Risk</div></div>
+      <div class="fin-stat"><div class="fin-stat-val" style="color:#dc2626">${criticalCnt}</div><div class="fin-stat-lbl">Critical</div></div>
+    </div>
+    <div class="acct-toolbar">
+      <div class="acct-search">
+        <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:var(--text3);stroke-width:2;fill:none;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="acct-search-inp" placeholder="Search accounts or clients…" value="${searchQ}" oninput="renderAccountDashboard(this.value,document.getElementById('acct-health-sel').value,document.getElementById('acct-status-sel').value)">
+      </div>
+      <select id="acct-health-sel" class="acct-filter-btn" onchange="renderAccountDashboard(document.getElementById('acct-search-inp').value,this.value,document.getElementById('acct-status-sel').value)" style="appearance:none;padding-right:24px;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path d=%22M6 9l6 6 6-6%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 fill=%22none%22/></svg>');background-repeat:no-repeat;background-position:right 6px center;background-size:14px">
+        <option value="">All health</option>
+        <option value="Healthy" ${healthFilter==='Healthy'?'selected':''}>Healthy</option>
+        <option value="At Risk" ${healthFilter==='At Risk'?'selected':''}>At Risk</option>
+        <option value="Critical" ${healthFilter==='Critical'?'selected':''}>Critical</option>
+      </select>
+      <select id="acct-status-sel" class="acct-filter-btn" onchange="renderAccountDashboard(document.getElementById('acct-search-inp').value,document.getElementById('acct-health-sel').value,this.value)" style="appearance:none;padding-right:24px;background-image:url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><path d=%22M6 9l6 6 6-6%22 stroke=%22%2394a3b8%22 stroke-width=%222%22 fill=%22none%22/></svg>');background-repeat:no-repeat;background-position:right 6px center;background-size:14px">
+        <option value="">All statuses</option>
+        <option value="Not Started" ${statusFilter==='Not Started'?'selected':''}>Not Started</option>
+        <option value="In Progress - On Track" ${statusFilter==='In Progress - On Track'?'selected':''}>In Progress - On Track</option>
+        <option value="In Progress - At Risk" ${statusFilter==='In Progress - At Risk'?'selected':''}>In Progress - At Risk</option>
+        <option value="On Hold" ${statusFilter==='On Hold'?'selected':''}>On Hold</option>
+        <option value="Complete" ${statusFilter==='Complete'?'selected':''}>Complete</option>
+      </select>
+    </div>
+    <div class="acct-table-wrap">
+      <div class="acct-overview-title">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Account Management Overview
+        <span class="acct-overview-count">(${rows.length}${rows.length!==totalAccts?' of '+totalAccts:''})</span>
+      </div>
+      <div style="overflow-x:auto">
+      <table class="acct-table">
+        <thead><tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Client</th>
+          <th>Account Owner</th>
+          <th>Account Health</th>
+          <th>Status</th>
+          <th>Upsell / Cross Sell Opportunities</th>
+          <th>Products</th>
+        </tr></thead>
+        <tbody>
+        ${rows.length?rows.map(p=>{
+          const c=p.custom||{};
+          const health=c.cf_acct_health||'Unknown';
+          const hc=HEALTH_COLORS[health]||HEALTH_COLORS['Unknown'];
+          const status=c.cf_delivery_status||'Not Started';
+          const sc=STATUS_COLORS[status]||STATUS_COLORS['Not Started'];
+          const owner=USERS.find(u=>u.id===c.cf_acct_owner);
+          const products=Array.isArray(c.cf_products)?c.cf_products:(c.cf_products?[c.cf_products]:[]);
+          const loc=getLocation(p);
+          return `<tr onclick="openProject('${p.id}')">
+            <td>
+              <div style="display:flex;align-items:center;gap:6px">
+                <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:var(--text3);stroke-width:1.75;fill:none;flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span style="font-weight:600;color:var(--text)">${p.name}</span>
+              </div>
+            </td>
+            <td><span class="acct-location">${loc}</span></td>
+            <td style="color:var(--text2)">${c.cf_client||'—'}</td>
+            <td>
+              ${owner?`<div class="acct-owner-cell">
+                <div class="acct-av" style="background:${owner.color}">${ini(owner.name)}</div>
+                <span style="color:var(--text2);white-space:nowrap">${owner.name}</span>
+              </div>`:'<span style="color:var(--text3)">—</span>'}
+            </td>
+            <td><span class="acct-health-badge" style="background:${hc.bg};color:${hc.color}">${health}</span></td>
+            <td>
+              <span class="acct-status-badge" style="background:${sc.bg};color:${sc.color}">
+                <span class="acct-status-bar" style="background:${sc.bar}"></span>
+                ${status}
+              </span>
+            </td>
+            <td style="color:var(--text3);font-size:12px;max-width:220px">${c.cf_upsell||''}</td>
+            <td style="min-width:160px">${products.map(pr=>`<span class="acct-product-tag">${pr}</span>`).join('')}</td>
+          </tr>`;
+        }).join(''):`<tr><td colspan="8" class="acct-empty">No accounts match the current filters.</td></tr>`}
+        </tbody>
+      </table>
+      </div>
+    </div>
+  </div>`;
+
+  el.innerHTML=out;
+}
 // showHome() is called by loginAs() after authentication
 // Initial demo accounts are rendered by renderLoginDemos() above
 </script>
