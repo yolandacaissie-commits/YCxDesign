@@ -684,6 +684,32 @@ body.nav-closed .nav-overlay{display:block}
 
 /* Content area shift when panel open */
 .main.ai-open .content{margin-right:380px;transition:margin-right .3s cubic-bezier(.4,0,.2,1)}
+
+/* ── FINANCIAL DASHBOARD ── */
+.fin-page{max-width:1080px;margin:0 auto}
+.fin-section{margin-bottom:28px}
+.fin-section-title{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.fin-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.fin-table th{text-align:left;padding:8px 12px;font-weight:600;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;border-bottom:2px solid var(--border2);white-space:nowrap}
+.fin-table td{padding:9px 12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.fin-table tr:last-child td{border-bottom:none}
+.fin-table tbody tr:hover td{background:var(--surface2)}
+.fin-util-bar{height:6px;background:var(--border2);border-radius:3px;overflow:hidden;min-width:80px;margin-top:4px}
+.fin-util-fill{height:100%;border-radius:3px}
+.fin-badge{display:inline-block;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:600;letter-spacing:.2px}
+.fin-lob-tag{display:inline-block;padding:2px 7px;border-radius:8px;font-size:10px;font-weight:600;margin:1px 2px}
+.fin-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+.fin-chart-box{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:16px}
+.fin-chart-title{font-size:12px;font-weight:700;color:var(--text2);margin-bottom:14px}
+.fin-lob-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.fin-stat-row{display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.fin-stat{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:14px 18px;flex:1;min-width:140px}
+.fin-stat-val{font-size:22px;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:2px}
+.fin-stat-lbl{font-size:11px;color:var(--text3);font-weight:500}
+.fin-legend{display:flex;gap:14px;margin-bottom:10px;flex-wrap:wrap}
+.fin-legend-item{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text2)}
+.fin-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+@media(max-width:700px){.fin-grid,.fin-lob-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -917,6 +943,7 @@ body.nav-closed .nav-overlay{display:block}
       </div>
     </div>
     <div id="view-settings" style="display:none"></div>
+    <div id="view-financial" style="display:none;position:absolute;inset:0;overflow-y:auto;padding:24px"></div>
   </div>
 </div>
 
@@ -1209,6 +1236,7 @@ let WORKSPACES=[
   {id:'ws1',name:'Engineering',color:'#1AA6B7',emoji:'⚙️',desc:'Backend, infrastructure and platform work.',expanded:true},
   {id:'ws2',name:'Design',color:'#8b5cf6',emoji:'🎨',desc:'UX, visual design and brand assets.',expanded:false},
   {id:'ws3',name:'Marketing',color:'#f59e4a',emoji:'📢',desc:'Campaigns, content and growth initiatives.',expanded:false},
+  {id:'ws4',name:'Operations',color:'#22c55e',emoji:'📊',desc:'Financial operations and resource planning.',expanded:false},
 ];
 
 let FOLDERS=[
@@ -1228,6 +1256,19 @@ let TIMESHEET_ENTRIES=[
   {id:'te3',userId:1,taskId:'t2',date:'2026-03-26',hours:2.5,activity:'Review'},
   {id:'te4',userId:2,taskId:'t2',date:'2026-03-24',hours:5,activity:'Design'},
   {id:'te5',userId:2,taskId:'t3',date:'2026-03-25',hours:3,activity:'Planning'},
+  {id:'te6',userId:1,taskId:'ta3',date:'2026-03-10',hours:8,activity:'Development'},
+  {id:'te7',userId:1,taskId:'ta3',date:'2026-03-17',hours:7.5,activity:'Development'},
+  {id:'te8',userId:1,taskId:'ta3',date:'2026-03-24',hours:6,activity:'Development'},
+  {id:'te9',userId:2,taskId:'tb2',date:'2026-03-11',hours:6,activity:'Configuration'},
+  {id:'te10',userId:2,taskId:'tb2',date:'2026-03-18',hours:7,activity:'Configuration'},
+  {id:'te11',userId:2,taskId:'tb2',date:'2026-03-25',hours:5,activity:'Testing'},
+  {id:'te12',userId:6,taskId:'tc2',date:'2026-03-12',hours:5,activity:'ML Development'},
+  {id:'te13',userId:6,taskId:'tn2',date:'2026-03-19',hours:8,activity:'Pipeline Dev'},
+  {id:'te14',userId:4,taskId:'tc2',date:'2026-03-13',hours:6,activity:'ML Development'},
+  {id:'te15',userId:1,taskId:'ta3',date:'2026-02-14',hours:8,activity:'Development'},
+  {id:'te16',userId:2,taskId:'tb2',date:'2026-02-12',hours:7,activity:'Configuration'},
+  {id:'te17',userId:6,taskId:'tc2',date:'2026-02-20',hours:6,activity:'Analysis'},
+  {id:'te18',userId:2,taskId:'tn2',date:'2026-02-25',hours:8,activity:'Pipeline Dev'},
 ];
 
 let tsWeekOffset=0, tsUserId=1;
@@ -1280,6 +1321,72 @@ let PROJECTS=[
     {id:'t11',title:'Brand Audit',status:'done',priority:'medium',assignee:2,duration:5,pred:null,start:rel(-40),end:rel(-35),dueDate:null,description:'Review current brand assets.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:2,time:rel(-35).toISOString()}],custom:{}},
     {id:'t12',title:'Mood Board & Concepts',status:'in_progress',priority:'medium',assignee:4,duration:7,pred:'t11',start:rel(-5),end:rel(2),dueDate:null,description:'Gather visual inspiration and create initial concept directions.',comments:[{id:'c10',userId:4,text:'Added three concept directions to the shared folder.',time:rel(-2).toISOString()}],history:[{type:'status_change',from:'todo',to:'in_progress',userId:4,time:rel(-5).toISOString()}],custom:{}},
     {id:'t13',title:'Stakeholder Review',status:'todo',priority:'low',assignee:5,duration:3,pred:'t12',start:rel(3),end:rel(6),dueDate:null,description:'Present concepts to stakeholders for feedback.',comments:[],history:[],custom:{}},
+   ]},
+  // ── OPERATIONS / FINANCIAL PROJECTS ──
+  {id:'p4',name:'Test Project A',desc:'Salesforce Services implementation and BI integration for enterprise client.',
+   status:'active',priority:'high',emoji:'📊',color:'#1AA6B7',
+   contractValue:110000,hourlyRate:150,
+   lob:['SF Services','Business Intelligence'],
+   dueDate:'2026-05-09',
+   monthlyCosts:[
+     {month:'2026-01',actual:45000,estimated:50000},
+     {month:'2026-02',actual:38000,estimated:40000},
+     {month:'2026-03',actual:22000,estimated:30000},
+   ],
+   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   tasks:[
+    {id:'ta1',title:'Requirements Analysis',status:'done',priority:'high',assignee:1,duration:10,pred:null,start:rel(-60),end:rel(-50),dueDate:null,description:'Define project scope and requirements.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:1,time:rel(-50).toISOString()}],custom:{}},
+    {id:'ta2',title:'Data Model Design',status:'done',priority:'high',assignee:6,duration:10,pred:'ta1',start:rel(-45),end:rel(-35),dueDate:null,description:'Design data architecture and field mappings.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:6,time:rel(-35).toISOString()}],custom:{}},
+    {id:'ta3',title:'Implementation',status:'in_progress',priority:'high',assignee:1,duration:40,pred:'ta2',start:rel(-20),end:rel(20),dueDate:null,description:'Build and configure Salesforce solution.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:1,time:rel(-20).toISOString()}],custom:{}},
+    {id:'ta4',title:'UAT & Training',status:'todo',priority:'medium',assignee:6,duration:9,pred:'ta3',start:rel(21),end:rel(30),dueDate:null,description:'User acceptance testing and team training.',comments:[],history:[],custom:{}},
+    {id:'ta5',title:'Go-Live & Support',status:'todo',priority:'high',assignee:1,duration:8,pred:'ta4',start:rel(31),end:rel(38),dueDate:null,description:'Production deployment and post-launch support.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p5',name:'Test Project B',desc:'SF Services delivery and custom development for mid-market client.',
+   status:'active',priority:'medium',emoji:'💼',color:'#5AD2C9',
+   contractValue:78000,hourlyRate:125,
+   lob:['SF Services'],
+   dueDate:'2026-04-26',
+   monthlyCosts:[
+     {month:'2026-01',actual:28000,estimated:30000},
+     {month:'2026-02',actual:25000,estimated:28000},
+     {month:'2026-03',actual:18000,estimated:20000},
+   ],
+   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   tasks:[
+    {id:'tb1',title:'Discovery Workshop',status:'done',priority:'high',assignee:2,duration:7,pred:null,start:rel(-45),end:rel(-38),dueDate:null,description:'Run discovery sessions with client.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:2,time:rel(-38).toISOString()}],custom:{}},
+    {id:'tb2',title:'Configuration & Custom Dev',status:'in_progress',priority:'high',assignee:2,duration:30,pred:'tb1',start:rel(-15),end:rel(15),dueDate:null,description:'Salesforce configuration and custom development.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:2,time:rel(-15).toISOString()}],custom:{}},
+    {id:'tb3',title:'UAT & Deployment',status:'todo',priority:'high',assignee:1,duration:9,pred:'tb2',start:rel(16),end:rel(25),dueDate:null,description:'User acceptance testing and deployment.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p6',name:'Test Project C',desc:'SF Services and Data Science model integration.',
+   status:'active',priority:'medium',emoji:'🔬',color:'#8b5cf6',
+   contractValue:25000,hourlyRate:100,
+   lob:['SF Services','Data Science'],
+   dueDate:'2026-04-19',
+   monthlyCosts:[
+     {month:'2026-01',actual:8000,estimated:10000},
+     {month:'2026-02',actual:9000,estimated:8000},
+     {month:'2026-03',actual:5000,estimated:6000},
+   ],
+   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   tasks:[
+    {id:'tc1',title:'Scoping & Planning',status:'done',priority:'medium',assignee:6,duration:5,pred:null,start:rel(-30),end:rel(-25),dueDate:null,description:'Define project scope and deliverables.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:6,time:rel(-25).toISOString()}],custom:{}},
+    {id:'tc2',title:'ML Model Development',status:'in_progress',priority:'high',assignee:4,duration:22,pred:'tc1',start:rel(-10),end:rel(12),dueDate:null,description:'Build and validate ML models.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:4,time:rel(-10).toISOString()}],custom:{}},
+    {id:'tc3',title:'Reporting & Handover',status:'todo',priority:'medium',assignee:6,duration:5,pred:'tc2',start:rel(13),end:rel(18),dueDate:null,description:'Final report and client handover.',comments:[],history:[],custom:{}},
+   ]},
+  {id:'p7',name:"Naveen's Test Project",desc:'Data Engineering pipeline build — internal initiative.',
+   status:'active',priority:'low',emoji:'🔧',color:'#f59e4a',
+   contractValue:0,hourlyRate:100,
+   lob:['Data Engineering'],
+   dueDate:'2026-04-11',
+   monthlyCosts:[
+     {month:'2026-01',actual:15000,estimated:15000},
+     {month:'2026-02',actual:12000,estimated:12000},
+     {month:'2026-03',actual:8000,estimated:10000},
+   ],
+   locations:[{workspaceId:'ws4',folderId:null,isHome:true}],
+   tasks:[
+    {id:'tn1',title:'Pipeline Architecture',status:'done',priority:'high',assignee:1,duration:7,pred:null,start:rel(-35),end:rel(-28),dueDate:null,description:'Design end-to-end pipeline architecture.',comments:[],history:[{type:'status_change',from:'todo',to:'done',userId:1,time:rel(-28).toISOString()}],custom:{}},
+    {id:'tn2',title:'ETL Development',status:'in_progress',priority:'high',assignee:2,duration:30,pred:'tn1',start:rel(-20),end:rel(10),dueDate:null,description:'Build ETL pipelines and data transformations.',comments:[],history:[{type:'status_change',from:'todo',to:'in_progress',userId:2,time:rel(-20).toISOString()}],custom:{}},
    ]},
 ];
 
@@ -1518,6 +1625,7 @@ function renderWorkspace(wsId){
       <div class="ws-tool-btn" onclick="showStub('Reports','📊','Reporting and analytics for this workspace.')"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>Reports</div>
       <div class="ws-tool-btn" onclick="showTimesheets()"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Timesheets</div>
       <div class="ws-tool-btn" onclick="showSettings()"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06-.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></span>Workspace Settings</div>
+      ${wsId==='ws4'?`<div class="ws-tool-btn" onclick="showFinancialDashboard()" style="color:var(--accent);font-weight:600"><span class="nav-icon" style="width:16px;height:16px"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round"><rect x="2" y="3" width="6" height="8" rx="1"/><rect x="10" y="3" width="6" height="5" rx="1"/><rect x="18" y="3" width="4" height="11" rx="1"/><line x1="2" y1="17" x2="22" y2="17"/></svg></span>Financial Dashboard</div>`:''}
     </div>
     ${folders.length?`
       <div class="home-sec-title" style="margin-top:8px"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none;stroke-linecap:round;stroke-linejoin:round;vertical-align:-2px;margin-right:5px"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>Folders</div>
@@ -1647,7 +1755,7 @@ function switchView(v){
 }
 
 function showView(v){
-  ['welcome','home','projects','workspace','kanban','table','gantt','settings','forms','timesheet','stub'].forEach(n=>{
+  ['welcome','home','projects','workspace','kanban','table','gantt','settings','forms','timesheet','stub','financial'].forEach(n=>{
     const el=document.getElementById('view-'+n);
     if(el)el.style.display=n===v?'':'none';
   });
@@ -3870,7 +3978,7 @@ let aiOpen=false;
 const AI_RESPONSES=[
   {match:/tasks?|to.?do|assigned/i, reply:"Here are your open tasks — navigating you there now.", action:()=>showMyTasks()},
   {match:/timesheet|hours|time.?log/i, reply:"Opening the timesheets view for you.", action:()=>showTimesheets()},
-  {match:/financial|finance|dashboard|operations|ops|revenue|cost/i, reply:"Taking you to the Financial Dashboard in Operations.", action:()=>{const ws=WORKSPACES.find(w=>w.name==='Operations');if(ws)showWorkspace(ws.id);else showHome();}},
+  {match:/financial|finance|dashboard|operations|ops|revenue|cost/i, reply:"Taking you to the Financial Dashboard in Operations.", action:()=>showFinancialDashboard()},
   {match:/settings?|profile|account/i, reply:"Opening Settings.", action:()=>showSettings()},
   {match:/project/i, reply:"Here are all your projects.", action:()=>showProjects()},
   {match:/home|dashboard|overview/i, reply:"Taking you to your home dashboard.", action:()=>showHome()},
@@ -3988,6 +4096,277 @@ document.addEventListener('keydown',e=>{
   if((e.ctrlKey||e.metaKey)&&e.key==='k'){e.preventDefault();openCmd();}
 });
 
+
+// ═══════════════════════ FINANCIAL DASHBOARD ═══════════════════════
+
+function showFinancialDashboard(){
+  curView='financial';
+  setTopbar('Financial Dashboard','Operations · Project financials & team utilisation',[
+    `<button class="btn ghost" onclick="showWorkspace('ws4')"><svg viewBox="0 0 24 24" style="width:12px;height:12px;stroke:currentColor;stroke-width:2;fill:none;vertical-align:-1px;margin-right:5px"><polyline points="15 18 9 12 15 6"/></svg>Workspace</button>`
+  ]);
+  showView('financial');
+  renderFinancialDashboard();
+  renderNavWorkspaces();
+  closeDetail();closeColPanel();closeNavIfMobile();
+}
+
+function makeLineChart(datasets,labels,w,h){
+  const padL=44,padR=10,padT=12,padB=24;
+  const W=w-padL-padR,H=h-padT-padB;
+  const n=labels.length;
+  if(n<2)return '';
+  const allVals=datasets.flatMap(d=>d.values);
+  const maxV=Math.max(...allVals,1);
+  const xOf=i=>(padL+i*(W/(n-1))).toFixed(1);
+  const yOf=v=>(padT+H*(1-v/maxV)).toFixed(1);
+  let svg=`<svg viewBox="0 0 ${w} ${h}" style="width:100%;overflow:visible">`;
+  [0,.25,.5,.75,1].forEach(f=>{
+    const y=(padT+H*f).toFixed(1);
+    const val=Math.round(maxV*(1-f));
+    svg+=`<line x1="${padL}" y1="${y}" x2="${padL+W}" y2="${y}" stroke="var(--border2)" stroke-width="1"/>`;
+    svg+=`<text x="${padL-4}" y="${(+y+4).toFixed(0)}" text-anchor="end" font-size="9" fill="var(--text3)">$${val>=1000?Math.round(val/1000)+'k':val}</text>`;
+  });
+  labels.forEach((l,i)=>{
+    svg+=`<text x="${xOf(i)}" y="${h-2}" text-anchor="middle" font-size="9" fill="var(--text3)">${l}</text>`;
+  });
+  datasets.forEach(ds=>{
+    const pts=ds.values.map((v,i)=>`${xOf(i)},${yOf(v)}`).join(' ');
+    svg+=`<polyline points="${pts}" fill="none" stroke="${ds.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`;
+    ds.values.forEach((v,i)=>{
+      svg+=`<circle cx="${xOf(i)}" cy="${yOf(v)}" r="3" fill="${ds.color}" stroke="var(--surface)" stroke-width="1.5"/>`;
+    });
+  });
+  svg+='</svg>';
+  return svg;
+}
+
+function renderFinancialDashboard(){
+  const el=document.getElementById('view-financial');
+  const finP=PROJECTS.filter(p=>p.contractValue!==undefined);
+  const MONTHS=['2026-01','2026-02','2026-03'];
+  const MLABELS=['Jan','Feb','Mar'];
+  const LOB_COLORS={'SF Services':'#1AA6B7','Business Intelligence':'#8b5cf6','Data Science':'#22c55e','Data Engineering':'#f59e4a'};
+  const STATUS_COLORS={active:'#22c55e',on_hold:'#f59e4a',complete:'#1AA6B7',archived:'#94a3b8'};
+
+  function fmt(n){return n>=1000000?'$'+(n/1000000).toFixed(1)+'M':n>=1000?'$'+(n/1000).toFixed(1)+'k':'$'+n;}
+  function pct(n){return Math.round(n*100)+'%';}
+
+  // Compute per-project stats
+  const stats=finP.map(p=>{
+    const actualCost=(p.monthlyCosts||[]).reduce((s,m)=>s+m.actual,0);
+    const estCost=(p.monthlyCosts||[]).reduce((s,m)=>s+m.estimated,0);
+    const hoursAvail=p.contractValue&&p.hourlyRate?Math.round(p.contractValue/p.hourlyRate):0;
+    const hoursSpent=p.hourlyRate?Math.round(actualCost/p.hourlyRate):0;
+    const util=p.contractValue>0?actualCost/p.contractValue:null;
+    const done=p.tasks.filter(t=>t.status==='done').length;
+    const progress=p.tasks.length?done/p.tasks.length:0;
+    const thisMonth=p.monthlyCosts?.[p.monthlyCosts.length-1];
+    return {p,actualCost,estCost,hoursAvail,hoursSpent,util,progress,done,thisMonth};
+  });
+
+  // ── KPI stats row ──
+  const totalContract=finP.reduce((s,p)=>s+(p.contractValue||0),0);
+  const totalActual=stats.reduce((s,r)=>s+r.actualCost,0);
+  const totalHours=stats.reduce((s,r)=>s+r.hoursSpent,0);
+  const avgUtil=stats.filter(r=>r.util!==null).reduce((s,r)=>s+r.util,0)/Math.max(1,stats.filter(r=>r.util!==null).length);
+
+  let html=`<div class="fin-page">
+  <div class="ws-bc" style="margin-bottom:16px"><span class="ws-bc-link" onclick="showHome()">Home</span> <span>›</span> <span class="ws-bc-link" onclick="showWorkspace('ws4')">Operations</span> <span>›</span> <span>Financial Dashboard</span></div>
+
+  <div class="fin-stat-row">
+    <div class="fin-stat"><div class="fin-stat-val">${fmt(totalContract)}</div><div class="fin-stat-lbl">Total Contract Value</div></div>
+    <div class="fin-stat"><div class="fin-stat-val">${fmt(totalActual)}</div><div class="fin-stat-lbl">Actual Cost to Date</div></div>
+    <div class="fin-stat"><div class="fin-stat-val">${totalHours.toLocaleString()}</div><div class="fin-stat-lbl">Total Hours Billed</div></div>
+    <div class="fin-stat"><div class="fin-stat-val" style="color:${avgUtil>0.9?'#ef4444':avgUtil>0.75?'#f59e4a':'#22c55e'}">${pct(avgUtil)}</div><div class="fin-stat-lbl">Avg Contract Utilisation</div></div>
+  </div>
+
+  <!-- Section 1: Project Financials Overview -->
+  <div class="fin-section">
+    <div class="fin-section-title"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Active Project Financials</div>
+    <div style="overflow-x:auto;border:1px solid var(--border2);border-radius:12px">
+    <table class="fin-table">
+      <thead><tr>
+        <th>Project</th><th>LOB</th><th>Contract Value</th><th>Actual Cost</th>
+        <th>Hrs Available</th><th>Hrs Spent</th>
+        <th style="min-width:120px">Contract Utilisation</th>
+        <th>Progress</th><th>Status</th><th>Due</th>
+      </tr></thead>
+      <tbody>
+      ${stats.map(({p,actualCost,hoursAvail,hoursSpent,util,progress,done})=>{
+        const utilPct=util!==null?Math.round(util*100):null;
+        const utilColor=util===null?'#94a3b8':util>0.95?'#ef4444':util>0.8?'#f59e4a':'#22c55e';
+        const progPct=Math.round(progress*100);
+        return `<tr onclick="openProject('${p.id}')" style="cursor:pointer">
+          <td><span style="font-weight:600">${p.name}</span></td>
+          <td>${(p.lob||[]).map(l=>`<span class="fin-lob-tag" style="background:${LOB_COLORS[l]||'#94a3b8'}22;color:${LOB_COLORS[l]||'#94a3b8'};border:1px solid ${LOB_COLORS[l]||'#94a3b8'}44">${l}</span>`).join('')}</td>
+          <td>${p.contractValue>0?fmt(p.contractValue):'—'}</td>
+          <td style="font-weight:600">${fmt(actualCost)}</td>
+          <td>${hoursAvail>0?hoursAvail.toLocaleString()+' hrs':'—'}</td>
+          <td>${hoursSpent.toLocaleString()} hrs</td>
+          <td>
+            ${utilPct!==null?`<div style="font-size:11px;font-weight:700;color:${utilColor};margin-bottom:3px">${utilPct}%</div>
+            <div class="fin-util-bar"><div class="fin-util-fill" style="width:${Math.min(utilPct,100)}%;background:${utilColor}"></div></div>`:'<span style="color:var(--text3);font-size:11px">Internal</span>'}
+          </td>
+          <td>
+            <div style="font-size:11px;font-weight:700;color:var(--accent);margin-bottom:3px">${progPct}%</div>
+            <div class="fin-util-bar"><div class="fin-util-fill" style="width:${progPct}%;background:var(--accent)"></div></div>
+          </td>
+          <td><span class="fin-badge" style="background:${STATUS_COLORS[p.status]||'#94a3b8'}22;color:${STATUS_COLORS[p.status]||'#94a3b8'}">${p.status}</span></td>
+          <td style="color:var(--text3);font-size:11px;white-space:nowrap">${p.dueDate||'—'}</td>
+        </tr>`;
+      }).join('')}
+      </tbody>
+    </table>
+    </div>
+  </div>`;
+
+  // ── Section 2: This Month's Time Spent ──
+  const thisMonthLabel=MLABELS[MLABELS.length-1]+' '+MONTHS[MONTHS.length-1].slice(0,4);
+  html+=`
+  <div class="fin-section">
+    <div class="fin-section-title"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>This Month's Time Spent (${thisMonthLabel})</div>
+    <div style="overflow-x:auto;border:1px solid var(--border2);border-radius:12px">
+    <table class="fin-table">
+      <thead><tr><th>Project</th><th>LOB</th><th>Actual Cost</th><th>Estimated</th><th>Variance</th><th>Hours</th></tr></thead>
+      <tbody>
+      ${stats.map(({p,thisMonth})=>{
+        if(!thisMonth)return '';
+        const hrs=p.hourlyRate?Math.round(thisMonth.actual/p.hourlyRate):0;
+        const variance=thisMonth.actual-thisMonth.estimated;
+        const varColor=variance>0?'#ef4444':'#22c55e';
+        return `<tr onclick="openProject('${p.id}')" style="cursor:pointer">
+          <td style="font-weight:600">${p.name}</td>
+          <td>${(p.lob||[]).map(l=>`<span class="fin-lob-tag" style="background:${LOB_COLORS[l]||'#94a3b8'}22;color:${LOB_COLORS[l]||'#94a3b8'}">${l}</span>`).join('')}</td>
+          <td style="font-weight:600">${fmt(thisMonth.actual)}</td>
+          <td style="color:var(--text3)">${fmt(thisMonth.estimated)}</td>
+          <td style="color:${varColor};font-weight:600">${variance>=0?'+':''}${fmt(Math.abs(variance))}</td>
+          <td>${hrs} hrs</td>
+        </tr>`;
+      }).join('')}
+      </tbody>
+    </table>
+    </div>
+  </div>`;
+
+  // ── Section 3: Charts grid — MoM line chart + Team Utilisation ──
+  // Aggregate monthly totals across all projects
+  const monthActual=MONTHS.map(m=>finP.reduce((s,p)=>{const mc=(p.monthlyCosts||[]).find(x=>x.month===m);return s+(mc?mc.actual:0);},0));
+  const monthEst=MONTHS.map(m=>finP.reduce((s,p)=>{const mc=(p.monthlyCosts||[]).find(x=>x.month===m);return s+(mc?mc.estimated:0);},0));
+
+  // Team utilisation from TIMESHEET_ENTRIES for latest month
+  const latestMonth=MONTHS[MONTHS.length-1];
+  const teamRows=USERS.slice(0,6).map(u=>{
+    const entries=TIMESHEET_ENTRIES.filter(e=>e.userId===u.id&&e.date.startsWith(latestMonth));
+    const hrs=entries.reduce((s,e)=>s+e.hours,0);
+    const projs=[...new Set(entries.map(e=>{const p=PROJECTS.find(pr=>pr.tasks.some(t=>t.id===e.taskId));return p?p.name:null;}).filter(Boolean))];
+    const stdHrs=8*20; // 20 working days
+    const util=hrs/stdHrs;
+    return {u,hrs,projs,util};
+  }).filter(r=>r.hrs>0);
+
+  const momChart=makeLineChart(
+    [{values:monthActual,color:'#1AA6B7',label:'Actual'},{values:monthEst,color:'#94a3b8',label:'Estimated'}],
+    MLABELS,460,180
+  );
+
+  html+=`
+  <div class="fin-grid">
+    <div class="fin-chart-box">
+      <div class="fin-chart-title">Actual vs Estimated Cost — Month over Month</div>
+      <div class="fin-legend">
+        <div class="fin-legend-item"><div class="fin-legend-dot" style="background:#1AA6B7"></div>Actual</div>
+        <div class="fin-legend-item"><div class="fin-legend-dot" style="background:#94a3b8"></div>Estimated</div>
+      </div>
+      ${momChart}
+    </div>
+    <div class="fin-chart-box">
+      <div class="fin-chart-title">Team Utilisation — ${thisMonthLabel}</div>
+      <table class="fin-table">
+        <thead><tr><th>Member</th><th>Hours</th><th>Projects</th><th>Utilisation</th></tr></thead>
+        <tbody>
+        ${teamRows.map(({u,hrs,projs,util})=>`
+          <tr>
+            <td><div style="display:flex;align-items:center;gap:7px">
+              <div style="width:24px;height:24px;border-radius:50%;background:${u.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">${u.name.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>
+              <span style="font-size:12px">${u.name.split(' ')[0]}</span>
+            </div></td>
+            <td style="font-weight:600">${hrs}</td>
+            <td style="font-size:11px;color:var(--text3)">${projs.join(', ')||'—'}</td>
+            <td>
+              <div style="font-size:11px;font-weight:700;color:${util>0.9?'#ef4444':util>0.6?'#f59e4a':'#22c55e'}">${Math.round(util*100)}%</div>
+              <div class="fin-util-bar" style="min-width:60px"><div class="fin-util-fill" style="width:${Math.min(Math.round(util*100),100)}%;background:${util>0.9?'#ef4444':util>0.6?'#f59e4a':'#22c55e'}"></div></div>
+            </td>
+          </tr>`).join('')}
+        ${teamRows.length===0?'<tr><td colspan="4" style="color:var(--text3);text-align:center;padding:16px">No timesheet entries for this period</td></tr>':''}
+        </tbody>
+      </table>
+    </div>
+  </div>`;
+
+  // ── Section 4: Year Team Utilisation by month ──
+  const allMonths=['01','02','03','04','05','06','07','08','09','10','11','12'];
+  const allLabels=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const yearUsers=USERS.filter(u=>{
+    return TIMESHEET_ENTRIES.some(e=>e.userId===u.id&&e.date.startsWith('2026'));
+  });
+
+  html+=`
+  <div class="fin-section">
+    <div class="fin-section-title"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>Team Utilisation — This Year (2026)</div>
+    <div style="overflow-x:auto;border:1px solid var(--border2);border-radius:12px">
+    <table class="fin-table">
+      <thead><tr><th>Team Member</th>${allLabels.map(l=>`<th style="text-align:center">${l}</th>`).join('')}<th>Total Hrs</th></tr></thead>
+      <tbody>
+      ${yearUsers.map(u=>{
+        const monthHrs=allMonths.map(m=>{
+          return TIMESHEET_ENTRIES.filter(e=>e.userId===u.id&&e.date.startsWith('2026-'+m)).reduce((s,e)=>s+e.hours,0);
+        });
+        const total=monthHrs.reduce((a,b)=>a+b,0);
+        return `<tr>
+          <td><div style="display:flex;align-items:center;gap:7px">
+            <div style="width:24px;height:24px;border-radius:50%;background:${u.color};display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff;flex-shrink:0">${u.name.split(' ').map(n=>n[0]).join('').slice(0,2)}</div>
+            <span>${u.name}</span>
+          </div></td>
+          ${monthHrs.map(h=>`<td style="text-align:center;font-size:12px;color:${h>0?'var(--text)':'var(--text3)'};font-weight:${h>0?600:400}">${h>0?h:'—'}</td>`).join('')}
+          <td style="font-weight:700;color:var(--accent)">${total}</td>
+        </tr>`;
+      }).join('')}
+      </tbody>
+    </table>
+    </div>
+  </div>`;
+
+  // ── Section 5: Per-LOB cost charts ──
+  const LOBS=['SF Services','Business Intelligence','Data Science','Data Engineering'];
+  const LOB_C=['#1AA6B7','#8b5cf6','#22c55e','#f59e4a'];
+
+  const lobCharts=LOBS.map((lob,li)=>{
+    const lobProjects=finP.filter(p=>(p.lob||[]).includes(lob));
+    const monthTotals=MONTHS.map(m=>lobProjects.reduce((s,p)=>{
+      const mc=(p.monthlyCosts||[]).find(x=>x.month===m);
+      return s+(mc?mc.actual:0);
+    },0));
+    const chart=makeLineChart([{values:monthTotals,color:LOB_C[li],label:lob}],MLABELS,280,140);
+    const total=monthTotals.reduce((a,b)=>a+b,0);
+    const projNames=lobProjects.map(p=>p.name).join(', ')||'No projects';
+    return `<div class="fin-chart-box">
+      <div class="fin-chart-title">${lob}</div>
+      <div style="font-size:20px;font-weight:700;color:${LOB_C[li]};margin-bottom:2px">${fmt(total)}</div>
+      <div style="font-size:11px;color:var(--text3);margin-bottom:10px">${lobProjects.length} project${lobProjects.length!==1?'s':''} · ${projNames}</div>
+      ${chart}
+    </div>`;
+  });
+
+  html+=`
+  <div class="fin-section">
+    <div class="fin-section-title"><svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;stroke-width:1.75;fill:none"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Cost by Line of Business — YTD</div>
+    <div class="fin-lob-grid">${lobCharts.join('')}</div>
+  </div>
+
+  </div>`; // close fin-page
+
+  el.innerHTML=html;
+}
 // showHome() is called by loginAs() after authentication
 // Initial demo accounts are rendered by renderLoginDemos() above
 </script>
