@@ -796,6 +796,9 @@ body.nav-closed .nav-overlay{display:block}
 
 .ts-today-head{color:var(--accent);font-weight:700}
 .ts-today-cell{background:var(--abg);border-radius:6px}
+.ts-bill-chip{display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;padding:1px 5px;border-radius:3px;cursor:pointer;background:var(--accent);color:#fff;letter-spacing:.3px;user-select:none;margin-top:2px;align-self:center}
+.ts-bill-chip.nb{background:#ef4444}
+.ts-bill-chip:hover{opacity:.8}
 </style>
 </head>
 <body>
@@ -1364,7 +1367,15 @@ let TIMESHEET_ENTRIES=[
 ];
 
 let tsWeekOffset=0, tsUserId=1;
-let TASK_BILLABLE={}; // {taskId: false} means Non-Billable; default (undefined/true) = Billable
+let TASK_BILLABLE={}; // kept for compat; per-entry billable now lives on TIMESHEET_ENTRIES
+const NON_BILL_ACTS=new Set(['DF Holiday','Leaves','Comp Off','HR Activities (Avengers)',
+  'Training','Recruitment','Performance Reviews','All Hands Meeting',
+  'Internal Meetings','Casual Catch Ups']);
+function isEntryBillable(e){
+  if(!e) return true;
+  if(typeof e.billable==='boolean') return e.billable;
+  return !NON_BILL_ACTS.has(e.activity);
+}
 
 const USER_TYPES={
   admin:     {label:'Admin',        desc:'Can manage account settings and edit',    color:'#ef4444'},
@@ -4083,7 +4094,7 @@ function renderTimesheets(){
   const days=[0,1,2,3,4,5,6].map(i=>addDays(monday,i));
   const user=USERS.find(u=>u.id===tsUserId)||USERS[0];
   const myTasks=PROJECTS.flatMap(p=>p.tasks.filter(t=>t.assignee===tsUserId).map(t=>({...t,projName:p.name,projColor:p.color||'#1AA6B7',projId:p.id})));
-  const gridCols=`2fr 110px repeat(7,1fr) 70px 100px`;
+  const gridCols=`2fr repeat(7,1fr) 70px 100px`;
   const el=document.getElementById('view-timesheet');
   const todayStr=fmtDate(new Date());
 
@@ -4115,13 +4126,7 @@ function renderTimesheets(){
     return ACT_OPTIONS.map(([v,l])=>`<option value="${v}"${e?.activity===v?' selected':''}>${l}</option>`).join('');
   }
 
-  function billableBtn(taskId){
-    const isBillable=TASK_BILLABLE[taskId]!==false;
-    return `<div style="display:flex;gap:4px;align-items:center">
-      <button onclick="setTaskBillable('${taskId}',true)" style="flex:1;padding:3px 0;border-radius:5px 0 0 5px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid ${isBillable?'var(--accent)':'var(--border2)'};background:${isBillable?'var(--accent)':'transparent'};color:${isBillable?'#fff':'var(--text3)'}">Billable</button>
-      <button onclick="setTaskBillable('${taskId}',false)" style="flex:1;padding:3px 0;border-radius:0 5px 5px 0;font-size:10px;font-weight:700;cursor:pointer;border:1px solid ${!isBillable?'#ef4444':'var(--border2)'};border-left:none;background:${!isBillable?'#ef4444':'transparent'};color:${!isBillable?'#fff':'var(--text3)'}">Non-Bill</button>
-    </div>`;
-  }
+
 
   el.innerHTML=`
     <div class="ts-header">
@@ -4136,7 +4141,6 @@ function renderTimesheets(){
     <div class="ts-table">
       <div class="ts-head-row" style="grid-template-columns:${gridCols}">
         <div class="ts-head-cell" style="text-align:left;padding-left:14px">Task</div>
-        <div class="ts-head-cell">Billable</div>
         ${days.map(d=>{
           const ds=fmtDate(d);
           return `<div class="ts-head-cell${ds===todayStr?' ts-today-head':''}">${fmtDay(d)}</div>`;
@@ -4154,11 +4158,11 @@ function renderTimesheets(){
             <div class="ts-task-name" onclick="openTaskFromTimesheet('${t.projId}','${t.id}')" style="cursor:pointer;color:var(--accent);text-decoration:underline;text-decoration-style:dotted">${t.title}</div>
             <div class="ts-task-proj" style="color:${t.projColor}">${t.projName}</div>
           </div>
-          <div class="ts-day-cell" style="align-items:center;padding:4px 6px">${billableBtn(t.id)}</div>
           ${days.map((d,di)=>{
             const e=getEntry(t.id,d);
             const dateStr=fmtDate(d);
             const isToday=dateStr===todayStr;
+            const bill=isEntryBillable(e);
             return `<div class="ts-day-cell${isToday?' ts-today-cell':''}">
               <input class="ts-inp" type="number" min="0" max="24" step="0.5" placeholder="—"
                 value="${e?e.hours:''}"
@@ -4166,6 +4170,10 @@ function renderTimesheets(){
               <select class="ts-act-sel" onchange="saveTimeEntry('${t.id}','${dateStr}',this.previousElementSibling.value,this.value)">
                 ${actOpts(e)}
               </select>
+              ${e?`<span class="ts-bill-chip${bill?'':' nb'}"
+                onclick="toggleEntryBillable('${t.id}','${dateStr}')"
+                title="${bill?'Billable — click to mark non-billable':'Non-billable — click to mark billable'}"
+              >${bill?'B':'NB'}</span>`:''}
             </div>`;
           }).join('')}
           <div class="ts-row-total" style="color:${rTotal>0?'var(--accent)':'var(--text3)'}">${rTotal>0?rTotal+'h':'—'}</div>
@@ -4175,7 +4183,6 @@ function renderTimesheets(){
         </div>`}).join(''):`<div style="padding:20px;color:var(--text3);font-size:13px;text-align:center">No tasks assigned to ${user.name} this week.</div>`}
       <div class="ts-totals-row" style="grid-template-columns:${gridCols}">
         <div class="ts-grand" style="text-align:left;padding-left:14px;font-weight:700">Daily totals</div>
-        <div class="ts-grand"></div>
         ${days.map((_,di)=>{
           const ct=colTotal(di);
           return `<div class="ts-grand" style="color:${ct>0?'var(--accent)':'var(--text3)'};font-weight:${ct>0?700:400}">${ct>0?ct+'h':'—'}</div>`;
@@ -4186,8 +4193,8 @@ function renderTimesheets(){
     </div>
     <div style="font-size:11px;color:var(--text3);margin-top:8px">
       Hours logged this week: <strong style="color:var(--accent)">${grandTotal}h</strong> across ${myTasks.length} task${myTasks.length!==1?'s':''}
-      &nbsp;·&nbsp; Billable: <strong style="color:var(--accent)">${myTasks.filter(t=>TASK_BILLABLE[t.id]!==false).reduce((s,t)=>s+rowTotal(t.id),0)}h</strong>
-      &nbsp;·&nbsp; Non-billable: <strong>${myTasks.filter(t=>TASK_BILLABLE[t.id]===false).reduce((s,t)=>s+rowTotal(t.id),0)}h</strong>
+      &nbsp;·&nbsp; Billable: <strong style="color:var(--accent)">${TIMESHEET_ENTRIES.filter(e=>e.userId===tsUserId&&days.some(d=>fmtDate(d)===e.date)&&isEntryBillable(e)).reduce((s,e)=>s+e.hours,0)}h</strong>
+      &nbsp;·&nbsp; Non-billable: <strong>${TIMESHEET_ENTRIES.filter(e=>e.userId===tsUserId&&days.some(d=>fmtDate(d)===e.date)&&!isEntryBillable(e)).reduce((s,e)=>s+e.hours,0)}h</strong>
     </div>`;
 }
 
@@ -4197,14 +4204,20 @@ function saveTimeEntry(taskId,date,hours,activity){
     TIMESHEET_ENTRIES=TIMESHEET_ENTRIES.filter(e=>!(e.userId===tsUserId&&e.taskId===taskId&&e.date===date));
     renderTimesheets();return;
   }
+  const act=activity||'Development Work';
   const ex=TIMESHEET_ENTRIES.find(e=>e.userId===tsUserId&&e.taskId===taskId&&e.date===date);
-  if(ex){ex.hours=h;ex.activity=activity||'Development Work';}
-  else TIMESHEET_ENTRIES.push({id:'te'+Date.now(),userId:tsUserId,taskId,date,hours:h,activity:activity||'Development Work'});
+  if(ex){ex.hours=h;ex.activity=act;if(typeof ex.billable!=='boolean')ex.billable=!NON_BILL_ACTS.has(act);}
+  else TIMESHEET_ENTRIES.push({id:'te'+Date.now(),userId:tsUserId,taskId,date,hours:h,activity:act,billable:!NON_BILL_ACTS.has(act)});
   renderTimesheets();
 }
 
 function setTaskBillable(taskId,val){
   TASK_BILLABLE[taskId]=val;
+  renderTimesheets();
+}
+function toggleEntryBillable(taskId,date){
+  const e=TIMESHEET_ENTRIES.find(e=>e.userId===tsUserId&&e.taskId===taskId&&e.date===date);
+  if(e) e.billable=!isEntryBillable(e);
   renderTimesheets();
 }
 
