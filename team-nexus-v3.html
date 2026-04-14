@@ -997,7 +997,7 @@ body.nav-closed .nav-overlay{display:block}
       <div class="nav-item" onclick="showTimesheets()"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>Timesheets</div>
       <div class="nav-item" id="more-nav-btn" onclick="toggleMoreMenu()"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg></span>More</div>
       <div class="nav-more-panel" id="nav-more-panel">
-        <div class="nav-item" style="font-size:12px" onclick="showStub('Workload','👥','See team capacity across all workspaces.')"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Workload</div>
+        <div class="nav-item" style="font-size:12px" onclick="showWorkload()"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>Workload</div>
         <div class="nav-item" style="font-size:12px" onclick="showCreatedByMe()"><span class="nav-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Created by me</div>
         <div class="nav-item" style="font-size:12px" onclick="showStream()"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>Stream</div>
         <div class="nav-item" style="font-size:12px" onclick="showStarred()"><span class="nav-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>Starred tasks</div>
@@ -1107,7 +1107,8 @@ body.nav-closed .nav-overlay{display:block}
     <div id="view-stream" style="display:none;position:absolute;inset:0;overflow-y:auto"></div>
     <div id="view-created-by-me" style="display:none;position:absolute;inset:0;overflow-y:auto"></div>
     <div id="view-starred" style="display:none;position:absolute;inset:0;overflow-y:auto"></div>
-    <div id="view-stub" style="display:none;position:absolute;inset:0"></div>
+    <div id="view-workload" style="display:none;position:absolute;inset:0;overflow-y:auto"></div>
+      <div id="view-stub" style="display:none;position:absolute;inset:0"></div>
     <div id="view-dashboard" style="display:none;position:absolute;inset:0;overflow-y:auto"></div>
     <div id="view-reports" style="display:none;position:absolute;inset:0;overflow-y:auto"></div>
     <div id="view-report-viewer" style="display:none;position:absolute;inset:0;overflow-y:auto"></div>
@@ -2178,7 +2179,7 @@ function showView(v){
   const projViews=new Set(['board','table','gantt']);
   const tb=document.getElementById('proj-toolbar-bar');
   if(tb) tb.style.display=(projViews.has(v)&&curProjectId)?'flex':'none';
-  ['welcome','home','projects','workspace','board','table','gantt','settings','forms','timesheet','stub','financial','account-mgmt','inbox','stream','created-by-me','starred','dashboard','reports','report-viewer','calendar'].forEach(n=>{
+  ['welcome','home','projects','workspace','board','table','gantt','settings','forms','timesheet','stub','financial','account-mgmt','inbox','stream','created-by-me','starred','dashboard','reports','report-viewer','calendar','workload'].forEach(n=>{
     const el=document.getElementById('view-'+n);
     if(el)el.style.display=n===v?'':'none';
   });
@@ -4869,22 +4870,198 @@ function openNewLayerModal(wsId){
   document.body.appendChild(modal);
   modal.addEventListener('click',e=>{if(e.target===modal)modal.remove();});
 }
-function showDashboards(){
-  curView='stub';setTopbar('Dashboards','Visual KPI and overview',[]);showView('stub');closeNavIfMobile();
-  document.getElementById('view-stub').innerHTML=`<div class="stub-view topo-bg">
-    <div class="stub-icon">🔲</div><div class="stub-title">Dashboards</div>
-    <div class="stub-sub">Build custom dashboards with charts, task lists and metrics. Select a workspace or view account-wide.</div>
-    <div class="stub-ds-row">
-      <div class="stub-ds-btn on">Entire account</div>
-      ${WORKSPACES.map(ws=>`<div class="stub-ds-btn" onclick="this.parentElement.querySelectorAll('.stub-ds-btn').forEach(b=>b.classList.remove('on'));this.classList.add('on')">${ws.name}</div>`).join('')}
-    </div>
-  </div>`;
+function showDashboards(filterWsId){
+  curView='stub';
+  setTopbar('Dashboards','All dashboards you have access to',[]);
+  showView('stub');
+  closeNavIfMobile();
+  const dashTools=WORKSPACE_TOOLS.filter(t=>t.type==='dashboard');
+  const filtered=filterWsId?dashTools.filter(t=>t.wsId===filterWsId):dashTools;
+  document.getElementById('view-stub').innerHTML=`
+    <div style="padding:20px 24px;max-width:900px;margin:0 auto">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <div style="font-size:20px;font-weight:700">Dashboards</div>
+        <button class="btn" onclick="showWsToolsMenu(WORKSPACES[0].id,event)" style="font-size:12px">+ New dashboard</button>
+      </div>
+      <!-- Workspace filter tabs -->
+      <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+        <div class="stub-ds-btn${!filterWsId?' on':''}" onclick="showDashboards(null)">All workspaces</div>
+        ${WORKSPACES.map(ws=>`<div class="stub-ds-btn${filterWsId===ws.id?' on':''}" onclick="showDashboards('${ws.id}')">${ws.name}</div>`).join('')}
+      </div>
+      <!-- Dashboard cards -->
+      ${filtered.length===0?`<div style="text-align:center;padding:60px 20px;color:var(--text3)">
+        <div style="font-size:40px;margin-bottom:12px">📊</div>
+        <div style="font-size:15px;font-weight:600;margin-bottom:6px">No dashboards yet</div>
+        <div style="font-size:13px">Add a dashboard from a workspace's Tools section in the sidebar.</div>
+      </div>`:`
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+        ${filtered.map(t=>{
+          const ws=WORKSPACES.find(w=>w.id===t.wsId)||{name:'Unknown'};
+          const wsProjects=PROJECTS.filter(p=>(p.locations||[]).some(l=>l.workspaceId===t.wsId));
+          const doneTasks=wsProjects.flatMap(p=>p.tasks).filter(t=>t.status==='done').length;
+          const totalTasks=wsProjects.flatMap(p=>p.tasks).length;
+          const pct=totalTasks?Math.round(doneTasks/totalTasks*100):0;
+          return `<div onclick="openWsTool('${t.id}')" style="background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:18px;cursor:pointer;transition:.15s;position:relative" onmouseover="this.style.borderColor='var(--accent)';this.style.boxShadow='0 4px 16px rgba(26,166,183,.12)'" onmouseout="this.style.borderColor='var(--border2)';this.style.boxShadow='none'">
+            <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px">
+              <div style="width:36px;height:36px;border-radius:10px;background:rgba(26,166,183,.12);display:flex;align-items:center;justify-content:center;font-size:18px">📊</div>
+              <span style="font-size:10px;padding:2px 8px;background:var(--abg);color:var(--accent);border-radius:8px;font-weight:600">${ws.name}</span>
+            </div>
+            <div style="font-size:14px;font-weight:700;margin-bottom:4px">${t.name}</div>
+            <div style="font-size:12px;color:var(--text3);margin-bottom:12px">${wsProjects.length} projects &nbsp;·&nbsp; ${totalTasks} tasks</div>
+            <div style="height:4px;background:var(--border2);border-radius:2px;overflow:hidden">
+              <div style="height:100%;width:${pct}%;background:var(--accent);border-radius:2px"></div>
+            </div>
+            <div style="font-size:11px;color:var(--text3);margin-top:4px">${pct}% complete</div>
+          </div>`;
+        }).join('')}
+      </div>`}
+    </div>`;
 }
 function showStub(title,icon,desc){
   curView='stub';setTopbar(title,'',[]);showView('stub');closeNavIfMobile();
   document.getElementById('view-stub').innerHTML=`<div class="stub-view topo-bg">
     <div class="stub-icon">${icon}</div><div class="stub-title">${title}</div>
     <div class="stub-sub">${desc}</div>
+  </div>`;
+}
+function showWorkload(wsId){
+  curView='workload';
+  setTopbar('Workload','Team capacity across all projects',[]);
+  showView('workload');
+  closeNavIfMobile();
+  renderWorkload(wsId||null);
+}
+function renderWorkload(filterWsId){
+  const el=document.getElementById('view-workload');
+  // All tasks across all projects (optionally filtered by workspace)
+  const allProjs=filterWsId
+    ?PROJECTS.filter(p=>(p.locations||[]).some(l=>l.workspaceId===filterWsId))
+    :PROJECTS;
+  const allTasks=allProjs.flatMap(p=>p.tasks.map(t=>({...t,projName:p.name,projId:p.id})));
+  const openTasks=allTasks.filter(t=>t.status!=='done');
+
+  // Per-user stats
+  const userRows=USERS.map(u=>{
+    const mine=openTasks.filter(t=>t.assignee===u.id);
+    const critical=mine.filter(t=>t.priority==='critical').length;
+    const high=mine.filter(t=>t.priority==='high').length;
+    const normal=mine.filter(t=>!['critical','high'].includes(t.priority)).length;
+    const done=allTasks.filter(t=>t.assignee===u.id&&t.status==='done').length;
+    const total=allTasks.filter(t=>t.assignee===u.id).length;
+    // Capacity: assume 8h/day, 5d/week = 40h. Use task count as proxy (each task ~4h)
+    const estHours=mine.length*4;
+    const capHours=40;
+    const utilPct=Math.min(Math.round(estHours/capHours*100),120);
+    const capColor=utilPct>100?'#ef4444':utilPct>75?'#f59e0b':'#22c55e';
+    return {u,mine,critical,high,normal,done,total,estHours,capHours,utilPct,capColor};
+  });
+
+  const SC2={todo:'#94a3b8',in_progress:'#1AA6B7',review:'#8b5cf6',done:'#22c55e',blocked:'#ef4444'};
+
+  el.innerHTML=`
+  <div style="padding:20px 24px;max-width:1100px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px">
+      <div style="font-size:18px;font-weight:700">Team Workload</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <select class="meta-sel" style="font-size:12px" onchange="renderWorkload(this.value||null)">
+          <option value="">All workspaces</option>
+          ${WORKSPACES.map(ws=>`<option value="${ws.id}"${filterWsId===ws.id?' selected':''}>${ws.name}</option>`).join('')}
+        </select>
+        <div style="font-size:12px;display:flex;align-items:center;gap:12px;padding:0 8px;background:var(--surface);border:1px solid var(--border2);border-radius:8px">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#22c55e;display:inline-block"></span>Under capacity</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#f59e0b;display:inline-block"></span>Near capacity</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#ef4444;display:inline-block"></span>Over capacity</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary KPIs -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:24px">
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:700;color:var(--accent)">${openTasks.length}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Open tasks</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:700;color:#ef4444">${openTasks.filter(t=>t.priority==='critical').length}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Critical priority</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:700;color:#f59e0b">${openTasks.filter(t=>!t.assignee).length}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Unassigned</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:14px;text-align:center">
+        <div style="font-size:26px;font-weight:700;color:#22c55e">${userRows.filter(r=>r.utilPct>100).length}</div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Over capacity</div>
+      </div>
+    </div>
+
+    <!-- Per-user rows -->
+    <div style="background:var(--surface);border:1px solid var(--border2);border-radius:14px;overflow:hidden">
+      <!-- Header -->
+      <div style="display:grid;grid-template-columns:200px 1fr 120px 80px;gap:0;padding:10px 16px;background:var(--bg);border-bottom:1px solid var(--border2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--text3)">
+        <div>Team member</div>
+        <div>Task load</div>
+        <div>Capacity</div>
+        <div>Tasks</div>
+      </div>
+      ${userRows.map((r,ri)=>`
+      <div style="display:grid;grid-template-columns:200px 1fr 120px 80px;gap:0;padding:14px 16px;border-bottom:${ri<userRows.length-1?'1px solid var(--border2)':'none'};align-items:center" onmouseover="this.style.background='var(--bg)'" onmouseout="this.style.background='transparent'">
+        <!-- User info -->
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:34px;height:34px;border-radius:50%;background:${r.u.color};display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0">${r.u.name.split(' ').map(w=>w[0]).join('').slice(0,2)}</div>
+          <div>
+            <div style="font-size:13px;font-weight:600">${r.u.name}</div>
+            <div style="font-size:11px;color:var(--text3)">${r.u.role||'Team member'}</div>
+          </div>
+        </div>
+        <!-- Task bar -->
+        <div style="padding-right:16px">
+          ${r.mine.length===0?`<div style="font-size:11px;color:var(--text3);font-style:italic">No open tasks</div>`:`
+          <div style="display:flex;height:12px;border-radius:6px;overflow:hidden;background:var(--bg);border:1px solid var(--border2);margin-bottom:6px">
+            ${r.critical?`<div style="flex:${r.critical};background:#ef4444;min-width:4px" title="${r.critical} critical"></div>`:''}
+            ${r.high?`<div style="flex:${r.high};background:#f59e0b;min-width:4px" title="${r.high} high"></div>`:''}
+            ${r.normal?`<div style="flex:${r.normal};background:#1AA6B7;min-width:4px" title="${r.normal} normal/low"></div>`:''}
+          </div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            ${r.critical?`<span style="font-size:10px;color:#ef4444;font-weight:600">${r.critical} critical</span>`:''}
+            ${r.high?`<span style="font-size:10px;color:#f59e0b;font-weight:600">${r.high} high</span>`:''}
+            ${r.normal?`<span style="font-size:10px;color:var(--text3)">${r.normal} normal</span>`:''}
+          </div>`}
+        </div>
+        <!-- Capacity bar -->
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
+            <div style="flex:1;height:6px;background:var(--border2);border-radius:3px;overflow:hidden">
+              <div style="height:100%;width:${Math.min(r.utilPct,100)}%;background:${r.capColor};border-radius:3px;transition:width .4s"></div>
+            </div>
+            <span style="font-size:10px;font-weight:700;color:${r.capColor};min-width:30px;text-align:right">${r.utilPct}%</span>
+          </div>
+          <div style="font-size:10px;color:var(--text3)">~${r.estHours}h / ${r.capHours}h cap</div>
+        </div>
+        <!-- Task count -->
+        <div style="text-align:center">
+          <div style="font-size:20px;font-weight:700;color:${r.mine.length>0?'var(--text)':'var(--text3)'}">${r.mine.length}</div>
+          <div style="font-size:10px;color:var(--text3)">${r.done} done</div>
+        </div>
+      </div>
+      <!-- Expandable task list on click — show tasks below row on hover -->
+      `).join('')}
+    </div>
+
+    <!-- Unassigned tasks section -->
+    ${openTasks.filter(t=>!t.assignee).length?`
+    <div style="margin-top:20px">
+      <div style="font-size:13px;font-weight:700;margin-bottom:10px;color:var(--text2)">Unassigned tasks (${openTasks.filter(t=>!t.assignee).length})</div>
+      <div style="background:var(--surface);border:1px solid var(--border2);border-radius:12px;overflow:hidden">
+        ${openTasks.filter(t=>!t.assignee).slice(0,8).map((t,i,arr)=>`
+        <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;border-bottom:${i<arr.length-1?'1px solid var(--border2)':'none'};cursor:pointer" onclick="openProject('${t.projId}');setTimeout(()=>openTask('${t.id}'),200)">
+          <span style="width:8px;height:8px;border-radius:50%;background:${SC2[t.status]||'#94a3b8'};flex-shrink:0"></span>
+          <span style="flex:1;font-size:12px;font-weight:500">${t.title}</span>
+          <span style="font-size:11px;color:var(--text3)">${t.projName}</span>
+          <span style="font-size:10px;padding:2px 7px;border-radius:6px;background:${SC2[t.status]||'#94a3b8'}22;color:${SC2[t.status]||'#94a3b8'};font-weight:600">${SL[t.status]||t.status}</span>
+        </div>`).join('')}
+      </div>
+    </div>`:''}
   </div>`;
 }
 function showStream(){
